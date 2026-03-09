@@ -1,1 +1,4 @@
 
+<button onclick="entrar('pesquisador.html', 'pesquisador')">
+      Entrar como Pesquisador/a
+    </button>
