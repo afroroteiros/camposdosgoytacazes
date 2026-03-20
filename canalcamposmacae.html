@@ -23,7 +23,7 @@ body {
     background: #ffffff;
     color: #1a1a1a;
     line-height: 1.7;
-    padding-top: 70px; /* Espaço para o header fixo */
+    padding-top: 70px;
 }
 
 /* HEADER SUPERIOR COM LINKS (FIXO) */
@@ -63,7 +63,6 @@ body {
     font-size: 16px;
 }
 
-/* DIVISOR VISUAL */
 .top-bar .divisor {
     color: #ddd;
     font-size: 18px;
@@ -122,7 +121,7 @@ body {
     padding: 0 20px;
 }
 
-/* TÍTULO DO PONTO HISTÓRICO EM MERRIWEATHER */
+/* TÍTULO DO PONTO HISTÓRICO */
 .ponto-titulo {
     margin: 20px 0 20px 0;
     padding-left: 0;
@@ -317,7 +316,7 @@ p {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* RODAPÉ DE FONTES (DISCRETO) */
+/* RODAPÉ DE FONTES */
 .sources-footer {
     max-width: 1200px;
     margin: 20px auto 40px;
@@ -484,7 +483,7 @@ p {
     backdrop-filter: blur(5px);
 }
 
-/* RESPONSIVO */
+/* RESPONSIVO - AJUSTADO PARA PROPORCIONALIDADE */
 @media (max-width: 900px) {
     body {
         padding-top: 60px;
@@ -517,17 +516,18 @@ p {
         gap: 12px;
     }
     
+    /* LOGO MAIOR EM MOBILE - PROPORCIONAL AO TEXTO */
     .logo {
-        max-width: 80px;
-        max-height: 55px;
+        max-width: 110px;
+        max-height: 65px;
     }
     
     .cidade-titulo {
-        font-size: 18px;
+        font-size: 20px;
     }
     
     .cidade-titulo small {
-        font-size: 12px;
+        font-size: 13px;
     }
     
     .ponto-titulo h2 {
@@ -573,6 +573,7 @@ p {
     }
 }
 
+/* TABLET */
 @media (min-width: 901px) and (max-width: 1100px) {
     .content-wrapper {
         gap: 20px;
@@ -583,7 +584,7 @@ p {
     }
     
     .logo {
-        max-width: 110px;
+        max-width: 120px;
     }
     
     .cidade-titulo {
@@ -595,6 +596,7 @@ p {
     }
 }
 
+/* TELAS GRANDES */
 @media (min-width: 1600px) {
     .main-container {
         max-width: 1400px;
@@ -622,6 +624,7 @@ p {
     }
 }
 
+/* DISPOSITIVOS MUITO PEQUENOS - AJUSTE FINO */
 @media (max-width: 480px) {
     body {
         padding-top: 55px;
@@ -642,13 +645,14 @@ p {
         gap: 10px;
     }
     
+    /* LOGO PROPORCIONAL EM TELAS MUITO PEQUENAS */
     .logo {
-        max-width: 65px;
-        max-height: 48px;
+        max-width: 85px;
+        max-height: 55px;
     }
     
     .cidade-titulo {
-        font-size: 16px;
+        font-size: 17px;
     }
     
     .cidade-titulo small {
@@ -708,15 +712,12 @@ p {
 <!-- CONTEÚDO PRINCIPAL -->
 <div class="main-container">
     
-    <!-- TÍTULO DO PONTO HISTÓRICO -->
     <div class="ponto-titulo">
         <h2>Canal Campos–Macaé</h2>
     </div>
     
-    <!-- WRAPPER FLEXÍVEL PARA CARROSSEL + TEXTO -->
     <div class="content-wrapper">
         
-        <!-- COLUNA ESQUERDA: CARROSSEL -->
         <div class="carousel-wrapper">
             <div class="carousel-section">
                 <div class="carousel-container" id="carouselClick">
@@ -743,7 +744,6 @@ p {
             </div>
         </div>
         
-        <!-- COLUNA DIREITA: TEXTO -->
         <div class="text-wrapper">
             <div class="text-section">
                 <p>
@@ -772,21 +772,18 @@ p {
     
 </div>
 
-<!-- RODAPÉ DE FONTES (DISCRETO) -->
 <div class="sources-footer">
     <span><i class="fas fa-camera"></i> Imagens: Acervo Afro-Roteiros</span>
     <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos</span>
     <span><i class="fas fa-calendar-alt"></i> Atualizado em: março de 2026</span>
 </div>
 
-<!-- FOOTER PRINCIPAL -->
 <div class="footer">
     <span>Afro-Roteiros • Campos dos Goytacazes • RJ</span>
     <br>
     <span style="font-size: 11px; opacity: 0.6;">memória · resistência · identidade</span>
 </div>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
     <span class="lightbox-close" id="lightboxClose">&times;</span>
     <span class="lightbox-nav prev" id="lightboxPrev">&#10094;</span>
@@ -797,7 +794,6 @@ p {
     <div class="lightbox-counter" id="lightboxCounter"></div>
 </div>
 
-<!-- SCRIPT -->
 <script>
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
