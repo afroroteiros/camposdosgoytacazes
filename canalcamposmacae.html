@@ -3,15 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <!-- LOGO -->
-<div class="header">
-    <img src="logo.png" alt="Afro-Roteiros" class="logo">
-</div>
 
-
+<title>Afro-Roteiros | Canal Campos-Macaé</title>
 
 <!-- Fonte Inter para textos gerais e Merriweather para títulos -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -19,24 +15,48 @@
 }
 
 body {
-    margin: 5;
+    margin: 0;
     font-family: 'Inter', sans-serif;
     background: #ffffff;
     color: #1a1a1a;
     line-height: 1.7;
 }
 
-/* HEADER - LOGO CENTRALIZADA */
+/* HEADER - LOGO À ESQUERDA E CIDADE AO LADO */
 .header {
     display: flex;
-    justify-content: center;
-    padding: 40px 16px 20px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 20px 10px;
     background: transparent;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .logo {
-    max-width: 180px;
+    max-width: 140px;
     height: auto;
+    margin-right: 15px;
+}
+
+/* CIDADE EM INTER */
+.cidade-titulo {
+    font-family: 'Inter', sans-serif; /* Mudado para Inter */
+    font-size: 24px;
+    font-weight: 600;
+    color: #3D441E;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.cidade-titulo small {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #790016;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* CONTAINER PRINCIPAL */
@@ -46,33 +66,22 @@ body {
     padding: 0 20px;
 }
 
-/* TÍTULO COM MERRIWEATHER */
-.titulo-section {
-    text-align: center;
-    margin: 10px 0 30px 0;
-    width: 100%;
+/* TÍTULO DO PONTO HISTÓRICO EM MERRIWEATHER */
+.ponto-titulo {
+    margin: 20px 0 20px 0;
+    padding-left: 0;
 }
 
-.titulo {
-    font-family: 'Merriweather', serif;
-    font-size: 38px;
+.ponto-titulo h2 {
+    font-family: 'Merriweather', serif; /* Mantido Merriweather */
+    font-size: 32px;
     font-weight: 700;
-    margin: 0 0 8px 0;
+    margin: 0 0 5px 0;
     line-height: 1.3;
-    letter-spacing: -0.02em;
-    color: #3D441E;
-}
-
-.local {
-    font-size: 16px;
-    color: #790016;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0 auto;
-    text-align: center;
-    display: block;
-    width: fit-content;
+    color: #1a1a1a;
+    border-bottom: 2px solid #790016;
+    padding-bottom: 8px;
+    display: inline-block;
 }
 
 /* LAYOUT FLEXÍVEL PARA CONTEÚDO PRINCIPAL */
@@ -103,7 +112,7 @@ body {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.3);
-    cursor: pointer; /* Indica que é clicável */
+    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
@@ -132,7 +141,7 @@ body {
     object-fit: cover;
     opacity: 0;
     transition: opacity 1.2s ease-in-out;
-    pointer-events: none; /* Impede que o clique seja capturado pela imagem */
+    pointer-events: none;
 }
 
 .slide.active {
@@ -390,16 +399,24 @@ p {
         padding-right: 0;
     }
     
+    .header {
+        padding: 15px 15px 5px;
+    }
+    
     .logo {
-        max-width: 200px;
+        max-width: 100px;
     }
     
-    .titulo {
-        font-size: 32px;
+    .cidade-titulo {
+        font-size: 20px;
     }
     
-    .local {
+    .cidade-titulo small {
         font-size: 14px;
+    }
+    
+    .ponto-titulo h2 {
+        font-size: 26px;
     }
     
     p {
@@ -454,6 +471,10 @@ p {
         max-width: 1400px;
     }
     
+    .header {
+        max-width: 1400px;
+    }
+    
     .text-wrapper {
         max-height: 65vh;
     }
@@ -461,15 +482,24 @@ p {
 
 @media (max-width: 480px) {
     .header {
-        padding: 20px 16px 15px;
+        padding: 15px 10px 5px;
     }
     
     .logo {
-        max-width: 160px;
+        max-width: 80px;
+        margin-right: 10px;
     }
     
-    .titulo {
-        font-size: 28px;
+    .cidade-titulo {
+        font-size: 18px;
+    }
+    
+    .cidade-titulo small {
+        font-size: 12px;
+    }
+    
+    .ponto-titulo h2 {
+        font-size: 22px;
     }
     
     .click-hint {
@@ -481,15 +511,21 @@ p {
 </head>
 <body>
 
-<title>Afro-Roteiros | Canal Campos-Macaé</title>
+<!-- HEADER: LOGO À ESQUERDA E CIDADE AO LADO (EM INTER) -->
+<div class="header">
+    <img src="logo.png" alt="Afro-Roteiros" class="logo">
+    <div class="cidade-titulo">
+        Campos dos Goytacazes
+        <small>Rio de Janeiro</small>
+    </div>
+</div>
 
 <!-- CONTEÚDO PRINCIPAL -->
 <div class="main-container">
     
-    <!-- TÍTULO -->
-    <div class="titulo-section">
-        <h1 class="titulo">Canal Campos–Macaé</h1>
-        <p class="local">Campos dos Goytacazes – RJ</p>
+    <!-- TÍTULO DO PONTO HISTÓRICO EM MERRIWEATHER -->
+    <div class="ponto-titulo">
+        <h2>Canal Campos–Macaé</h2>
     </div>
     
     <!-- WRAPPER FLEXÍVEL PARA CARROSSEL + TEXTO -->
@@ -500,9 +536,9 @@ p {
             <div class="carousel-section">
                 <div class="carousel-container" id="carouselClick">
                     <div class="carousel">
-                        <img src="canal1.jpg" class="slide active" alt="Canal 1" data-index="0">
-                        <img src="canal2.png" class="slide" alt="Canal 2" data-index="1">
-                        <img src="canal3.jpg" class="slide" alt="Canal 3" data-index="2">
+                        <img src="canal1.jpg" class="slide active" alt="Canal Campos-Macaé 1" data-index="0">
+                        <img src="canal2.png" class="slide" alt="Canal Campos-Macaé 2" data-index="1">
+                        <img src="canal3.jpg" class="slide" alt="Canal Campos-Macaé 3" data-index="2">
                     </div>
                     <!-- Dica visual de clique -->
                     <div class="click-hint">
@@ -618,12 +654,12 @@ function openLightbox(index) {
     currentSlide = index;
     updateLightboxImage();
     lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Impede scroll do fundo
+    document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
     lightbox.classList.remove('active');
-    document.body.style.overflow = ''; // Restaura scroll
+    document.body.style.overflow = '';
 }
 
 function updateLightboxImage() {
@@ -645,7 +681,6 @@ function nextImage() {
 
 // Evento de clique no carrossel para abrir lightbox
 carouselContainer.addEventListener('click', (e) => {
-    // Impede que o clique nos indicadores ou outros elementos abra o lightbox
     if (!e.target.classList.contains('indicator')) {
         openLightbox(currentSlide);
     }
@@ -669,7 +704,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Fechar clicando no fundo (mas não na imagem)
+// Fechar clicando no fundo
 lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) {
         closeLightbox();
@@ -680,11 +715,6 @@ lightbox.addEventListener('click', (e) => {
 lightboxImage.addEventListener('click', (e) => {
     e.stopPropagation();
 });
-
-// Ajuste fino para garantir que o número de indicadores corresponda aos slides
-if (slides.length !== indicators.length) {
-    console.warn('Número de indicadores diferente do número de slides');
-}
 </script>
 
 </body>
