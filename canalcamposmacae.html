@@ -17,7 +17,7 @@
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background: #f8f8f9;
+    background: #ffffff;
     color: #1a1a1a;
     line-height: 1.7;
 }
@@ -31,13 +31,13 @@ body {
 }
 
 .logo {
-    max-width: 180px;
+    max-width: 260px;
     height: auto;
 }
 
 /* CONTAINER PRINCIPAL */
 .main-container {
-    max-width: 1200px; /* Aumentado para permitir layout em colunas */
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -82,11 +82,11 @@ body {
 
 /* COLUNA ESQUERDA - CARROSSEL E CONTROLES */
 .carousel-wrapper {
-    flex: 1.2; /* Proporção ligeiramente maior para o carrossel */
-    min-width: 0; /* Evita overflow */
+    flex: 1.2;
+    min-width: 0;
 }
 
-/* CARROSSEL - 80% X 60% DA TELA (10% MAIOR) */
+/* CARROSSEL */
 .carousel-section {
     display: flex;
     justify-content: center;
@@ -99,13 +99,23 @@ body {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.3);
+    cursor: pointer; /* Indica que é clicável */
+    transition: transform 0.3s ease;
+}
+
+.carousel-container:hover {
+    transform: scale(1.02);
+}
+
+.carousel-container:active {
+    transform: scale(0.98);
 }
 
 .carousel {
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 56.25%; /* Proporção 16:9 */
+    padding-bottom: 56.25%;
     background: #f0f0f0;
 }
 
@@ -118,10 +128,36 @@ body {
     object-fit: cover;
     opacity: 0;
     transition: opacity 1.2s ease-in-out;
+    pointer-events: none; /* Impede que o clique seja capturado pela imagem */
 }
 
 .slide.active {
     opacity: 1;
+}
+
+/* INDICADOR DE CLIQUE */
+.click-hint {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+}
+
+.click-hint svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
 }
 
 /* CONTROLES DO CARROSSEL */
@@ -157,16 +193,15 @@ body {
 
 /* COLUNA DIREITA - TEXTO */
 .text-wrapper {
-    flex: 0.9; /* Proporção ligeiramente menor para o texto */
-    min-width: 280px; /* Largura mínima para legibilidade */
-    max-height: 70vh; /* Altura máxima com scroll */
-    overflow-y: auto; /* Scroll se necessário */
+    flex: 0.9;
+    min-width: 280px;
+    max-height: 70vh;
+    overflow-y: auto;
     padding-right: 10px;
     scrollbar-width: thin;
-    scrollbar-color: #790016;
+    scrollbar-color: #790016 #f0f0f0;
 }
 
-/* Estilização da scrollbar */
 .text-wrapper::-webkit-scrollbar {
     width: 6px;
 }
@@ -196,7 +231,7 @@ p {
     -ms-hyphens: auto;
 }
 
-/* DESTAQUE COM A COR #790016 */
+/* DESTAQUE */
 .destaque {
     border-left: 4px solid #790016;
     margin: 30px 0;
@@ -217,7 +252,7 @@ p {
 .footer {
     text-align: center;
     padding: 28px 20px;
-    background: #414929;
+    background: #111;
     color: white;
     font-size: 14px;
     margin-top: 40px;
@@ -229,10 +264,114 @@ p {
     opacity: 0.9;
 }
 
-/* RESPONSIVO - MOBILE E TABLET */
+/* ===== LIGHTBOX ===== */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s;
+    z-index: 1001;
+}
+
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    user-select: none;
+}
+
+.lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-nav.prev {
+    left: 20px;
+}
+
+.lightbox-nav.next {
+    right: 20px;
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+    backdrop-filter: blur(5px);
+}
+
+/* RESPONSIVO */
 @media (max-width: 900px) {
     .content-wrapper {
-        flex-direction: column; /* Empilha em mobile */
+        flex-direction: column;
         gap: 20px;
     }
     
@@ -242,13 +381,9 @@ p {
     
     .text-wrapper {
         width: 100%;
-        max-height: none; /* Remove altura máxima */
-        overflow-y: visible; /* Remove scroll */
+        max-height: none;
+        overflow-y: visible;
         padding-right: 0;
-    }
-    
-    .carousel-container {
-        width: 100%;
     }
     
     .logo {
@@ -272,9 +407,30 @@ p {
         padding: 18px 20px;
         margin: 25px 0;
     }
+    
+    .lightbox-nav {
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .lightbox-nav.prev {
+        left: 5px;
+    }
+    
+    .lightbox-nav.next {
+        right: 5px;
+    }
+    
+    .lightbox-close {
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+    }
 }
 
-/* AJUSTES PARA TABLETS EM PAISAGEM */
 @media (min-width: 901px) and (max-width: 1100px) {
     .content-wrapper {
         gap: 20px;
@@ -289,7 +445,6 @@ p {
     }
 }
 
-/* TELAS MUITO GRANDES */
 @media (min-width: 1600px) {
     .main-container {
         max-width: 1400px;
@@ -300,7 +455,6 @@ p {
     }
 }
 
-/* AJUSTE PARA DISPOSITIVOS MUITO PEQUENOS */
 @media (max-width: 480px) {
     .header {
         padding: 20px 16px 15px;
@@ -314,17 +468,9 @@ p {
         font-size: 28px;
     }
     
-    .indicators {
-        gap: 8px;
-    }
-    
-    .indicator {
-        width: 8px;
-        height: 8px;
-    }
-    
-    .indicator.active {
-        width: 24px;
+    .click-hint {
+        font-size: 10px;
+        padding: 6px 10px;
     }
 }
 </style>
@@ -339,7 +485,7 @@ p {
 <!-- CONTEÚDO PRINCIPAL -->
 <div class="main-container">
     
-    <!-- TÍTULO COM MERRIWEATHER (sempre visível) -->
+    <!-- TÍTULO -->
     <div class="titulo-section">
         <h1 class="titulo">Canal Campos–Macaé</h1>
         <p class="local">Campos dos Goytacazes – RJ</p>
@@ -351,16 +497,23 @@ p {
         <!-- COLUNA ESQUERDA: CARROSSEL -->
         <div class="carousel-wrapper">
             <div class="carousel-section">
-                <div class="carousel-container">
+                <div class="carousel-container" id="carouselClick">
                     <div class="carousel">
-                        <img src="canal1.jpg" class="slide active" alt="Canal 1">
-                        <img src="canal2.png" class="slide" alt="Canal 2">
-                        <img src="canal3.jpg" class="slide" alt="Canal 3">
+                        <img src="canal1.jpg" class="slide active" alt="Canal 1" data-index="0">
+                        <img src="canal2.png" class="slide" alt="Canal 2" data-index="1">
+                        <img src="canal3.jpg" class="slide" alt="Canal 3" data-index="2">
+                    </div>
+                    <!-- Dica visual de clique -->
+                    <div class="click-hint">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21v-2z"/>
+                        </svg>
+                        <span>Clique para ampliar</span>
                     </div>
                 </div>
             </div>
             
-            <!-- INDICADORES DO CARROSSEL -->
+            <!-- INDICADORES -->
             <div class="carousel-controls">
                 <div class="indicators">
                     <span class="indicator active" data-index="0"></span>
@@ -370,7 +523,7 @@ p {
             </div>
         </div>
         
-        <!-- COLUNA DIREITA: TEXTO COM SCROLL -->
+        <!-- COLUNA DIREITA: TEXTO -->
         <div class="text-wrapper">
             <div class="text-section">
                 <p>
@@ -395,13 +548,24 @@ p {
             </div>
         </div>
         
-    </div> <!-- Fim content-wrapper -->
+    </div>
     
-</div> <!-- Fim main-container -->
+</div>
 
 <!-- FOOTER -->
 <div class="footer">
     <span>Afro-Roteiros • Campos dos Goytacazes • RJ</span>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <span class="lightbox-nav prev" id="lightboxPrev">&#10094;</span>
+    <span class="lightbox-nav next" id="lightboxNext">&#10095;</span>
+    <div class="lightbox-content">
+        <img class="lightbox-image" id="lightboxImage" src="" alt="Imagem ampliada">
+    </div>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
 </div>
 
 <!-- SCRIPT -->
@@ -409,7 +573,17 @@ p {
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const indicators = document.querySelectorAll('.indicator');
+const carouselContainer = document.getElementById('carouselClick');
 
+// Elementos do Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.getElementById('lightboxImage');
+const lightboxClose = document.getElementById('lightboxClose');
+const lightboxPrev = document.getElementById('lightboxPrev');
+const lightboxNext = document.getElementById('lightboxNext');
+const lightboxCounter = document.getElementById('lightboxCounter');
+
+// Funções do carrossel principal
 function showSlide(index) {
     slides.forEach(slide => slide.classList.remove('active'));
     indicators.forEach(ind => ind.classList.remove('active'));
@@ -427,7 +601,8 @@ function nextSlide() {
 
 // Clique nos indicadores
 indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', () => {
+    indicator.addEventListener('click', (e) => {
+        e.stopPropagation();
         showSlide(index);
         clearInterval(slideInterval);
         slideInterval = setInterval(nextSlide, 6000);
@@ -437,8 +612,75 @@ indicators.forEach((indicator, index) => {
 // Auto-play
 let slideInterval = setInterval(nextSlide, 6000);
 
+// ===== FUNÇÕES DO LIGHTBOX =====
+function openLightbox(index) {
+    currentSlide = index;
+    updateLightboxImage();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Impede scroll do fundo
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = ''; // Restaura scroll
+}
+
+function updateLightboxImage() {
+    const currentImage = slides[currentSlide];
+    lightboxImage.src = currentImage.src;
+    lightboxImage.alt = currentImage.alt;
+    lightboxCounter.textContent = `${currentSlide + 1} de ${slides.length}`;
+}
+
+function prevImage() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    updateLightboxImage();
+}
+
+function nextImage() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateLightboxImage();
+}
+
+// Evento de clique no carrossel para abrir lightbox
+carouselContainer.addEventListener('click', (e) => {
+    // Impede que o clique nos indicadores ou outros elementos abra o lightbox
+    if (!e.target.classList.contains('indicator')) {
+        openLightbox(currentSlide);
+    }
+});
+
+// Eventos do lightbox
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxPrev.addEventListener('click', prevImage);
+lightboxNext.addEventListener('click', nextImage);
+
+// Fechar com tecla ESC
+document.addEventListener('keydown', (e) => {
+    if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            prevImage();
+        } else if (e.key === 'ArrowRight') {
+            nextImage();
+        }
+    }
+});
+
+// Fechar clicando no fundo (mas não na imagem)
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+        closeLightbox();
+    }
+});
+
+// Prevenir que o clique na imagem feche o lightbox
+lightboxImage.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
 // Ajuste fino para garantir que o número de indicadores corresponda aos slides
-// (caso haja menos indicadores que slides)
 if (slides.length !== indicators.length) {
     console.warn('Número de indicadores diferente do número de slides');
 }
