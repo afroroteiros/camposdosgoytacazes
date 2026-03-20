@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
 <title>Afro-Roteiros | Canal Campos-Macaé</title>
 
@@ -17,7 +17,7 @@
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background: #ffffff;
+    background: #f8f8f9;
     color: #1a1a1a;
     line-height: 1.7;
 }
@@ -37,15 +37,16 @@ body {
 
 /* CONTAINER PRINCIPAL */
 .main-container {
-    max-width: 400px;
+    max-width: 1200px; /* Aumentado para permitir layout em colunas */
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
 }
 
 /* TÍTULO COM MERRIWEATHER */
 .titulo-section {
     text-align: center;
     margin: 10px 0 30px 0;
+    width: 100%;
 }
 
 .titulo {
@@ -55,33 +56,45 @@ body {
     margin: 0 0 8px 0;
     line-height: 1.3;
     letter-spacing: -0.02em;
-    color: #3D441E; /* Cor do título */
+    color: #3D441E;
 }
 
 .local {
     font-size: 16px;
-    color: #790016; /* Cor do subtítulo */
+    color: #790016;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin: 0;
-    text-align: center;  /* Garantia extra */
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
+    text-align: center;
     display: block;
-    
+    width: fit-content;
+}
+
+/* LAYOUT FLEXÍVEL PARA CONTEÚDO PRINCIPAL */
+.content-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin: 20px 0 40px 0;
+    align-items: flex-start;
+}
+
+/* COLUNA ESQUERDA - CARROSSEL E CONTROLES */
+.carousel-wrapper {
+    flex: 1.2; /* Proporção ligeiramente maior para o carrossel */
+    min-width: 0; /* Evita overflow */
 }
 
 /* CARROSSEL - 80% X 60% DA TELA (10% MAIOR) */
 .carousel-section {
     display: flex;
     justify-content: center;
-    margin: 20px 0 40px 0;
+    margin: 0;
 }
 
 .carousel-container {
-    width: 80vw;
-    max-width: 1200px;
+    width: 100%;
     position: relative;
     border-radius: 20px;
     overflow: hidden;
@@ -91,9 +104,8 @@ body {
 .carousel {
     position: relative;
     width: 100%;
-    height: 60vh; /* Aumentado de 50vh para 60vh (+10%) */
-    min-height: 350px; /* Ajustado proporcionalmente */
-    max-height: 650px; /* Ajustado proporcionalmente */
+    height: 0;
+    padding-bottom: 56.25%; /* Proporção 16:9 */
     background: #f0f0f0;
 }
 
@@ -124,6 +136,8 @@ body {
 .indicators {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .indicator {
@@ -136,20 +150,45 @@ body {
 }
 
 .indicator.active {
-    background: #790016; /* Cor da barra de destaque */
+    background: #790016;
     width: 30px;
     border-radius: 15px;
 }
 
+/* COLUNA DIREITA - TEXTO */
+.text-wrapper {
+    flex: 0.9; /* Proporção ligeiramente menor para o texto */
+    min-width: 280px; /* Largura mínima para legibilidade */
+    max-height: 70vh; /* Altura máxima com scroll */
+    overflow-y: auto; /* Scroll se necessário */
+    padding-right: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #790016;
+}
+
+/* Estilização da scrollbar */
+.text-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.text-wrapper::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.text-wrapper::-webkit-scrollbar-thumb {
+    background: #790016;
+    border-radius: 10px;
+}
+
 /* TEXTO */
 .text-section {
-    max-width: 800px;
-    margin: 30px auto 50px;
+    margin: 5;
 }
 
 p {
     font-size: 17px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     text-align: justify;
     text-justify: inter-word;
     hyphens: auto;
@@ -159,12 +198,12 @@ p {
 
 /* DESTAQUE COM A COR #790016 */
 .destaque {
-    border-left: 4px solid #790016; /* Cor da barra atualizada */
-    margin: 40px 0;
+    border-left: 4px solid #790016;
+    margin: 30px 0;
     font-weight: 500;
     font-size: 18px;
     background: #fafafa;
-    padding: 24px 28px;
+    padding: 20px 24px;
     border-radius: 0 16px 16px 0;
     text-align: justify;
     text-justify: inter-word;
@@ -178,39 +217,50 @@ p {
 .footer {
     text-align: center;
     padding: 28px 20px;
-    background: #111;
+    background: #414929;
     color: white;
     font-size: 14px;
-    margin-top: 30px;
+    margin-top: 40px;
     letter-spacing: 0.5px;
+    clear: both;
 }
 
 .footer span {
     opacity: 0.9;
 }
 
-/* RESPONSIVO */
-@media (max-width: 768px) {
+/* RESPONSIVO - MOBILE E TABLET */
+@media (max-width: 900px) {
+    .content-wrapper {
+        flex-direction: column; /* Empilha em mobile */
+        gap: 20px;
+    }
+    
+    .carousel-wrapper {
+        width: 100%;
+    }
+    
+    .text-wrapper {
+        width: 100%;
+        max-height: none; /* Remove altura máxima */
+        overflow-y: visible; /* Remove scroll */
+        padding-right: 0;
+    }
+    
+    .carousel-container {
+        width: 100%;
+    }
+    
     .logo {
         max-width: 200px;
     }
     
     .titulo {
-        font-size: 30px; /* Ajustado para mobile */
+        font-size: 32px;
     }
     
     .local {
         font-size: 14px;
-    }
-    
-    .carousel {
-        height: 50vh; /* Mobile: 50vh (também 10% maior que antes) */
-        min-height: 280px;
-    }
-    
-    .carousel-container {
-        width: 90vw;
-        border-radius: 16px;
     }
     
     p {
@@ -219,18 +269,62 @@ p {
     
     .destaque {
         font-size: 16px;
-        padding: 20px 20px;
-        margin: 30px 0;
+        padding: 18px 20px;
+        margin: 25px 0;
     }
 }
 
-@media (min-width: 1600px) {
-    .carousel {
-        height: 55vh; /* Ajustado proporcionalmente */
+/* AJUSTES PARA TABLETS EM PAISAGEM */
+@media (min-width: 901px) and (max-width: 1100px) {
+    .content-wrapper {
+        gap: 20px;
     }
     
-    .carousel-container {
-        width: 75vw;
+    .text-wrapper {
+        max-height: 60vh;
+    }
+    
+    p {
+        font-size: 16px;
+    }
+}
+
+/* TELAS MUITO GRANDES */
+@media (min-width: 1600px) {
+    .main-container {
+        max-width: 1400px;
+    }
+    
+    .text-wrapper {
+        max-height: 65vh;
+    }
+}
+
+/* AJUSTE PARA DISPOSITIVOS MUITO PEQUENOS */
+@media (max-width: 480px) {
+    .header {
+        padding: 20px 16px 15px;
+    }
+    
+    .logo {
+        max-width: 160px;
+    }
+    
+    .titulo {
+        font-size: 28px;
+    }
+    
+    .indicators {
+        gap: 8px;
+    }
+    
+    .indicator {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .indicator.active {
+        width: 24px;
     }
 }
 </style>
@@ -245,57 +339,65 @@ p {
 <!-- CONTEÚDO PRINCIPAL -->
 <div class="main-container">
     
-    <!-- TÍTULO COM MERRIWEATHER -->
+    <!-- TÍTULO COM MERRIWEATHER (sempre visível) -->
     <div class="titulo-section">
         <h1 class="titulo">Canal Campos–Macaé</h1>
         <p class="local">Campos dos Goytacazes – RJ</p>
     </div>
     
-    <!-- CARROSSEL 80% X 60% (10% MAIOR) -->
-    <div class="carousel-section">
-        <div class="carousel-container">
-            <div class="carousel">
-                <img src="canal1.jpg" class="slide active" alt="Canal 1">
-                <img src="canal2.png" class="slide" alt="Canal 2">
-                <img src="canal3.jpg" class="slide" alt="Canal 3">
-                
+    <!-- WRAPPER FLEXÍVEL PARA CARROSSEL + TEXTO -->
+    <div class="content-wrapper">
+        
+        <!-- COLUNA ESQUERDA: CARROSSEL -->
+        <div class="carousel-wrapper">
+            <div class="carousel-section">
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <img src="canal1.jpg" class="slide active" alt="Canal 1">
+                        <img src="canal2.png" class="slide" alt="Canal 2">
+                        <img src="canal3.jpg" class="slide" alt="Canal 3">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- INDICADORES DO CARROSSEL -->
+            <div class="carousel-controls">
+                <div class="indicators">
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                    <span class="indicator" data-index="2"></span>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <!-- INDICADORES DO CARROSSEL -->
-    <div class="carousel-controls">
-        <div class="indicators">
-            <span class="indicator active" data-index="0"></span>
-            <span class="indicator" data-index="1"></span>
-            <span class="indicator" data-index="2"></span>
-            <span class="indicator" data-index="3"></span>
+        
+        <!-- COLUNA DIREITA: TEXTO COM SCROLL -->
+        <div class="text-wrapper">
+            <div class="text-section">
+                <p>
+                Construído no século XIX, o Canal Campos–Macaé surgiu da necessidade de melhorar o escoamento da produção açucareira do Norte Fluminense, que enfrentava grandes dificuldades logísticas até chegar ao porto do Rio de Janeiro.
+                </p>
+
+                <p>
+                Iniciado em 1844 e concluído em 1872, após quase 30 anos de obras, o canal é considerado a segunda maior obra do Brasil Imperial e, à época, o segundo maior canal artificial do mundo.
+                </p>
+
+                <p>
+                Apesar de sua grandiosidade, teve uso breve: poucos anos após sua inauguração, foi superado pela chegada da ferrovia, mais rápida e eficiente.
+                </p>
+
+                <div class="destaque">
+                Mais do que uma obra de engenharia, o canal é a expressão da habilidade, da inteligência técnica e da capacidade de trabalhadores negros escravizados, responsáveis por executar uma engenharia de alta complexidade sem o uso de tecnologia moderna.
+                </div>
+
+                <p>
+                Hoje, o Canal Campos–Macaé permanece como um importante patrimônio histórico, atravessando a paisagem e preservando a memória de quem o construiu.
+                </p>
+            </div>
         </div>
-    </div>
+        
+    </div> <!-- Fim content-wrapper -->
     
-    <!-- TEXTO -->
-    <div class="text-section">
-        <p>
-        Construído no século XIX, o Canal Campos–Macaé surgiu da necessidade de melhorar o escoamento da produção açucareira do Norte Fluminense, que enfrentava grandes dificuldades logísticas até chegar ao porto do Rio de Janeiro.
-        </p>
-
-        <p>
-        Iniciado em 1844 e concluído em 1872, após quase 30 anos de obras, o canal é considerado a segunda maior obra do Brasil Imperial e, à época, o segundo maior canal artificial do mundo.
-        </p>
-
-        <p>
-        Apesar de sua grandiosidade, teve uso breve: poucos anos após sua inauguração, foi superado pela chegada da ferrovia, mais rápida e eficiente.
-        </p>
-
-        <div class="destaque">
-        Mais do que uma obra de engenharia, o canal é a expressão da habilidade, da inteligência técnica e da capacidade de trabalhadores negros escravizados, responsáveis por executar uma engenharia de alta complexidade sem o uso de tecnologia moderna.
-        </div>
-
-        <p>
-        Hoje, o Canal Campos–Macaé permanece como um importante patrimônio histórico, atravessando a paisagem e preservando a memória de quem o construiu.
-        </p>
-    </div>
-</div>
+</div> <!-- Fim main-container -->
 
 <!-- FOOTER -->
 <div class="footer">
@@ -334,6 +436,12 @@ indicators.forEach((indicator, index) => {
 
 // Auto-play
 let slideInterval = setInterval(nextSlide, 6000);
+
+// Ajuste fino para garantir que o número de indicadores corresponda aos slides
+// (caso haja menos indicadores que slides)
+if (slides.length !== indicators.length) {
+    console.warn('Número de indicadores diferente do número de slides');
+}
 </script>
 
 </body>
