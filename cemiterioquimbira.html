@@ -446,28 +446,27 @@ p {
         font-size: 24px;
     }
     
-    /* MOBILE: Layout entrelaçado - carrossel em tamanho maior */
+    /* MOBILE: Layout entrelaçado - carrossel centralizado */
     .content-wrapper {
         flex-direction: column;
         gap: 0;
         margin: 0 0 30px 0;
     }
     
-    /* Carrossel ocupa toda largura e tem altura maior */
+    /* Carrossel ocupa toda largura, mas centralizado */
     .carousel-wrapper {
         width: 100%;
-        position: relative;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-        
+        margin: 0;
+        padding: 0;
     }
     
     .carousel-section {
         margin: 0;
+        width: 100%;
     }
     
     .carousel-container {
+        width: 100%;
         border-radius: 0;
         box-shadow: 0 15px 25px -10px rgba(0, 0, 0, 0.2);
     }
@@ -487,7 +486,7 @@ p {
         margin: 12px 0 20px;
     }
     
-    /* Texto volta a fluir normalmente */
+    /* Texto flui normalmente */
     .text-wrapper {
         width: 100%;
         max-height: none;
