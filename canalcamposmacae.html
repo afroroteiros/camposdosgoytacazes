@@ -9,6 +9,9 @@
 <!-- Fonte Inter para textos gerais e Merriweather para títulos -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
+<!-- Font Awesome para ícones sociais -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
 * {
     box-sizing: border-box;
@@ -20,30 +23,75 @@ body {
     background: #ffffff;
     color: #1a1a1a;
     line-height: 1.7;
+    padding-top: 70px; /* Espaço para o header fixo */
 }
 
-/* HEADER - LOGO À ESQUERDA E CIDADE AO LADO */
+/* HEADER SUPERIOR COM LINKS (FIXO) */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 12px 20px;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.top-bar a {
+    color: #3D441E;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.top-bar a:hover {
+    color: #790016;
+    transform: translateY(-1px);
+}
+
+.top-bar i {
+    font-size: 16px;
+}
+
+/* DIVISOR VISUAL */
+.top-bar .divisor {
+    color: #ddd;
+    font-size: 18px;
+}
+
+/* HEADER PRINCIPAL - LOGO À ESQUERDA E CIDADE ALINHADA NA PARTE INFERIOR */
 .header {
-      display: flex;
-    align-items: flex-end;  /* ALINHA NA PARTE INFERIOR */
+    display: flex;
+    align-items: flex-end;
     justify-content: flex-start;
     padding: 20px 20px 10px;
     background: transparent;
     max-width: 1200px;
     margin: 0 auto;
-    gap: 15px; /* Espaço entre logo e texto */
+    gap: 15px;
 }
 
 .logo {
     width: auto;
     height: auto;
-    max-width: 320px;
+    max-width: 140px;
     max-height: 70px;
     object-fit: contain;
-    flex-shrink: 0; /* Impede que a logo encolha demais */
+    flex-shrink: 0;
+    display: block;
 }
 
-/* CIDADE EM INTER - AJUSTADO PARA ALINHAR COM A LOGO */
+/* CIDADE EM INTER - ALINHADA NA BASE */
 .cidade-titulo {
     font-family: 'Inter', sans-serif;
     font-size: 24px;
@@ -51,7 +99,9 @@ body {
     color: #3D441E;
     margin: 0;
     line-height: 1.2;
-    flex-shrink: 1; /* Permite que o texto encolha se necessário */
+    flex-shrink: 1;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 .cidade-titulo small {
@@ -62,6 +112,7 @@ body {
     display: block;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    line-height: 1.3;
 }
 
 /* CONTAINER PRINCIPAL */
@@ -266,20 +317,67 @@ p {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* FOOTER */
+/* RODAPÉ DE FONTES (DISCRETO) */
+.sources-footer {
+    max-width: 1200px;
+    margin: 20px auto 40px;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.sources-footer span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sources-footer i {
+    font-size: 12px;
+    color: #bbb;
+}
+
+.sources-footer a {
+    color: #999;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.sources-footer a:hover {
+    color: #790016;
+    text-decoration: underline;
+}
+
+/* FOOTER PRINCIPAL */
 .footer {
     text-align: center;
     padding: 28px 20px;
     background: #111;
     color: white;
     font-size: 14px;
-    margin-top: 40px;
     letter-spacing: 0.5px;
     clear: both;
 }
 
 .footer span {
     opacity: 0.9;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 5px;
+    transition: opacity 0.3s;
+}
+
+.footer a:hover {
+    opacity: 0.8;
 }
 
 /* ===== LIGHTBOX ===== */
@@ -386,8 +484,18 @@ p {
     backdrop-filter: blur(5px);
 }
 
-/* RESPONSIVO - AJUSTADO PARA MELHOR ALINHAMENTO */
+/* RESPONSIVO */
 @media (max-width: 900px) {
+    body {
+        padding-top: 60px;
+    }
+    
+    .top-bar {
+        padding: 10px 15px;
+        font-size: 12px;
+        gap: 15px;
+    }
+    
     .content-wrapper {
         flex-direction: column;
         gap: 20px;
@@ -406,16 +514,16 @@ p {
     
     .header {
         padding: 15px 15px 10px;
-        gap: 12px; /* Espaço reduzido em mobile */
+        gap: 12px;
     }
     
     .logo {
-        max-width: 80px; /* Logo menor em mobile */
-        max-height: 50px;
+        max-width: 80px;
+        max-height: 55px;
     }
     
     .cidade-titulo {
-        font-size: 18px; /* Fonte menor para equilibrar */
+        font-size: 18px;
     }
     
     .cidade-titulo small {
@@ -434,6 +542,12 @@ p {
         font-size: 16px;
         padding: 18px 20px;
         margin: 25px 0;
+    }
+    
+    .sources-footer {
+        font-size: 10px;
+        gap: 15px;
+        padding: 12px 15px;
     }
     
     .lightbox-nav {
@@ -459,7 +573,6 @@ p {
     }
 }
 
-/* Ajuste para tablets médios */
 @media (min-width: 901px) and (max-width: 1100px) {
     .content-wrapper {
         gap: 20px;
@@ -482,7 +595,6 @@ p {
     }
 }
 
-/* Telas muito grandes */
 @media (min-width: 1600px) {
     .main-container {
         max-width: 1400px;
@@ -498,16 +610,33 @@ p {
     
     .logo {
         max-width: 160px;
-        max-height: 80px;
+        max-height: 85px;
     }
     
     .cidade-titulo {
-        font-size: 26px;
+        font-size: 28px;
+    }
+    
+    .cidade-titulo small {
+        font-size: 16px;
     }
 }
 
-/* Dispositivos muito pequenos */
 @media (max-width: 480px) {
+    body {
+        padding-top: 55px;
+    }
+    
+    .top-bar {
+        padding: 8px 12px;
+        font-size: 11px;
+        gap: 12px;
+    }
+    
+    .top-bar i {
+        font-size: 12px;
+    }
+    
     .header {
         padding: 12px 12px 8px;
         gap: 10px;
@@ -515,7 +644,7 @@ p {
     
     .logo {
         max-width: 65px;
-        max-height: 45px;
+        max-height: 48px;
     }
     
     .cidade-titulo {
@@ -534,12 +663,40 @@ p {
         font-size: 10px;
         padding: 6px 10px;
     }
+    
+    .sources-footer {
+        font-size: 9px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER: LOGO À ESQUERDA E CIDADE AO LADO -->
+<!-- TOP BAR FIXO COM LINHAS -->
+<div class="top-bar">
+    <a href="/" class="home-link">
+        <i class="fas fa-home"></i> 
+        <span>Home</span>
+    </a>
+    <span class="divisor">|</span>
+    <a href="https://instagram.com/afroroteiros" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+        <span>Instagram</span>
+    </a>
+    <a href="https://facebook.com/afroroteiros" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-facebook"></i>
+        <span>Facebook</span>
+    </a>
+    <a href="https://youtube.com/@afroroteiros" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-youtube"></i>
+        <span>YouTube</span>
+    </a>
+</div>
+
+<!-- HEADER PRINCIPAL -->
 <div class="header">
     <img src="logo.png" alt="Afro-Roteiros" class="logo">
     <div class="cidade-titulo">
@@ -551,7 +708,7 @@ p {
 <!-- CONTEÚDO PRINCIPAL -->
 <div class="main-container">
     
-    <!-- TÍTULO DO PONTO HISTÓRICO EM MERRIWEATHER -->
+    <!-- TÍTULO DO PONTO HISTÓRICO -->
     <div class="ponto-titulo">
         <h2>Canal Campos–Macaé</h2>
     </div>
@@ -590,31 +747,23 @@ p {
         <div class="text-wrapper">
             <div class="text-section">
                 <p>
-                Construído no século XIX, o Canal Campos–Macaé surgiu da necessidade de melhorar 
-                    o escoamento da produção açucareira do Norte Fluminense, que enfrentava grandes 
-                    dificuldades logísticas até chegar ao porto do Rio de Janeiro.
+                Construído no século XIX, o Canal Campos–Macaé surgiu da necessidade de melhorar o escoamento da produção açucareira do Norte Fluminense, que enfrentava grandes dificuldades logísticas até chegar ao porto do Rio de Janeiro.
                 </p>
 
                 <p>
-                Iniciado em 1844 e concluído em 1872, após quase 30 anos de obras, o canal 
-                    é considerado a segunda maior obra do Brasil Imperial e, à época, o segundo 
-                    maior canal artificial do mundo.
+                Iniciado em 1844 e concluído em 1872, após quase 30 anos de obras, o canal é considerado a segunda maior obra do Brasil Imperial e, à época, o segundo maior canal artificial do mundo.
                 </p>
 
                 <p>
-                Apesar de sua grandiosidade, teve uso breve: poucos anos após sua inauguração, 
-                    foi superado pela chegada da ferrovia, mais rápida e eficiente.
+                Apesar de sua grandiosidade, teve uso breve: poucos anos após sua inauguração, foi superado pela chegada da ferrovia, mais rápida e eficiente.
                 </p>
 
                 <div class="destaque">
-                Mais do que uma obra de engenharia, o canal é a expressão da habilidade, 
-                    da inteligência técnica e da capacidade de trabalhadores negros escravizados, 
-                    responsáveis por executar uma engenharia de alta complexidade sem o uso de tecnologia moderna.
+                Mais do que uma obra de engenharia, o canal é a expressão da habilidade, da inteligência técnica e da capacidade de trabalhadores negros escravizados, responsáveis por executar uma engenharia de alta complexidade sem o uso de tecnologia moderna.
                 </div>
 
                 <p>
-                Hoje, o Canal Campos–Macaé permanece como um importante patrimônio histórico, 
-                    atravessando a paisagem e preservando a memória de quem o construiu.
+                Hoje, o Canal Campos–Macaé permanece como um importante patrimônio histórico, atravessando a paisagem e preservando a memória de quem o construiu.
                 </p>
             </div>
         </div>
@@ -623,9 +772,18 @@ p {
     
 </div>
 
-<!-- FOOTER -->
+<!-- RODAPÉ DE FONTES (DISCRETO) -->
+<div class="sources-footer">
+    <span><i class="fas fa-camera"></i> Imagens: Acervo Afro-Roteiros</span>
+    <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos</span>
+    <span><i class="fas fa-calendar-alt"></i> Atualizado em: março de 2026</span>
+</div>
+
+<!-- FOOTER PRINCIPAL -->
 <div class="footer">
     <span>Afro-Roteiros • Campos dos Goytacazes • RJ</span>
+    <br>
+    <span style="font-size: 11px; opacity: 0.6;">memória · resistência · identidade</span>
 </div>
 
 <!-- LIGHTBOX -->
