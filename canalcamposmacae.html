@@ -19,7 +19,7 @@ body {
     font-family: 'Inter', sans-serif;
     background: #ffffff;
     color: #1a1a1a;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 /* HEADER - LOGO CENTRALIZADA */
@@ -41,7 +41,7 @@ body {
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 20px 40px;
-    gap: 30px;
+    gap: 40px;
 }
 
 /* COLUNA ESQUERDA - TEXTO */
@@ -56,6 +56,7 @@ body {
     font-weight: 600;
     margin: 0 0 5px 0;
     line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 .info {
@@ -63,25 +64,42 @@ body {
     color: #666;
     margin-bottom: 25px;
     font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
+/* TEXTOS JUSTIFICADOS E BONITINHOS */
 p {
     font-size: 16px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    word-spacing: -0.5px;
 }
 
+/* DESTAQUE COM JUSTIFICATIVA TAMBÉM */
 .destaque {
     border-left: 4px solid #8B0000;
-    padding-left: 16px;
-    margin: 25px 0;
+    margin: 30px 0 30px 0;
     font-weight: 500;
     font-size: 17px;
     background: #fafafa;
-    padding: 16px 20px;
-    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    border-radius: 0 12px 12px 0;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    color: #2a2a2a;
+    line-height: 1.8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
-/* COLUNA DIREITA - CARROSSEL 9:16 */
+/* COLUNA DIREITA - CARROSSEL 16:9 (FORMATO YOUTUBE) */
 .carousel-column {
     flex: 1;
     display: flex;
@@ -92,17 +110,23 @@ p {
 
 .carousel-container {
     width: 100%;
-    max-width: 720px; /* Largura fixa para proporção 9:16 */
+    max-width: 560px;
     position: relative;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.35);
+    transition: transform 0.3s;
+}
+
+.carousel-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 40px -12px rgba(0, 0, 0, 0.4);
 }
 
 .carousel {
     position: relative;
     width: 100%;
-    padding-bottom: 177.78%; /* Proporção 16:9 (16/9 = 1.7778) */
+    padding-bottom: 56.25%; /* 16:9 */
     background: #f0f0f0;
 }
 
@@ -114,7 +138,7 @@ p {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 1.2s ease-in-out;
 }
 
 .slide.active {
@@ -125,48 +149,56 @@ p {
 .carousel-indicators {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-top: 16px;
+    gap: 10px;
+    margin-top: 18px;
 }
 
 .indicator {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #ccc;
-    transition: background 0.3s;
+    background: #ddd;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .indicator.active {
     background: #8B0000;
-    transform: scale(1.2);
+    width: 24px;
+    border-radius: 12px;
+    transform: scale(1);
 }
 
 /* FOOTER */
 .footer {
     text-align: center;
-    padding: 20px;
+    padding: 24px;
     background: #111;
     color: white;
     font-size: 13px;
     margin-top: 20px;
+    letter-spacing: 0.3px;
 }
 
-/* RESPONSIVO - EMPILHA EM TELAS PEQUENAS */
+.footer span {
+    opacity: 0.8;
+}
+
+/* RESPONSIVO */
 @media (max-width: 900px) {
     .main-content {
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 30px;
     }
     
     .text-column {
-        max-width: 50%;
+        max-width: 100%;
     }
     
     .carousel-container {
-        max-width: 320px;
+        max-width: 100%;
+        max-width: 560px;
     }
     
     .titulo {
@@ -177,11 +209,21 @@ p {
     .info {
         text-align: center;
     }
+    
+    p {
+        font-size: 15.5px; /* Levemente menor no mobile */
+    }
+    
+    .destaque {
+        font-size: 16px;
+        padding: 18px 20px;
+    }
 }
 
 @media (min-width: 1400px) {
     .main-content {
         padding: 0 40px 50px;
+        gap: 60px;
     }
     
     .text-column {
@@ -189,7 +231,35 @@ p {
     }
     
     .carousel-container {
-        max-width: 400px;
+        max-width: 640px;
+    }
+    
+    p {
+        font-size: 17px;
+        margin-bottom: 22px;
+    }
+    
+    .destaque {
+        font-size: 18px;
+        padding: 24px 28px;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+    .carousel-container {
+        max-width: 480px;
+    }
+    
+    p {
+        font-size: 15.5px;
+    }
+}
+
+/* AJUSTE FINO PARA HIFENIZAÇÃO */
+@media (max-width: 600px) {
+    p, .destaque {
+        hyphens: auto;
+        word-break: break-word;
     }
 }
 </style>
@@ -205,7 +275,7 @@ p {
 <!-- LAYOUT PRINCIPAL COM DUAS COLUNAS -->
 <div class="main-content">
     
-    <!-- COLUNA ESQUERDA - TEXTO -->
+    <!-- COLUNA ESQUERDA - TEXTO JUSTIFICADO -->
     <div class="text-column">
         <div class="titulo">Canal Campos–Macaé</div>
         <div class="info">Campos dos Goytacazes – RJ</div>
@@ -236,11 +306,10 @@ p {
         <div class="carousel-container">
             <div class="carousel">
                 <img src="canal1.jpg" class="slide active" alt="Canal 1">
-                <img src="canal2.gif" class="slide" alt="Canal 2">
-                <img src="canal3.png" class="slide" alt="Canal 3">
+                <img src="canal2.png" class="slide" alt="Canal 2">
+                <img src="canal3.jpg" class="slide" alt="Canal 3">
                
             </div>
-            <!-- Indicadores do carrossel -->
             <div class="carousel-indicators">
                 <span class="indicator active" data-index="0"></span>
                 <span class="indicator" data-index="1"></span>
@@ -253,7 +322,7 @@ p {
 
 <!-- FOOTER -->
 <div class="footer">
-Afro-Roteiros • Campos dos Goytacazes • RJ
+<span>Afro-Roteiros • Campos dos Goytacazes • RJ</span>
 </div>
 
 <!-- SCRIPT -->
@@ -263,11 +332,9 @@ const slides = document.querySelectorAll('.slide');
 const indicators = document.querySelectorAll('.indicator');
 
 function showSlide(index) {
-    // Remove active de todos os slides
     slides.forEach(slide => slide.classList.remove('active'));
     indicators.forEach(ind => ind.classList.remove('active'));
     
-    // Ativa o slide e indicador atual
     slides[index].classList.add('active');
     indicators[index].classList.add('active');
     
@@ -279,17 +346,14 @@ function nextSlide() {
     showSlide(next);
 }
 
-// Adiciona evento de clique nos indicadores
 indicators.forEach((indicator, index) => {
     indicator.addEventListener('click', () => {
         showSlide(index);
-        // Reinicia o intervalo quando clicar manualmente
         clearInterval(slideInterval);
         slideInterval = setInterval(nextSlide, 6000);
     });
 });
 
-// Inicia o carrossel automático
 let slideInterval = setInterval(nextSlide, 6000);
 </script>
 
