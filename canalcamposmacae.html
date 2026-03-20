@@ -27,31 +27,36 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 30px 30px 20px;
+    padding: 20px 20px 10px;
     background: transparent;
     max-width: 1200px;
     margin: 0 auto;
+    gap: 15px; /* Espaço entre logo e texto */
 }
 
 .logo {
-    max-width: 180px;
+    width: auto;
     height: auto;
-    margin-right: 15px;
+    max-width: 140px;
+    max-height: 70px;
+    object-fit: contain;
+    flex-shrink: 0; /* Impede que a logo encolha demais */
 }
 
-/* CIDADE EM INTER */
+/* CIDADE EM INTER - AJUSTADO PARA ALINHAR COM A LOGO */
 .cidade-titulo {
-    font-family: 'Inter', sans-serif; /* Mudado para Inter */
+    font-family: 'Inter', sans-serif;
     font-size: 24px;
     font-weight: 600;
     color: #3D441E;
     margin: 0;
     line-height: 1.2;
+    flex-shrink: 1; /* Permite que o texto encolha se necessário */
 }
 
 .cidade-titulo small {
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
     color: #790016;
     display: block;
@@ -73,7 +78,7 @@ body {
 }
 
 .ponto-titulo h2 {
-    font-family: 'Merriweather', serif; /* Mantido Merriweather */
+    font-family: 'Merriweather', serif;
     font-size: 32px;
     font-weight: 700;
     margin: 0 0 5px 0;
@@ -381,7 +386,7 @@ p {
     backdrop-filter: blur(5px);
 }
 
-/* RESPONSIVO */
+/* RESPONSIVO - AJUSTADO PARA MELHOR ALINHAMENTO */
 @media (max-width: 900px) {
     .content-wrapper {
         flex-direction: column;
@@ -400,19 +405,21 @@ p {
     }
     
     .header {
-        padding: 15px 15px 5px;
+        padding: 15px 15px 10px;
+        gap: 12px; /* Espaço reduzido em mobile */
     }
     
     .logo {
-        max-width: 100px;
+        max-width: 80px; /* Logo menor em mobile */
+        max-height: 50px;
     }
     
     .cidade-titulo {
-        font-size: 20px;
+        font-size: 18px; /* Fonte menor para equilibrar */
     }
     
     .cidade-titulo small {
-        font-size: 14px;
+        font-size: 12px;
     }
     
     .ponto-titulo h2 {
@@ -452,6 +459,7 @@ p {
     }
 }
 
+/* Ajuste para tablets médios */
 @media (min-width: 901px) and (max-width: 1100px) {
     .content-wrapper {
         gap: 20px;
@@ -461,11 +469,20 @@ p {
         max-height: 60vh;
     }
     
+    .logo {
+        max-width: 110px;
+    }
+    
+    .cidade-titulo {
+        font-size: 22px;
+    }
+    
     p {
         font-size: 16px;
     }
 }
 
+/* Telas muito grandes */
 @media (min-width: 1600px) {
     .main-container {
         max-width: 1400px;
@@ -478,24 +495,35 @@ p {
     .text-wrapper {
         max-height: 65vh;
     }
-}
-
-@media (max-width: 480px) {
-    .header {
-        padding: 15px 10px 5px;
-    }
     
     .logo {
-        max-width: 80px;
-        margin-right: 10px;
+        max-width: 160px;
+        max-height: 80px;
     }
     
     .cidade-titulo {
-        font-size: 18px;
+        font-size: 26px;
+    }
+}
+
+/* Dispositivos muito pequenos */
+@media (max-width: 480px) {
+    .header {
+        padding: 12px 12px 8px;
+        gap: 10px;
+    }
+    
+    .logo {
+        max-width: 65px;
+        max-height: 45px;
+    }
+    
+    .cidade-titulo {
+        font-size: 16px;
     }
     
     .cidade-titulo small {
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .ponto-titulo h2 {
@@ -511,7 +539,7 @@ p {
 </head>
 <body>
 
-<!-- HEADER: LOGO À ESQUERDA E CIDADE AO LADO (EM INTER) -->
+<!-- HEADER: LOGO À ESQUERDA E CIDADE AO LADO -->
 <div class="header">
     <img src="logo.png" alt="Afro-Roteiros" class="logo">
     <div class="cidade-titulo">
@@ -540,7 +568,6 @@ p {
                         <img src="canal2.png" class="slide" alt="Canal Campos-Macaé 2" data-index="1">
                         <img src="canal3.jpg" class="slide" alt="Canal Campos-Macaé 3" data-index="2">
                     </div>
-                    <!-- Dica visual de clique -->
                     <div class="click-hint">
                         <svg viewBox="0 0 24 24">
                             <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21v-2z"/>
@@ -550,7 +577,6 @@ p {
                 </div>
             </div>
             
-            <!-- INDICADORES -->
             <div class="carousel-controls">
                 <div class="indicators">
                     <span class="indicator active" data-index="0"></span>
@@ -612,7 +638,6 @@ const slides = document.querySelectorAll('.slide');
 const indicators = document.querySelectorAll('.indicator');
 const carouselContainer = document.getElementById('carouselClick');
 
-// Elementos do Lightbox
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = document.getElementById('lightboxImage');
 const lightboxClose = document.getElementById('lightboxClose');
@@ -620,7 +645,6 @@ const lightboxPrev = document.getElementById('lightboxPrev');
 const lightboxNext = document.getElementById('lightboxNext');
 const lightboxCounter = document.getElementById('lightboxCounter');
 
-// Funções do carrossel principal
 function showSlide(index) {
     slides.forEach(slide => slide.classList.remove('active'));
     indicators.forEach(ind => ind.classList.remove('active'));
@@ -636,7 +660,6 @@ function nextSlide() {
     showSlide(next);
 }
 
-// Clique nos indicadores
 indicators.forEach((indicator, index) => {
     indicator.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -646,10 +669,8 @@ indicators.forEach((indicator, index) => {
     });
 });
 
-// Auto-play
 let slideInterval = setInterval(nextSlide, 6000);
 
-// ===== FUNÇÕES DO LIGHTBOX =====
 function openLightbox(index) {
     currentSlide = index;
     updateLightboxImage();
@@ -679,19 +700,16 @@ function nextImage() {
     updateLightboxImage();
 }
 
-// Evento de clique no carrossel para abrir lightbox
 carouselContainer.addEventListener('click', (e) => {
     if (!e.target.classList.contains('indicator')) {
         openLightbox(currentSlide);
     }
 });
 
-// Eventos do lightbox
 lightboxClose.addEventListener('click', closeLightbox);
 lightboxPrev.addEventListener('click', prevImage);
 lightboxNext.addEventListener('click', nextImage);
 
-// Fechar com tecla ESC
 document.addEventListener('keydown', (e) => {
     if (lightbox.classList.contains('active')) {
         if (e.key === 'Escape') {
@@ -704,14 +722,12 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Fechar clicando no fundo
 lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) {
         closeLightbox();
     }
 });
 
-// Prevenir que o clique na imagem feche o lightbox
 lightboxImage.addEventListener('click', (e) => {
     e.stopPropagation();
 });
