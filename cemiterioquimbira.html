@@ -1,187 +1,798 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afro-Roteiros | Políticas de Igualdade Racial em Campos</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            background: #f4f4f4;
-            color: #222;
-            line-height: 1.6;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
-        header {
-            background: #111;
-            color: white;
-            padding: 25px;
-            text-align: center;
-        }
+<title>Afro-Roteiros | Canal Campos-Macaé</title>
 
-        header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
+<!-- Fonte Inter e Merriweather -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
-        .subtitulo {
-            font-size: 16px;
-            opacity: 0.8;
-        }
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        .hero {
-            width: 100%;
-            height: 250px;
-            background-image: url("foto-local.jpg");
-            background-size: cover;
-            background-position: center;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 25px;
-            background: white;
-        }
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.7;
+    padding-top: 70px;
+}
 
-        h2 {
-            color: #8B0000;
-            margin-top: 30px;
-        }
+/* HEADER SUPERIOR FIXO */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 12px 20px;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+}
 
-        .info-box {
-            background: #f2f2f2;
-            padding: 15px;
-            border-left: 5px solid #8B0000;
-            margin: 20px 0;
-        }
+.top-bar a {
+    color: #3D441E;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
 
-        .timeline-item {
-            margin-bottom: 2rem;
-            padding-left: 1rem;
-            border-left: 3px solid #8B0000;
-        }
+.top-bar a:hover {
+    color: #790016;
+    transform: translateY(-1px);
+}
 
-        .timeline-item h3 {
-            margin-bottom: 0.25rem;
-            color: #4a4a4a;
-        }
+.top-bar i {
+    font-size: 16px;
+}
 
-        .timeline-item .ano {
-            font-weight: bold;
-            color: #8B0000;
-            font-size: 1.1rem;
-        }
+.top-bar .divisor {
+    color: #ddd;
+    font-size: 18px;
+}
 
-        footer {
-            margin-top: 40px;
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-        }
+/* HEADER PRINCIPAL */
+.header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 20px 20px 10px;
+    background: transparent;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 15px;
+}
 
-        .logos {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
+.logo {
+    width: auto;
+    height: auto;
+    max-width: 140px;
+    max-height: 70px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
 
-        .logos img {
-            height: 40px;
-        }
+.cidade-titulo {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #3D441E;
+    margin: 0;
+    line-height: 1.2;
+    flex-shrink: 1;
+}
 
-        hr {
-            border: 0;
-            border-top: 1px solid #ddd;
-            margin: 2rem 0;
-        }
+.cidade-titulo small {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #790016;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+}
 
-        .resumo {
-            background: #eaeaea;
-            padding: 1.5rem;
-            border-radius: 6px;
-            margin-top: 2rem;
-        }
-    </style>
+/* CONTAINER PRINCIPAL */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* TÍTULO DO PONTO HISTÓRICO */
+.ponto-titulo {
+    margin: 20px 0 20px 0;
+}
+
+.ponto-titulo h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    line-height: 1.3;
+    color: #1a1a1a;
+    border-bottom: 2px solid #790016;
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+/* LAYOUT DESKTOP: DUAS COLUNAS */
+.content-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin: 20px 0 40px 0;
+    align-items: flex-start;
+}
+
+.carousel-wrapper {
+    flex: 1.2;
+    min-width: 0;
+}
+
+/* CARROSSEL DESKTOP */
+.carousel-section {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.carousel-container {
+    width: 100%;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.carousel-container:hover {
+    transform: scale(1.02);
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    background: #f0f0f0;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    pointer-events: none;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.click-hint {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    pointer-events: none;
+}
+
+.click-hint svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.indicators {
+    display: flex;
+    gap: 10px;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.indicator.active {
+    background: #790016;
+    width: 30px;
+    border-radius: 15px;
+}
+
+/* COLUNA DIREITA - TEXTO DESKTOP */
+.text-wrapper {
+    flex: 0.9;
+    min-width: 280px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: thin;
+}
+
+.text-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.text-wrapper::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.text-wrapper::-webkit-scrollbar-thumb {
+    background: #790016;
+    border-radius: 10px;
+}
+
+.text-section {
+    margin: 0;
+}
+
+p {
+    font-size: 17px;
+    margin-bottom: 20px;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+
+.destaque {
+    border-left: 4px solid #790016;
+    margin: 30px 0;
+    font-weight: 500;
+    font-size: 18px;
+    background: #fafafa;
+    padding: 20px 24px;
+    border-radius: 0 16px 16px 0;
+    text-align: justify;
+    color: #2a2a2a;
+    line-height: 1.8;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* RODAPÉ DE FONTES */
+.sources-footer {
+    max-width: 1200px;
+    margin: 20px auto 40px;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.sources-footer span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.footer {
+    text-align: center;
+    padding: 28px 20px;
+    background: #111;
+    color: white;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.lightbox-nav.prev {
+    left: 20px;
+}
+
+.lightbox-nav.next {
+    right: 20px;
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+}
+
+/* ========== MOBILE: LAYOUT ENTRELAÇADO ========== */
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px;
+    }
+    
+    .top-bar {
+        padding: 8px 15px;
+        font-size: 12px;
+        gap: 12px;
+    }
+    
+    .header {
+        padding: 12px 15px 8px;
+        gap: 10px;
+    }
+    
+    .logo {
+        max-width: 85px;
+        max-height: 55px;
+    }
+    
+    .cidade-titulo {
+        font-size: 18px;
+    }
+    
+    .cidade-titulo small {
+        font-size: 11px;
+    }
+    
+    .ponto-titulo h2 {
+        font-size: 24px;
+    }
+    
+    /* MOBILE: Layout entrelaçado - carrossel em tamanho maior */
+    .content-wrapper {
+        flex-direction: column;
+        gap: 0;
+        margin: 0 0 30px 0;
+    }
+    
+    /* Carrossel ocupa toda largura e tem altura maior */
+    .carousel-wrapper {
+        width: 100%;
+        margin: 0 -20px; /* Remove padding lateral */
+        width: calc(100% + 40px);
+        position: relative;
+        left: -20px;
+    }
+    
+    .carousel-section {
+        margin: 0;
+    }
+    
+    .carousel-container {
+        border-radius: 0;
+        box-shadow: 0 15px 25px -10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .carousel {
+        padding-bottom: 66.67%; /* 3:2 - mais alto que 16:9 para mobile */
+    }
+    
+    .click-hint {
+        bottom: 12px;
+        right: 12px;
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+    
+    .carousel-controls {
+        margin: 12px 0 20px;
+    }
+    
+    /* Texto volta a fluir normalmente */
+    .text-wrapper {
+        width: 100%;
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+        margin-top: 0;
+    }
+    
+    .text-section {
+        padding: 0;
+    }
+    
+    p {
+        font-size: 16px;
+        margin-bottom: 18px;
+    }
+    
+    .destaque {
+        font-size: 16px;
+        padding: 16px 20px;
+        margin: 25px 0;
+    }
+    
+    .sources-footer {
+        font-size: 9px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: center;
+        padding: 12px 15px;
+    }
+    
+    .lightbox-nav {
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .lightbox-nav.prev {
+        left: 5px;
+    }
+    
+    .lightbox-nav.next {
+        right: 5px;
+    }
+    
+    .lightbox-close {
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Ajuste para telas muito pequenas */
+@media (max-width: 480px) {
+    .logo {
+        max-width: 75px;
+        max-height: 50px;
+    }
+    
+    .cidade-titulo {
+        font-size: 16px;
+    }
+    
+    .cidade-titulo small {
+        font-size: 10px;
+    }
+    
+    .ponto-titulo h2 {
+        font-size: 22px;
+    }
+    
+    .carousel {
+        padding-bottom: 75%; /* 4:3 - ainda mais alto para aproveitar espaço */
+    }
+}
+
+/* Tablet em paisagem - mantém duas colunas mas com ajustes */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .content-wrapper {
+        gap: 20px;
+    }
+    
+    .text-wrapper {
+        max-height: 60vh;
+    }
+    
+    .logo {
+        max-width: 110px;
+    }
+    
+    .cidade-titulo {
+        font-size: 22px;
+    }
+    
+    p {
+        font-size: 16px;
+    }
+}
+
+/* Desktop grande */
+@media (min-width: 1400px) {
+    .main-container, .header {
+        max-width: 1400px;
+    }
+    
+    .logo {
+        max-width: 160px;
+        max-height: 85px;
+    }
+    
+    .cidade-titulo {
+        font-size: 28px;
+    }
+    
+    .cidade-titulo small {
+        font-size: 16px;
+    }
+}
+</style>
 </head>
 <body>
 
-<header>
-    <h1>Afro-Roteiros</h1>
-    <div class="subtitulo">memória · resistência · identidade</div>
-    <div style="text-align: center;"> </div class>
-        <img src="colorido horizontal.png" alt="AfroRoteiros" style="max-width: 100%; height: auto;">
-   </div>
-</header>
-
-
-
-
-<div class="container">
-
-    <h1>Igualdade Racial em Campos dos Goytacazes</h1>
-
-    <div class="info-box">
-        📍 município: Campos dos Goytacazes – RJ<br>
-        📅 período abordado: 1970 – dias atuais
-    </div>
-
-    <p>A história das políticas de igualdade racial em Campos dos Goytacazes é marcada por uma luta contínua da sociedade civil organizada, em especial o movimento negro, para enfrentar o racismo estrutural enraizado pela história escravagista da região, que concentrava um enorme contingente de pessoas escravizadas no século XIX. A institucionalização dessas políticas avançou a passos lentos, alternando entre momentos de criação de órgãos específicos e períodos de desarticulação.</p>
-
-    <hr>
-
-    <h2>📌 Cronologia da trajetória</h2>
-
-    <div class="timeline-item">
-        <span class="ano">1. Nascimento: Movimento Negro e Pressão Social (final dos anos 1970 – 2000)</span>
-        <p><strong>Raízes:</strong> As demandas por políticas públicas surgiram do movimento negro a partir do final da década de 1970 e início dos anos 1980.</p>
-        <p><strong>Consciência Local:</strong> A necessidade de políticas de igualdade racial é impulsionada pela herança escravagista de Campos, que no final do século XVIII tinha 60% da população escravizada, sendo uma das maiores da província do Rio de Janeiro.</p>
-    </div>
-
-    <div class="timeline-item">
-        <span class="ano">2. Institucionalização (2010 – 2016)</span>
-        <p><strong>Marco Legal:</strong> A criação formal do Conselho Municipal de Promoção da Igualdade Racial (CMPIR) ocorreu através da Lei Ordinária 8191 de 2010.</p>
-        <p><strong>Fundação Zumbi dos Palmares:</strong> Em 2010, o prefeito Nelson Nahim apoiou a criação do Conselho, articulado com a Fundação Zumbi dos Palmares.</p>
-        <p><strong>Desafios de Implantação:</strong> Apesar da lei de 2010, a implementação plena do Conselho enfrentou resistência política durante anos, sendo consolidado apenas mais tarde, após esforço coletivo da sociedade civil.</p>
-        <p><strong>Superintendência de Igualdade Racial (Supir):</strong> Criada para atuar em parceria com outras secretarias (como a de Desenvolvimento Humano e Social) para realizar projetos voltados a comunidades quilombolas (Conceição do Imbé, Aleluia, Batatal e Cambucá).</p>
-        <p><strong>Ações Iniciais:</strong> Comemorações da abolição focadas na história social, palestras no Museu Histórico de Campos e debates sobre diversidade cultural.</p>
-    </div>
-
-    <div class="timeline-item">
-        <span class="ano">3. Consolidação e Reestruturação (2017 – Dias Atuais)</span>
-        <p><strong>2017 – Conselho Ativo:</strong> O Conselho Municipal é finalmente implementado e estabelecido após anos de tentativas de articulação.</p>
-        <p><strong>2021 – Nova Estrutura:</strong> A antiga Superintendência de Igualdade Racial (Supir) passou por reestruturação, com relatos de descaso na gestão anterior, para se tornar a <strong>Subsecretaria de Igualdade Racial e Direitos Humanos (SIRDH)</strong>, vinculada à Secretaria de Desenvolvimento Humano e Social.</p>
-        <p><strong>Saúde da População Negra:</strong> A subsecretaria, em 2021, lançou o Comitê Técnico de Saúde Integral da População Negra, uma ação inédita para combater disparidades no acesso à saúde.</p>
-        <p><strong>Atuação Atual (SIRDH):</strong> Focada no combate ao racismo, valorização da cultura afro, realização de Cine Debates (como no Dia Internacional pela Eliminação da Discriminação Racial, 21 de março) e oficinas de geração de renda.</p>
-        <p><strong>Foco no Quilombola:</strong> Políticas atuais buscam atender comunidades quilombolas, que sofrem com dificuldades no acesso à educação e infraestrutura.</p>
-    </div>
-
-    <hr>
-
-    <div class="resumo">
-        <h2>📋 Resumo do Panorama Atual</h2>
-        <p>As políticas de igualdade racial em Campos hoje, geridas pela <strong>Subsecretaria de Igualdade Racial e Direitos Humanos (SIRDH)</strong>, buscam a transversalidade. No entanto, estudos apontam que o racismo estrutural ainda é um grande desafio na região, exigindo que as políticas passem de ações meramente comemorativas para intervenções contínuas de reparação histórica e garantia de direitos.</p>
-    </div>
-
-    <!-- menção às fontes (sem links, apenas texto, como solicitado) -->
-    <p style="font-size:0.85rem; color:#6a6a6a; margin-top: 2rem;">Fontes: Prefeitura Municipal de Campos dos Goytacazes · UFF · Arquivo Público Municipal · acervo de pesquisa AfroRoteiros.</p>
-
+<!-- TOP BAR -->
+<div class="top-bar">
+    <a href="/"><i class="fas fa-home"></i> <span>Home</span></a>
+    <span class="divisor">|</span>
+    <a href="https://instagram.com/afroroteiros" target="_blank"><i class="fab fa-instagram"></i> <span>Instagram</span></a>
+    <a href="https://facebook.com/afroroteiros" target="_blank"><i class="fab fa-facebook"></i> <span>Facebook</span></a>
+    <a href="https://youtube.com/@afroroteiros" target="_blank"><i class="fab fa-youtube"></i> <span>YouTube</span></a>
 </div>
 
-<footer>
-    Projeto Afro-Roteiros – valorização da memória negra<br>
-    <span style="opacity:0.7; font-size:0.9rem;">Campos dos Goytacazes · Rio de Janeiro</span>
-    <div class="logos">
-        <img src="logo-afroroteiros.png" alt="logo afro-roteiros">
-        <img src="logo-prefeitura.png" alt="logo prefeitura">
-        <img src="logo-convention.png" alt="logo convention">
+<!-- HEADER -->
+<div class="header">
+    <img src="logo.png" alt="Afro-Roteiros" class="logo">
+    <div class="cidade-titulo">
+        Campos dos Goytacazes
+        <small>Rio de Janeiro</small>
     </div>
-</footer>
+</div>
+
+<div class="main-container">
+    
+    <div class="ponto-titulo">
+        <h2>Canal Campos–Macaé</h2>
+    </div>
+    
+    <div class="content-wrapper">
+        
+        <div class="carousel-wrapper">
+            <div class="carousel-section">
+                <div class="carousel-container" id="carouselClick">
+                    <div class="carousel">
+                        <img src="canal1.jpg" class="slide active" alt="Canal 1" data-index="0">
+                        <img src="canal2.png" class="slide" alt="Canal 2" data-index="1">
+                        <img src="canal3.jpg" class="slide" alt="Canal 3" data-index="2">
+                    </div>
+                    <div class="click-hint">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21v-2z"/>
+                        </svg>
+                        <span>Clique para ampliar</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <div class="indicators">
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                    <span class="indicator" data-index="2"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-wrapper">
+            <div class="text-section">
+                <p>
+                Construído no século XIX, o Canal Campos–Macaé surgiu da necessidade de melhorar o escoamento da produção açucareira do Norte Fluminense, que enfrentava grandes dificuldades logísticas até chegar ao porto do Rio de Janeiro.
+                </p>
+
+                <p>
+                Iniciado em 1844 e concluído em 1872, após quase 30 anos de obras, o canal é considerado a segunda maior obra do Brasil Imperial e, à época, o segundo maior canal artificial do mundo.
+                </p>
+
+                <p>
+                Apesar de sua grandiosidade, teve uso breve: poucos anos após sua inauguração, foi superado pela chegada da ferrovia, mais rápida e eficiente.
+                </p>
+
+                <div class="destaque">
+                Mais do que uma obra de engenharia, o canal é a expressão da habilidade, da inteligência técnica e da capacidade de trabalhadores negros escravizados, responsáveis por executar uma engenharia de alta complexidade sem o uso de tecnologia moderna.
+                </div>
+
+                <p>
+                Hoje, o Canal Campos–Macaé permanece como um importante patrimônio histórico, atravessando a paisagem e preservando a memória de quem o construiu.
+                </p>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+
+<div class="sources-footer">
+    <span><i class="fas fa-camera"></i> Imagens: Acervo Afro-Roteiros</span>
+    <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos</span>
+    <span><i class="fas fa-calendar-alt"></i> Atualizado em: março de 2026</span>
+</div>
+
+<div class="footer">
+    <span>Afro-Roteiros • Campos dos Goytacazes • RJ</span>
+    <br>
+    <span style="font-size: 11px; opacity: 0.6;">memória · resistência · identidade</span>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <span class="lightbox-nav prev" id="lightboxPrev">&#10094;</span>
+    <span class="lightbox-nav next" id="lightboxNext">&#10095;</span>
+    <div class="lightbox-content">
+        <img class="lightbox-image" id="lightboxImage" src="">
+    </div>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const indicators = document.querySelectorAll('.indicator');
+const carouselContainer = document.getElementById('carouselClick');
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.getElementById('lightboxImage');
+const lightboxClose = document.getElementById('lightboxClose');
+const lightboxPrev = document.getElementById('lightboxPrev');
+const lightboxNext = document.getElementById('lightboxNext');
+const lightboxCounter = document.getElementById('lightboxCounter');
+
+function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    indicators.forEach(ind => ind.classList.remove('active'));
+    slides[index].classList.add('active');
+    indicators[index].classList.add('active');
+    currentSlide = index;
+}
+
+function nextSlide() {
+    showSlide((currentSlide + 1) % slides.length);
+}
+
+indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showSlide(index);
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 6000);
+    });
+});
+
+let slideInterval = setInterval(nextSlide, 6000);
+
+function openLightbox(index) {
+    currentSlide = index;
+    updateLightboxImage();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function updateLightboxImage() {
+    lightboxImage.src = slides[currentSlide].src;
+    lightboxCounter.textContent = `${currentSlide + 1} de ${slides.length}`;
+}
+
+function prevImage() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    updateLightboxImage();
+}
+
+function nextImage() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateLightboxImage();
+}
+
+carouselContainer.addEventListener('click', () => openLightbox(currentSlide));
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxPrev.addEventListener('click', prevImage);
+lightboxNext.addEventListener('click', nextImage);
+
+document.addEventListener('keydown', (e) => {
+    if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'ArrowRight') nextImage();
+    }
+});
+
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+});
+</script>
 
 </body>
 </html>
