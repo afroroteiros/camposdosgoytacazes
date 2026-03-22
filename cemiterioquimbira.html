@@ -663,13 +663,11 @@ p {
         </div>
         
         <div class="text-wrapper">
-           <div class="text-section" id="conteudo1">
+           <div class="text-section" id="conteudo">
 
                 <div class="destaque"  id= "destaque">
                 </div>
 
-                <div class="text-section" id="conteudo2">
-                </div>
     </div>
     
 </div>
@@ -780,20 +778,23 @@ lightbox.addEventListener('click', (e) => {
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-fetch("conteudo.json")
+const url = "https://opensheet.elk.sh/SEU_ID_AQUI/aba1";
+
+fetch(url)
   .then(res => res.json())
   .then(data => {
-    if (data[id]) {
-      document.getElementById("titulo").innerText = data[id].titulo;
-      document.getElementById("conteudo").innerHTML = data[id].conteudo;
+    const pagina = data.find(item => item.id === id);
+
+    if (pagina) {
+      document.getElementById("titulo").innerText = pagina.titulo;
+      document.getElementById("conteudo").innerHTML = pagina.conteudo;
     } else {
-      document.getElementById("titulo").innerText = "Página";
       document.getElementById("conteudo").innerHTML = "<p>Conteúdo não encontrado.</p>";
     }
   })
   .catch(err => {
-    document.getElementById("conteudo").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
     console.error(err);
+    document.getElementById("conteudo").innerHTML = "<p>Erro ao carregar.</p>";
   });
 </script>
 
