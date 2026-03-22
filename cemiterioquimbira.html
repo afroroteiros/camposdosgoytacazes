@@ -632,7 +632,7 @@ p {
 <div class="main-container">
     
     <div class="ponto-titulo">
-        <h2>Cemitério do Quimbira</h2>
+       <h2 id="titulo"></h2>
     </div>
     
     <div class="content-wrapper">
@@ -663,38 +663,10 @@ p {
         </div>
         
         <div class="text-wrapper">
-            <div class="text-section">
-               A história do Cemitério do Quimbira, em Campos dos Goytacazes, é um retrato das complexas camadas sociais 
-                e sanitárias do século XIX. Administrado pela Santa Casa de Misericórdia, ele foi criado para ser o destino final da 
-                população que não possuía recursos para os sepultamentos de elite — que, na época, ocorriam preferencialmente dentro ou 
-                ao redor das igrejas centrais.
-                </p>
+           <div class="text-section" id="conteudo">
 
-                <p>
-                Localizado onde hoje se encontra a Faculdade de Medicina de Campos, o Kimbira recebia os corpos de escravizados,
-                    indigentes e imigrantes europeus pobres.  Naquele período, cidadãos com maiores recursos financeiros e status 
-                    social eram enterrados dentro ou no entorno das igrejas. O Quimbira surgiu como uma alternativa para aqueles
-                    que não possuíam meios para tais cerimônias, funcionando de forma semelhante aos atuais cemitérios municipais para indigentes.
-                </p>
-
-                <div class="destaque">
-               Embora não existam documentos que provem rituais específicos, a própria persistência do nome "Quimbira" — que possui raízes 
-                    prováveis nas línguas de família Banto (o Quimbundo) e quer dizer "lugar de enterrar" — sugere que aquele campo era interpretado por essa comunidade como um 
-                    solo de pertencimento. É provável que, para além da administração oficial da Santa Casa, o local fosse considerado 
-                    um espaço sagrado e de conexão com a ancestralidade, onde a memória dos mortos era preservada sob uma ótica cultural 
-                    própria, mesmo em um contexto de exclusão.
+                <div class="destaque"  id= "destaque">
                 </div>
-
-                <p>
-                O ciclo do Kimbira chegou ao fim por volta de 1855, com a inauguração do Cemitério do Caju. Esse fechamento consolidou
-                    a transição definitiva para o modelo higienista moderno, que determinou que as necrópoles deveriam ser instaladas
-                    em áreas isoladas da cidade por questões de saúde pública. Com o tempo, o antigo campo santo deu lugar à Policlínica 
-                    Infantil e, posteriormente, à Faculdade de Medicina de Campos. 
-                </p>
-               
-            </div>
-        </div>
-        
     </div>
     
 </div>
@@ -801,6 +773,25 @@ document.addEventListener('keydown', (e) => {
 lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
 });
+    
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+fetch("conteudo.json")
+  .then(res => res.json())
+  .then(data => {
+    if (data[id]) {
+      document.getElementById("titulo").innerText = data[id].titulo;
+      document.getElementById("conteudo").innerHTML = data[id].conteudo;
+    } else {
+      document.getElementById("titulo").innerText = "Página";
+      document.getElementById("conteudo").innerHTML = "<p>Conteúdo não encontrado.</p>";
+    }
+  })
+  .catch(err => {
+    document.getElementById("conteudo").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
+    console.error(err);
+  });
 </script>
 
 </body>
