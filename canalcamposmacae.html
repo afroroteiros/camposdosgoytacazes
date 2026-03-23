@@ -208,8 +208,12 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
 <script>
 // ============================================
 // COLOQUE O ID DA SUA PLANILHA AQUI
+// O ID está no link de publicação da planilha
+// Exemplo: https://docs.google.com/spreadsheets/d/1ABC123DEF456/edit
+// O ID é: 1ABC123DEF456
 // ============================================
-const SHEET_ID = 'SEU_ID_DA_PLANILHA_AQUI';
+const SHEET_ID = '2PACX-1vSplmteQ1cqKcsNPwaVxLFP8Bh0VclzKrj00xKWllpFUkctB4gAqf33F_Oo65DTsX7MJQi9CnkQNVJd';
+const NOME_ABA = 'conteudo'; // Nome da aba da sua planilha
 
 // Estado do carrossel
 let currentSlide = 0;
@@ -226,17 +230,28 @@ async function buscarConteudo() {
         const pontoId = urlParams.get('ponto') || 'kimbira';
         
         console.log('🔍 Buscando ponto:', pontoId);
+        console.log('📊 ID da planilha:', SHEET_ID);
+        console.log('📄 Nome da aba:', NOME_ABA);
         
-        // URL para exportar como CSV
-        const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=conteudo`;
+        // URL CORRETA para exportar como CSV (usando o ID da planilha)
+        const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${NOME_ABA}`;
         
         console.log('📡 URL:', csvUrl);
         
         const response = await fetch(csvUrl);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const csvText = await response.text();
         
-        console.log('📄 CSV recebido (primeiros 500 caracteres):');
-        console.log(csvText.substring(0, 500));
+        console.log('📄 CSV recebido (primeiros 300 caracteres):');
+        console.log(csvText.substring(0, 300));
+        
+        if (!csvText || csvText.trim() === '') {
+            throw new Error('CSV vazio - verifique se a planilha está publicada');
+        }
         
         // Converter CSV para array de objetos
         const linhas = csvText.split('\n');
@@ -249,21 +264,17 @@ async function buscarConteudo() {
         const temTitulo = cabecalhos.includes('titulo');
         const temTexto = cabecalhos.includes('texto');
         
-        console.log('✅ Tem ID:', temId);
-        console.log('✅ Tem Título:', temTitulo);
-        console.log('✅ Tem Texto:', temTexto);
-        
         if (!temId || !temTitulo || !temTexto) {
-            console.warn('⚠️ Cabeçalhos não correspondem!');
-            console.log('Cabeçalhos esperados: id, titulo, texto');
-            console.log('Cabeçalhos encontrados:', cabecalhos);
+            console.warn('⚠️ Cabeçalhos não correspondem ao esperado!');
+            console.log('Esperado: id, titulo, texto');
+            console.log('Encontrado:', cabecalhos);
         }
         
         const dados = [];
         for (let i = 1; i < linhas.length; i++) {
             if (!linhas[i].trim()) continue;
             
-            // Parse CSV
+            // Parse CSV simples
             const valores = [];
             let dentroAspas = false;
             let valorAtual = '';
@@ -282,83 +293,89 @@ async function buscarConteudo() {
             
             const obj = {};
             cabecalhos.forEach((cab, idx) => {
-                obj[cab] = valores[idx] || '';
+                if (valores[idx] !== undefined) {
+                    obj[cab] = valores[idx];
+                }
             });
             dados.push(obj);
         }
         
         console.log('📊 Total de linhas carregadas:', dados.length);
-        console.log('📊 IDs disponíveis:', [...new Set(dados.map(d => d.id))]);
         
-        // Filtrar pelo ID do ponto (case insensitive)
-        const conteudoPonto = dados.filter(item => item.id && item.id.toLowerCase() === pontoId.toLowerCase());
-        
-        console.log(`🎯 Encontrados ${conteudoPonto.length} itens para o ID "${pontoId}"`);
-        
-        if (conteudoPonto.length === 0) {
-            // Fallback: tenta pegar qualquer conteúdo se não encontrar o ID
-            console.log('⚠️ ID não encontrado. Usando fallback...');
-            const primeiroId = [...new Set(dados.map(d => d.id))][0];
-            const fallback = dados.filter(item => item.id === primeiroId);
-            
-            if (fallback.length > 0) {
-                console.log(`🔄 Fallback: usando ID "${primeiroId}"`);
-                carregarConteudoNaPagina(fallback);
-                return;
-            }
-            throw new Error(`Nenhum conteúdo encontrado para o ID: ${pontoId}`);
+        if (dados.length === 0) {
+            throw new Error('Nenhum dado encontrado na planilha');
         }
         
-        carregarConteudoNaPagina(conteudoPonto);
+        // Mostrar os primeiros IDs disponíveis
+        const idsDisponiveis = [...new Set(dados.map(d => d.id).filter(id => id))];
+        console.log('📊 IDs disponíveis:', idsDisponiveis);
+        
+        // Filtrar pelo ID do ponto
+        let conteudoPonto = dados.filter(item => item.id && item.id.toLowerCase() === pontoId.toLowerCase());
+        
+        if (conteudoPonto.length === 0 && idsDisponiveis.length > 0) {
+            // Fallback: usa o primeiro ID disponível
+            console.log(`⚠️ ID "${pontoId}" não encontrado. Usando "${idsDisponiveis[0]}" como fallback`);
+            conteudoPonto = dados.filter(item => item.id === idsDisponiveis[0]);
+        }
+        
+        if (conteudoPonto.length === 0) {
+            throw new Error(`Nenhum conteúdo encontrado. IDs disponíveis: ${idsDisponiveis.join(', ')}`);
+        }
+        
+        console.log(`🎯 Encontrados ${conteudoPonto.length} itens`);
+        
+        // Carregar na página
+        const titulo = conteudoPonto[0].titulo;
+        document.getElementById('pontoTitulo').textContent = titulo;
+        document.title = `Afro-Roteiros | ${titulo} - Campos`;
+        
+        // Renderizar texto
+        const textContentDiv = document.getElementById('textContent');
+        textContentDiv.innerHTML = '';
+        
+        conteudoPonto.forEach((item, index) => {
+            // Verificar se é destaque (índice 2 ou contém palavras-chave)
+            const ehDestaque = index === 2 || 
+                               (item.texto && (item.texto.includes("fascinante") || 
+                                               item.texto.includes("ponto fascinante") ||
+                                               item.texto.includes("destaque")));
+            
+            if (ehDestaque) {
+                const div = document.createElement('div');
+                div.classList.add('destaque');
+                div.textContent = item.texto;
+                textContentDiv.appendChild(div);
+            } else {
+                const p = document.createElement('p');
+                p.textContent = item.texto;
+                textContentDiv.appendChild(p);
+            }
+        });
+        
+        console.log('✅ Conteúdo carregado com sucesso!');
         
     } catch (error) {
-        console.error('❌ Erro ao carregar conteúdo:', error);
+        console.error('❌ Erro:', error);
         document.getElementById('textContent').innerHTML = `
             <div style="text-align: center; padding: 40px; color: #790016;">
                 <i class="fas fa-exclamation-triangle" style="font-size: 30px; margin-bottom: 10px; display: block;"></i>
                 Erro ao carregar conteúdo.<br>
                 <small style="color: #999;">Verifique se a planilha está publicada e o ID está correto.</small>
                 <br><br>
-                <strong>ID atual:</strong> ${SHEET_ID}<br>
+                <strong>ID usado:</strong> ${SHEET_ID}<br>
                 <strong>Erro:</strong> ${error.message}
+                <br><br>
+                <strong>Como publicar a planilha:</strong><br>
+                1. Arquivo > Compartilhar > Publicar na web<br>
+                2. Escolher "Página da web" e a aba "${NOME_ABA}"<br>
+                3. Clicar em "Publicar"<br>
+                4. Copiar o ID da URL publicada
                 <br><br>
                 <button onclick="location.reload()" style="padding: 8px 20px; background: #790016; color: white; border: none; border-radius: 20px; cursor: pointer;">Tentar novamente</button>
             </div>
         `;
     }
-}
-
-function carregarConteudoNaPagina(conteudo) {
-    // Ordenar por ordem (se existir) ou manter ordem original
-    const ordenado = conteudo.sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
-    
-    // Atualizar título
-    const titulo = ordenado[0].titulo;
-    document.getElementById('pontoTitulo').textContent = titulo;
-    document.title = `Afro-Roteiros | ${titulo} - Campos`;
-    
-    // Renderizar texto
-    const textContentDiv = document.getElementById('textContent');
-    textContentDiv.innerHTML = '';
-    
-    ordenado.forEach((item, index) => {
-        const p = document.createElement('p');
-        p.textContent = item.texto;
-        
-        // Verificar se é destaque (primeiro, último, ou contém palavra-chave)
-        const ehDestaque = index === 2 || item.texto.includes("fascinante") || item.texto.includes("ponto fascinante");
-        
-        if (ehDestaque) {
-            const div = document.createElement('div');
-            div.classList.add('destaque');
-            div.textContent = item.texto;
-            textContentDiv.appendChild(div);
-        } else {
-            textContentDiv.appendChild(p);
-        }
-    });
-    
-    console.log('✅ Conteúdo carregado com sucesso!');
 }
 
 // Funções do carrossel
