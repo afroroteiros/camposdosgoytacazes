@@ -646,19 +646,14 @@ async function buscarTexto() {
         const text = await response.text();
         const dados = parseGoogleSheetData(text);
         
-        // Filtrar pelo ID do ponto (kimbira ou outro)
+        // Filtrar pelo ID do ponto 
         const urlParams = new URLSearchParams(window.location.search);
         const pontoId = urlParams.get('ponto') || 'kimbira';
         
         const conteudoPonto = dados.filter(item => item.id === pontoId);
         conteudoPonto.sort((a, b) => parseInt(a.ordem) - parseInt(b.ordem));
         
-        // Atualizar título se necessário
-        if (pontoId === 'canal-campos-macae') {
-            document.getElementById('pontoTitulo').textContent = 'Canal Campos–Macaé';
-        } else {
-            document.getElementById('pontoTitulo').textContent = 'Cemitério do Kimbira';
-        }
+       
         
         // Renderizar texto
         const textContent = document.getElementById('textContent');
