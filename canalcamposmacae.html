@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
-<title>Afro-Roteiros</title>
+<title>Afro-Roteiros | Cemitério do Kimbira - Campos</title>
 
 <!-- Fonte Inter e Merriweather -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
@@ -148,7 +148,7 @@ body {
     min-width: 0;
 }
 
-/* CARROSSEL */
+/* CARROSSEL DESKTOP */
 .carousel-section {
     display: flex;
     justify-content: center;
@@ -242,7 +242,7 @@ body {
     border-radius: 15px;
 }
 
-/* TEXTO */
+/* COLUNA DIREITA - TEXTO DESKTOP */
 .text-wrapper {
     flex: 0.9;
     min-width: 280px;
@@ -250,7 +250,6 @@ body {
     overflow-y: auto;
     padding-right: 10px;
     scrollbar-width: thin;
-    scrollbar-color: #790016 #f0f0f0;
 }
 
 .text-wrapper::-webkit-scrollbar {
@@ -314,7 +313,6 @@ p {
     gap: 6px;
 }
 
-/* FOOTER */
 .footer {
     text-align: center;
     padding: 28px 20px;
@@ -414,21 +412,7 @@ p {
     font-size: 14px;
 }
 
-/* LOADING */
-.loading {
-    text-align: center;
-    padding: 50px;
-    color: #790016;
-    font-size: 18px;
-}
-
-.loading i {
-    font-size: 30px;
-    margin-bottom: 10px;
-    display: block;
-}
-
-/* ========== MOBILE ========== */
+/* ========== MOBILE: LAYOUT ENTRELAÇADO ========== */
 @media (max-width: 768px) {
     body {
         padding-top: 60px;
@@ -474,13 +458,30 @@ p {
         padding: 0;
     }
     
+    .carousel-section {
+        margin: 0;
+        width: 100%;
+    }
+    
     .carousel-container {
         width: 100%;
         border-radius: 0;
+        box-shadow: 0 15px 25px -10px rgba(0, 0, 0, 0.2);
     }
     
     .carousel {
         padding-bottom: 66.67%;
+    }
+    
+    .click-hint {
+        bottom: 12px;
+        right: 12px;
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+    
+    .carousel-controls {
+        margin: 12px 0 20px;
     }
     
     .text-wrapper {
@@ -488,15 +489,52 @@ p {
         max-height: none;
         overflow-y: visible;
         padding-right: 0;
+        margin-top: 0;
+    }
+    
+    .text-section {
+        padding: 0;
     }
     
     p {
         font-size: 16px;
+        margin-bottom: 18px;
     }
     
     .destaque {
         font-size: 16px;
         padding: 16px 20px;
+        margin: 25px 0;
+    }
+    
+    .sources-footer {
+        font-size: 9px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: center;
+        padding: 12px 15px;
+    }
+    
+    .lightbox-nav {
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .lightbox-nav.prev {
+        left: 5px;
+    }
+    
+    .lightbox-nav.next {
+        right: 5px;
+    }
+    
+    .lightbox-close {
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -510,18 +548,66 @@ p {
         font-size: 16px;
     }
     
+    .cidade-titulo small {
+        font-size: 10px;
+    }
+    
+    .ponto-titulo h2 {
+        font-size: 22px;
+    }
+    
     .carousel {
         padding-bottom: 75%;
     }
 }
-</style>
 
+@media (min-width: 769px) and (max-width: 1024px) {
+    .content-wrapper {
+        gap: 20px;
+    }
+    
+    .text-wrapper {
+        max-height: 60vh;
+    }
+    
+    .logo {
+        max-width: 110px;
+    }
+    
+    .cidade-titulo {
+        font-size: 22px;
+    }
+    
+    p {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .main-container, .header {
+        max-width: 1400px;
+    }
+    
+    .logo {
+        max-width: 160px;
+        max-height: 85px;
+    }
+    
+    .cidade-titulo {
+        font-size: 28px;
+    }
+    
+    .cidade-titulo small {
+        font-size: 16px;
+    }
+}
+</style>
 </head>
 <body>
 
 <!-- TOP BAR -->
 <div class="top-bar">
-    <a href="/" class="home-link"><i class="fas fa-home"></i> <span>Home</span></a>
+    <a href="/"><i class="fas fa-home"></i> <span>Home</span></a>
     <span class="divisor">|</span>
     <a href="https://instagram.com/afroroteiros" target="_blank"><i class="fab fa-instagram"></i> <span>Instagram</span></a>
     <a href="https://facebook.com/afroroteiros" target="_blank"><i class="fab fa-facebook"></i> <span>Facebook</span></a>
@@ -539,22 +625,20 @@ p {
 
 <div class="main-container">
     
-   <div class="ponto-titulo">
+    <div class="ponto-titulo">
         <h2 id="pontoTitulo">Carregando...</h2>
     </div>
     
-    
     <div class="content-wrapper">
         
-        <!-- CARROSSEL (fixo no código) -->
         <div class="carousel-wrapper">
             <div class="carousel-section">
                 <div class="carousel-container" id="carouselClick">
-                    <div class="carousel" id="carouselSlides">
-                        <img src="imagens/kimbira-01.jpg" class="slide active" alt="Cemitério do Kimbira 1">
-                        <img src="imagens/kimbira-02.jpg" class="slide" alt="Cemitério do Kimbira 2">
-                        <img src="imagens/kimbira-03.jpg" class="slide" alt="Cemitério do Kimbira 3">
-                        <img src="imagens/kimbira-04.jpg" class="slide" alt="Cemitério do Kimbira 4">
+                    <div class="carousel">
+                        <img src="kimbira-01.jpg" class="slide active" alt="Cemitério do Kimbira 1" data-index="0">
+                        <img src="kimbira-02.jpg" class="slide" alt="Cemitério do Kimbira 2" data-index="1">
+                        <img src="kimbira-03.jpg" class="slide" alt="Cemitério do Kimbira 3" data-index="2">
+                        <img src="kimbira-04.jpg" class="slide" alt="Cemitério do Kimbira 4" data-index="3">
                     </div>
                     <div class="click-hint">
                         <svg viewBox="0 0 24 24">
@@ -565,7 +649,7 @@ p {
                 </div>
             </div>
             <div class="carousel-controls">
-                <div class="indicators" id="indicators">
+                <div class="indicators">
                     <span class="indicator active" data-index="0"></span>
                     <span class="indicator" data-index="1"></span>
                     <span class="indicator" data-index="2"></span>
@@ -574,10 +658,9 @@ p {
             </div>
         </div>
         
-        <!-- TEXTO (vem da planilha) -->
         <div class="text-wrapper">
             <div class="text-section" id="textContent">
-                <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Carregando conteúdo...</div>
+                <div style="text-align: center; padding: 40px;"><i class="fas fa-spinner fa-pulse"></i> Carregando conteúdo...</div>
             </div>
         </div>
         
@@ -585,10 +668,9 @@ p {
     
 </div>
 
-<!-- RODAPÉ DE FONTES (fixo) -->
 <div class="sources-footer">
     <span><i class="fas fa-camera"></i> Imagens: Acervo Afro-Roteiros | Arquivo Histórico de Campos</span>
-    <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos</span>
+    <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos | Referências: "Campos dos Goytacazes: História e Memória"</span>
     <span><i class="fas fa-calendar-alt"></i> Atualizado em: março de 2026</span>
 </div>
 
@@ -611,7 +693,7 @@ p {
 
 <script>
 // CONFIGURAÇÃO - SUBSTITUA PELO ID DA SUA PLANILHA
-const SHEET_ID = '1T_vZXdnjpR-Pup8i0D4-K25g5WcoHx_8OojDeGixF90';
+const SHEET_ID = 'SEU_ID_DA_PLANILHA_AQUI';
 
 // Estado do carrossel
 let currentSlide = 0;
@@ -638,43 +720,48 @@ function parseGoogleSheetData(jsonText) {
     });
 }
 
-// Buscar texto da planilha
-async function buscarTexto() {
+// Buscar conteúdo da planilha
+async function buscarConteudo() {
     try {
+        // Pegar o ID do ponto pela URL (ex: ?ponto=canal)
+        const urlParams = new URLSearchParams(window.location.search);
+        const pontoId = urlParams.get('ponto') || 'kimbira';
+        
         const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=conteudo`;
         const response = await fetch(url);
         const text = await response.text();
         const dados = parseGoogleSheetData(text);
         
-        // Filtrar pelo ID do ponto 
-        const urlParams = new URLSearchParams(window.location.search);
-        const pontoId = urlParams.get('ponto') || 'kimbira';
-        
+        // Filtrar pelo ID do ponto
         const conteudoPonto = dados.filter(item => item.id === pontoId);
         conteudoPonto.sort((a, b) => parseInt(a.ordem) - parseInt(b.ordem));
         
-       
+        // Atualizar título
+        if (conteudoPonto.length > 0) {
+            document.getElementById('pontoTitulo').textContent = conteudoPonto[0].titulo;
+            document.title = `Afro-Roteiros | ${conteudoPonto[0].titulo} - Campos`;
+        }
         
         // Renderizar texto
-        const textContent = document.getElementById('textContent');
-        textContent.innerHTML = '';
+        const textContentDiv = document.getElementById('textContent');
+        textContentDiv.innerHTML = '';
         
         conteudoPonto.forEach(item => {
             if (item.tipo === 'paragrafo') {
                 const p = document.createElement('p');
                 p.textContent = item.texto;
-                textContent.appendChild(p);
+                textContentDiv.appendChild(p);
             } else if (item.tipo === 'destaque') {
                 const div = document.createElement('div');
                 div.classList.add('destaque');
                 div.textContent = item.texto;
-                textContent.appendChild(div);
+                textContentDiv.appendChild(div);
             }
         });
         
     } catch (error) {
-        console.error('Erro ao carregar texto:', error);
-        document.getElementById('textContent').innerHTML = '<p style="color: red;">Erro ao carregar conteúdo da planilha.</p>';
+        console.error('Erro ao carregar conteúdo:', error);
+        document.getElementById('textContent').innerHTML = '<p style="color: red; text-align: center;">Erro ao carregar conteúdo da planilha. Verifique a conexão.</p>';
     }
 }
 
@@ -682,68 +769,60 @@ async function buscarTexto() {
 function showSlide(index) {
     slides.forEach(slide => slide.classList.remove('active'));
     indicators.forEach(ind => ind.classList.remove('active'));
-    
     slides[index].classList.add('active');
     indicators[index].classList.add('active');
     currentSlide = index;
 }
 
 function nextSlide() {
-    const next = (currentSlide + 1) % slides.length;
-    showSlide(next);
+    showSlide((currentSlide + 1) % slides.length);
 }
 
-function resetInterval() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 6000);
-}
+indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showSlide(index);
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 6000);
+    });
+});
+
+slideInterval = setInterval(nextSlide, 6000);
 
 // Lightbox
 function openLightbox(index) {
     currentSlide = index;
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightboxImage');
-    const lightboxCounter = document.getElementById('lightboxCounter');
-    
-    lightboxImage.src = slides[currentSlide].src;
-    lightboxCounter.textContent = `${currentSlide + 1} de ${slides.length}`;
+    updateLightboxImage();
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
+    lightbox.classList.remove('active');
     document.body.style.overflow = '';
+}
+
+function updateLightboxImage() {
+    lightboxImage.src = slides[currentSlide].src;
+    lightboxCounter.textContent = `${currentSlide + 1} de ${slides.length}`;
 }
 
 function prevImage() {
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    document.getElementById('lightboxImage').src = slides[currentSlide].src;
-    document.getElementById('lightboxCounter').textContent = `${currentSlide + 1} de ${slides.length}`;
+    updateLightboxImage();
 }
 
 function nextImage() {
     currentSlide = (currentSlide + 1) % slides.length;
-    document.getElementById('lightboxImage').src = slides[currentSlide].src;
-    document.getElementById('lightboxCounter').textContent = `${currentSlide + 1} de ${slides.length}`;
+    updateLightboxImage();
 }
 
-// Eventos
-indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showSlide(index);
-        resetInterval();
-    });
-});
-
 carouselContainer.addEventListener('click', () => openLightbox(currentSlide));
-document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-document.getElementById('lightboxPrev').addEventListener('click', prevImage);
-document.getElementById('lightboxNext').addEventListener('click', nextImage);
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxPrev.addEventListener('click', prevImage);
+lightboxNext.addEventListener('click', nextImage);
 
 document.addEventListener('keydown', (e) => {
-    const lightbox = document.getElementById('lightbox');
     if (lightbox.classList.contains('active')) {
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') prevImage();
@@ -751,13 +830,12 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-document.getElementById('lightbox').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('lightbox')) closeLightbox();
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
 });
 
 // Iniciar
-slideInterval = setInterval(nextSlide, 6000);
-buscarTexto();
+buscarConteudo();
 </script>
 
 </body>
