@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
-<title>Afro-Roteiros | Cemitério do Kimbira - Campos</title>
+<title>Afro-Roteiros | Carregando...</title>
 
 <!-- Fonte Inter e Merriweather -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
@@ -412,7 +412,19 @@ p {
     font-size: 14px;
 }
 
-/* ========== MOBILE: LAYOUT ENTRELAÇADO ========== */
+.loading-text {
+    text-align: center;
+    padding: 40px;
+    color: #790016;
+}
+
+.loading-text i {
+    font-size: 30px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* ========== MOBILE ========== */
 @media (max-width: 768px) {
     body {
         padding-top: 60px;
@@ -660,7 +672,7 @@ p {
         
         <div class="text-wrapper">
             <div class="text-section" id="textContent">
-                <div style="text-align: center; padding: 40px;"><i class="fas fa-spinner fa-pulse"></i> Carregando conteúdo...</div>
+                <div class="loading-text"><i class="fas fa-spinner fa-pulse"></i> Carregando conteúdo...</div>
             </div>
         </div>
         
@@ -670,7 +682,7 @@ p {
 
 <div class="sources-footer">
     <span><i class="fas fa-camera"></i> Imagens: Acervo Afro-Roteiros | Arquivo Histórico de Campos</span>
-    <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos | Referências: "Campos dos Goytacazes: História e Memória"</span>
+    <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos</span>
     <span><i class="fas fa-calendar-alt"></i> Atualizado em: março de 2026</span>
 </div>
 
@@ -692,7 +704,9 @@ p {
 </div>
 
 <script>
-// CONFIGURAÇÃO - SUBSTITUA PELO ID DA SUA PLANILHA
+// ============================================
+// CONFIGURAÇÃO - COLOQUE O ID DA SUA PLANILHA AQUI
+// ============================================
 const SHEET_ID = '1T_vZXdnjpR-Pup8i0D4-K25g5WcoHx_8OojDeGixF90';
 
 // Estado do carrossel
@@ -702,66 +716,101 @@ const indicators = document.querySelectorAll('.indicator');
 const carouselContainer = document.getElementById('carouselClick');
 let slideInterval;
 
-// Função para converter o JSON do Google Sheets
-function parseGoogleSheetData(jsonText) {
-    const jsonString = jsonText.substring(jsonText.indexOf('{'), jsonText.lastIndexOf('}') + 1);
-    const data = JSON.parse(jsonString);
-    
-    const table = data.table;
-    const rows = table.rows;
-    const headers = table.cols.map(col => col.label);
-    
-    return rows.map(row => {
-        const obj = {};
-        row.c.forEach((cell, idx) => {
-            obj[headers[idx]] = cell ? cell.v : '';
-        });
-        return obj;
-    });
-}
-
-// Buscar conteúdo da planilha
+// Função para buscar dados da planilha (compatível com id, titulo, texto)
 async function buscarConteudo() {
     try {
         // Pegar o ID do ponto pela URL (ex: ?ponto=canal)
         const urlParams = new URLSearchParams(window.location.search);
         const pontoId = urlParams.get('ponto') || 'kimbira';
         
-        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=conteudo`;
-        const response = await fetch(url);
-        const text = await response.text();
-        const dados = parseGoogleSheetData(text);
+        // URL para exportar como CSV
+        const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=conteudo`;
+        
+        console.log('Buscando conteúdo de:', csvUrl);
+        
+        const response = await fetch(csvUrl);
+        const csvText = await response.text();
+        
+        // Converter CSV para array de objetos
+        const linhas = csvText.split('\n');
+        const cabecalhos = linhas[0].split(',').map(h => h.replace(/"/g, '').trim());
+        
+        const dados = [];
+        for (let i = 1; i < linhas.length; i++) {
+            if (!linhas[i].trim()) continue;
+            
+            // Parse CSV simples
+            const valores = [];
+            let dentroAspas = false;
+            let valorAtual = '';
+            
+            for (let char of linhas[i]) {
+                if (char === '"') {
+                    dentroAspas = !dentroAspas;
+                } else if (char === ',' && !dentroAspas) {
+                    valores.push(valorAtual.replace(/^"|"$/g, '').trim());
+                    valorAtual = '';
+                } else {
+                    valorAtual += char;
+                }
+            }
+            valores.push(valorAtual.replace(/^"|"$/g, '').trim());
+            
+            const obj = {};
+            cabecalhos.forEach((cab, idx) => {
+                obj[cab] = valores[idx] || '';
+            });
+            dados.push(obj);
+        }
+        
+        console.log('Dados carregados:', dados.length, 'linhas');
         
         // Filtrar pelo ID do ponto
         const conteudoPonto = dados.filter(item => item.id === pontoId);
-        conteudoPonto.sort((a, b) => parseInt(a.ordem) - parseInt(b.ordem));
         
-        // Atualizar título
-        if (conteudoPonto.length > 0) {
-            document.getElementById('pontoTitulo').textContent = conteudoPonto[0].titulo;
-            document.title = `Afro-Roteiros | ${conteudoPonto[0].titulo} - Campos`;
+        if (conteudoPonto.length === 0) {
+            throw new Error(`Nenhum conteúdo encontrado para o ID: ${pontoId}`);
         }
         
-        // Renderizar texto
+        // Atualizar título (pega o título da primeira linha)
+        const titulo = conteudoPonto[0].titulo;
+        document.getElementById('pontoTitulo').textContent = titulo;
+        document.title = `Afro-Roteiros | ${titulo} - Campos`;
+        
+        // Renderizar texto (todos os parágrafos são do tipo "paragrafo")
         const textContentDiv = document.getElementById('textContent');
         textContentDiv.innerHTML = '';
         
-        conteudoPonto.forEach(item => {
-            if (item.tipo === 'paragrafo') {
-                const p = document.createElement('p');
-                p.textContent = item.texto;
-                textContentDiv.appendChild(p);
-            } else if (item.tipo === 'destaque') {
+        conteudoPonto.forEach((item, index) => {
+            const p = document.createElement('p');
+            p.textContent = item.texto;
+            
+            // Opcional: transformar o primeiro ou último parágrafo em destaque
+            // Se quiser destacar algum parágrafo específico, você pode identificar por palavras-chave
+            // Por exemplo, se o texto contém "fascinante" ou "destaque"
+            if (item.texto.includes("fascinante") || item.texto.includes("ponto fascinante")) {
                 const div = document.createElement('div');
                 div.classList.add('destaque');
                 div.textContent = item.texto;
                 textContentDiv.appendChild(div);
+            } else {
+                textContentDiv.appendChild(p);
             }
         });
         
+        console.log('Conteúdo carregado com sucesso!');
+        
     } catch (error) {
         console.error('Erro ao carregar conteúdo:', error);
-        document.getElementById('textContent').innerHTML = '<p style="color: red; text-align: center;">Erro ao carregar conteúdo da planilha. Verifique a conexão.</p>';
+        document.getElementById('textContent').innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #790016;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 30px; margin-bottom: 10px; display: block;"></i>
+                Erro ao carregar conteúdo.<br>
+                <small style="color: #999;">Verifique se a planilha está publicada e o ID está correto.</small>
+                <br><br>
+                <strong>ID atual:</strong> ${SHEET_ID}
+            </div>
+        `;
     }
 }
 
