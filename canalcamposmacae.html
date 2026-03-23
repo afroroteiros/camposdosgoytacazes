@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
-<title>Afro-Roteiros | Campos dos Goytacazes</title>
+<title>Afro-Roteiros | Cemitério do Kimbira</title>
 
 <!-- Fonte Inter e Merriweather -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
@@ -539,19 +539,22 @@ p {
 
 <div class="main-container">
     
-    <!-- TÍTULO DO PONTO -->
-    <div class="ponto-titulo">
+   <div class="ponto-titulo">
         <h2 id="pontoTitulo">Carregando...</h2>
     </div>
     
+    
     <div class="content-wrapper">
         
-        <!-- CARROSSEL -->
+        <!-- CARROSSEL (fixo no código) -->
         <div class="carousel-wrapper">
             <div class="carousel-section">
                 <div class="carousel-container" id="carouselClick">
                     <div class="carousel" id="carouselSlides">
-                        <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Carregando imagens...</div>
+                        <img src="imagens/kimbira-01.jpg" class="slide active" alt="Cemitério do Kimbira 1">
+                        <img src="imagens/kimbira-02.jpg" class="slide" alt="Cemitério do Kimbira 2">
+                        <img src="imagens/kimbira-03.jpg" class="slide" alt="Cemitério do Kimbira 3">
+                        <img src="imagens/kimbira-04.jpg" class="slide" alt="Cemitério do Kimbira 4">
                     </div>
                     <div class="click-hint">
                         <svg viewBox="0 0 24 24">
@@ -563,12 +566,15 @@ p {
             </div>
             <div class="carousel-controls">
                 <div class="indicators" id="indicators">
-                    <!-- Indicadores serão inseridos via JavaScript -->
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                    <span class="indicator" data-index="2"></span>
+                    <span class="indicator" data-index="3"></span>
                 </div>
             </div>
         </div>
         
-        <!-- TEXTO -->
+        <!-- TEXTO (vem da planilha) -->
         <div class="text-wrapper">
             <div class="text-section" id="textContent">
                 <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Carregando conteúdo...</div>
@@ -579,9 +585,11 @@ p {
     
 </div>
 
-<!-- RODAPÉ DE FONTES -->
-<div class="sources-footer" id="sourcesFooter">
-    <span><i class="fas fa-spinner fa-pulse"></i> Carregando fontes...</span>
+<!-- RODAPÉ DE FONTES (fixo) -->
+<div class="sources-footer">
+    <span><i class="fas fa-camera"></i> Imagens: Acervo Afro-Roteiros | Arquivo Histórico de Campos</span>
+    <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos</span>
+    <span><i class="fas fa-calendar-alt"></i> Atualizado em: março de 2026</span>
 </div>
 
 <div class="footer">
@@ -604,35 +612,16 @@ p {
 <script>
 // CONFIGURAÇÃO - SUBSTITUA PELO ID DA SUA PLANILHA
 const SHEET_ID = '1T_vZXdnjpR-Pup8i0D4-K25g5WcoHx_8OojDeGixF90';
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
-// Estado global
+// Estado do carrossel
 let currentSlide = 0;
-let slides = [];
-let indicators = [];
-let slideInterval;
-let conteudoAtual = null;
-
-// Elementos DOM
+const slides = document.querySelectorAll('.slide');
+const indicators = document.querySelectorAll('.indicator');
 const carouselContainer = document.getElementById('carouselClick');
-const carouselSlides = document.getElementById('carouselSlides');
-const indicatorsContainer = document.getElementById('indicators');
-const textContent = document.getElementById('textContent');
-const pontoTitulo = document.getElementById('pontoTitulo');
-const sourcesFooter = document.getElementById('sourcesFooter');
-const cidadeNome = document.getElementById('cidadeNome');
-
-// Lightbox elements
-const lightbox = document.getElementById('lightbox');
-const lightboxImage = document.getElementById('lightboxImage');
-const lightboxClose = document.getElementById('lightboxClose');
-const lightboxPrev = document.getElementById('lightboxPrev');
-const lightboxNext = document.getElementById('lightboxNext');
-const lightboxCounter = document.getElementById('lightboxCounter');
+let slideInterval;
 
 // Função para converter o JSON do Google Sheets
 function parseGoogleSheetData(jsonText) {
-    // Remove o prefixo do Google Sheets
     const jsonString = jsonText.substring(jsonText.indexOf('{'), jsonText.lastIndexOf('}') + 1);
     const data = JSON.parse(jsonString);
     
@@ -649,209 +638,117 @@ function parseGoogleSheetData(jsonText) {
     });
 }
 
-// Função para buscar dados de uma aba específica
-async function fetchSheet(sheetName) {
-    const url = `${SHEET_URL}&sheet=${encodeURIComponent(sheetName)}`;
-    const response = await fetch(url);
-    const text = await response.text();
-    return parseGoogleSheetData(text);
-}
-
-// Função principal para carregar todos os dados
-async function carregarConteudo() {
+// Buscar texto da planilha
+async function buscarTexto() {
     try {
-        // Definir qual ponto exibir (pode vir da URL ou ser fixo)
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=conteudo`;
+        const response = await fetch(url);
+        const text = await response.text();
+        const dados = parseGoogleSheetData(text);
+        
+        // Filtrar pelo ID do ponto (kimbira ou outro)
         const urlParams = new URLSearchParams(window.location.search);
-        const pontoSlug = urlParams.get('ponto') || 'kimbira';
+        const pontoId = urlParams.get('ponto') || 'kimbira';
         
-        // Buscar dados da planilha
-        const [cidadeData, pontosData, fontesData] = await Promise.all([
-            fetchSheet('cidade'),
-            fetchSheet('pontos'),
-            fetchSheet('fontes')
-        ]);
+        const conteudoPonto = dados.filter(item => item.id === pontoId);
+        conteudoPonto.sort((a, b) => parseInt(a.ordem) - parseInt(b.ordem));
         
-        // Atualizar nome da cidade
-        if (cidadeData.length > 0) {
-            cidadeNome.innerHTML = `${cidadeData[0].nome}<small>${cidadeData[0].estado}</small>`;
+        // Atualizar título se necessário
+        if (pontoId === 'canal-campos-macae') {
+            document.getElementById('pontoTitulo').textContent = 'Canal Campos–Macaé';
+        } else {
+            document.getElementById('pontoTitulo').textContent = 'Cemitério do Kimbira';
         }
         
-        // Encontrar o ponto solicitado
-        const ponto = pontosData.find(p => p.slug === pontoSlug) || pontosData[0];
-        if (!ponto) throw new Error('Ponto não encontrado');
+        // Renderizar texto
+        const textContent = document.getElementById('textContent');
+        textContent.innerHTML = '';
         
-        conteudoAtual = ponto;
-        
-        // Atualizar título
-        pontoTitulo.textContent = ponto.titulo;
-        
-        // Buscar conteúdo específico do ponto
-        const sheetConteudo = `conteudo_${pontoSlug.replace(/-/g, '_')}`;
-        let conteudo = [];
-        try {
-            conteudo = await fetchSheet(sheetConteudo);
-            conteudo.sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
-        } catch (e) {
-            console.warn(`Aba ${sheetConteudo} não encontrada`);
-            conteudo = [];
-        }
-        
-        // Carregar imagens
-        const imagens = ponto.imagens ? ponto.imagens.split(',').map(img => img.trim()) : [];
-        carregarImagens(imagens);
-        
-        // Carregar texto
-        carregarTexto(conteudo);
-        
-        // Carregar fontes
-        const fonte = fontesData.find(f => String(f.ponto_id) === String(ponto.id));
-        if (fonte) {
-            sourcesFooter.innerHTML = `
-                <span><i class="fas fa-camera"></i> Imagens: ${fonte.imagens || 'Acervo Afro-Roteiros'}</span>
-                <span><i class="fas fa-file-alt"></i> Conteúdo: ${fonte.conteudo || 'Pesquisa histórica'}</span>
-                <span><i class="fas fa-calendar-alt"></i> Atualizado em: ${fonte.data_atualizacao || 'março de 2026'}</span>
-            `;
-        }
+        conteudoPonto.forEach(item => {
+            if (item.tipo === 'paragrafo') {
+                const p = document.createElement('p');
+                p.textContent = item.texto;
+                textContent.appendChild(p);
+            } else if (item.tipo === 'destaque') {
+                const div = document.createElement('div');
+                div.classList.add('destaque');
+                div.textContent = item.texto;
+                textContent.appendChild(div);
+            }
+        });
         
     } catch (error) {
-        console.error('Erro ao carregar conteúdo:', error);
-        textContent.innerHTML = '<p style="color: red;">Erro ao carregar conteúdo. Verifique a conexão com a planilha.</p>';
+        console.error('Erro ao carregar texto:', error);
+        document.getElementById('textContent').innerHTML = '<p style="color: red;">Erro ao carregar conteúdo da planilha.</p>';
     }
-}
-
-// Função para carregar as imagens no carrossel
-function carregarImagens(imagens) {
-    carouselSlides.innerHTML = '';
-    indicatorsContainer.innerHTML = '';
-    
-    if (imagens.length === 0) {
-        carouselSlides.innerHTML = '<div class="loading">Nenhuma imagem disponível</div>';
-        return;
-    }
-    
-    imagens.forEach((img, index) => {
-        // Criar slide
-        const slide = document.createElement('img');
-        slide.src = `imagens/${img}`;
-        slide.alt = `${conteudoAtual.titulo} ${index + 1}`;
-        slide.classList.add('slide');
-        if (index === 0) slide.classList.add('active');
-        slide.setAttribute('data-index', index);
-        carouselSlides.appendChild(slide);
-        
-        // Criar indicador
-        const indicator = document.createElement('span');
-        indicator.classList.add('indicator');
-        if (index === 0) indicator.classList.add('active');
-        indicator.setAttribute('data-index', index);
-        indicator.addEventListener('click', (e) => {
-            e.stopPropagation();
-            showSlide(index);
-            resetInterval();
-        });
-        indicatorsContainer.appendChild(indicator);
-    });
-    
-    // Atualizar referências
-    slides = document.querySelectorAll('.slide');
-    indicators = document.querySelectorAll('.indicator');
-    
-    // Iniciar carrossel automático
-    if (slideInterval) clearInterval(slideInterval);
-    if (slides.length > 1) {
-        slideInterval = setInterval(nextSlide, 6000);
-    }
-}
-
-// Função para carregar o texto
-function carregarTexto(conteudo) {
-    textContent.innerHTML = '';
-    
-    if (conteudo.length === 0) {
-        textContent.innerHTML = '<p>Conteúdo em breve.</p>';
-        return;
-    }
-    
-    conteudo.forEach(item => {
-        if (item.tipo === 'paragrafo') {
-            const p = document.createElement('p');
-            p.textContent = item.texto;
-            textContent.appendChild(p);
-        } else if (item.tipo === 'destaque') {
-            const div = document.createElement('div');
-            div.classList.add('destaque');
-            div.textContent = item.texto;
-            textContent.appendChild(div);
-        }
-    });
 }
 
 // Funções do carrossel
 function showSlide(index) {
-    if (!slides.length) return;
     slides.forEach(slide => slide.classList.remove('active'));
     indicators.forEach(ind => ind.classList.remove('active'));
     
     slides[index].classList.add('active');
     indicators[index].classList.add('active');
-    
     currentSlide = index;
 }
 
 function nextSlide() {
-    if (!slides.length) return;
     const next = (currentSlide + 1) % slides.length;
     showSlide(next);
 }
 
 function resetInterval() {
-    if (slideInterval) {
-        clearInterval(slideInterval);
-        if (slides.length > 1) {
-            slideInterval = setInterval(nextSlide, 6000);
-        }
-    }
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, 6000);
 }
 
-// Funções do lightbox
+// Lightbox
 function openLightbox(index) {
-    if (!slides.length) return;
     currentSlide = index;
-    updateLightboxImage();
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    
+    lightboxImage.src = slides[currentSlide].src;
+    lightboxCounter.textContent = `${currentSlide + 1} de ${slides.length}`;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
-    lightbox.classList.remove('active');
+    document.getElementById('lightbox').classList.remove('active');
     document.body.style.overflow = '';
-}
-
-function updateLightboxImage() {
-    const currentImage = slides[currentSlide];
-    lightboxImage.src = currentImage.src;
-    lightboxCounter.textContent = `${currentSlide + 1} de ${slides.length}`;
 }
 
 function prevImage() {
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    updateLightboxImage();
+    document.getElementById('lightboxImage').src = slides[currentSlide].src;
+    document.getElementById('lightboxCounter').textContent = `${currentSlide + 1} de ${slides.length}`;
 }
 
 function nextImage() {
     currentSlide = (currentSlide + 1) % slides.length;
-    updateLightboxImage();
+    document.getElementById('lightboxImage').src = slides[currentSlide].src;
+    document.getElementById('lightboxCounter').textContent = `${currentSlide + 1} de ${slides.length}`;
 }
 
 // Eventos
-carouselContainer.addEventListener('click', () => {
-    if (slides.length) openLightbox(currentSlide);
+indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showSlide(index);
+        resetInterval();
+    });
 });
-lightboxClose.addEventListener('click', closeLightbox);
-lightboxPrev.addEventListener('click', prevImage);
-lightboxNext.addEventListener('click', nextImage);
+
+carouselContainer.addEventListener('click', () => openLightbox(currentSlide));
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+document.getElementById('lightboxPrev').addEventListener('click', prevImage);
+document.getElementById('lightboxNext').addEventListener('click', nextImage);
 
 document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
     if (lightbox.classList.contains('active')) {
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') prevImage();
@@ -859,12 +756,13 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
+document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
 });
 
-// Inicializar
-carregarConteudo();
+// Iniciar
+slideInterval = setInterval(nextSlide, 6000);
+buscarTexto();
 </script>
 
 </body>
