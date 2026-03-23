@@ -208,12 +208,9 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
 <script>
 // ============================================
 // COLOQUE O ID DA SUA PLANILHA AQUI
-// O ID está no link de publicação da planilha
-// Exemplo: https://docs.google.com/spreadsheets/d/1ABC123DEF456/edit
-// O ID é: 1ABC123DEF456
 // ============================================
-const SHEET_ID = '1T_vZXdnjpR-Pup8i0D4-K25g5WcoHx_8OojDeGixF90';
-const NOME_ABA = 'Roteiro1'; // Nome da aba da sua planilha
+const SHEET_ID = 'SEU_ID_DA_PLANILHA_AQUI';
+const NOME_ABA = 'conteudo';
 
 // Estado do carrossel
 let currentSlide = 0;
@@ -222,18 +219,43 @@ const indicators = document.querySelectorAll('.indicator');
 const carouselContainer = document.getElementById('carouselClick');
 let slideInterval;
 
+// Função para quebrar o texto em parágrafos
+function quebrarEmParagrafos(texto) {
+    // Divide por quebras de linha (\n\n) ou por pontos finais seguidos de espaço
+    let paragrafos = texto.split(/\n\s*\n/);
+    
+    if (paragrafos.length === 1) {
+        // Se não tem quebra de linha dupla, tenta quebrar por frases
+        paragrafos = texto.split(/(?<=\.)\s+(?=[A-ZÁÀÂÃÉÊÍÓÔÕÚÇ])/);
+    }
+    
+    return paragrafos.map(p => p.trim()).filter(p => p.length > 0);
+}
+
+// Função para detectar se um parágrafo é destaque
+function ehDestaque(texto, index) {
+    // Palavras que indicam destaque
+    const palavrasDestaque = ['fascinante', 'ponto fascinante', 'destaque', 'importante', 'simbólico'];
+    
+    // Verifica se contém alguma palavra-chave
+    const contemPalavraChave = palavrasDestaque.some(palavra => 
+        texto.toLowerCase().includes(palavra.toLowerCase())
+    );
+    
+    // Primeiro parágrafo ou se contém palavra-chave
+    return index === 0 || contemPalavraChave;
+}
+
 // Função para buscar dados da planilha
 async function buscarConteudo() {
     try {
-        // Pegar o ID do ponto pela URL (ex: ?ponto=canal)
+        // Pegar o ID do ponto pela URL
         const urlParams = new URLSearchParams(window.location.search);
-        const pontoId = urlParams.get('ponto') || 'kimbira';
+        let pontoId = urlParams.get('ponto');
         
-        console.log('🔍 Buscando ponto:', pontoId);
-        console.log('📊 ID da planilha:', SHEET_ID);
-        console.log('📄 Nome da aba:', NOME_ABA);
+        console.log('🔍 Ponto solicitado:', pontoId || '(nenhum, usaremos o primeiro)');
         
-        // URL CORRETA para exportar como CSV (usando o ID da planilha)
+        // URL para exportar como CSV
         const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${NOME_ABA}`;
         
         console.log('📡 URL:', csvUrl);
@@ -246,9 +268,6 @@ async function buscarConteudo() {
         
         const csvText = await response.text();
         
-        console.log('📄 CSV recebido (primeiros 300 caracteres):');
-        console.log(csvText.substring(0, 300));
-        
         if (!csvText || csvText.trim() === '') {
             throw new Error('CSV vazio - verifique se a planilha está publicada');
         }
@@ -257,24 +276,12 @@ async function buscarConteudo() {
         const linhas = csvText.split('\n');
         const cabecalhos = linhas[0].split(',').map(h => h.replace(/"/g, '').trim().toLowerCase());
         
-        console.log('📋 Cabeçalhos encontrados:', cabecalhos);
-        
-        // Verificar se tem os cabeçalhos esperados
-        const temId = cabecalhos.includes('id');
-        const temTitulo = cabecalhos.includes('titulo');
-        const temTexto = cabecalhos.includes('texto');
-        
-        if (!temId || !temTitulo || !temTexto) {
-            console.warn('⚠️ Cabeçalhos não correspondem ao esperado!');
-            console.log('Esperado: id, titulo, texto');
-            console.log('Encontrado:', cabecalhos);
-        }
+        console.log('📋 Cabeçalhos:', cabecalhos);
         
         const dados = [];
         for (let i = 1; i < linhas.length; i++) {
             if (!linhas[i].trim()) continue;
             
-            // Parse CSV simples
             const valores = [];
             let dentroAspas = false;
             let valorAtual = '';
@@ -300,55 +307,53 @@ async function buscarConteudo() {
             dados.push(obj);
         }
         
-        console.log('📊 Total de linhas carregadas:', dados.length);
+        console.log('📊 Total de linhas:', dados.length);
         
         if (dados.length === 0) {
             throw new Error('Nenhum dado encontrado na planilha');
         }
         
-        // Mostrar os primeiros IDs disponíveis
-        const idsDisponiveis = [...new Set(dados.map(d => d.id).filter(id => id))];
-        console.log('📊 IDs disponíveis:', idsDisponiveis);
+        // Mostrar os IDs disponíveis
+        const idsUnicos = [...new Set(dados.map(d => d.id).filter(id => id && id.trim()))];
+        console.log('📊 IDs disponíveis:', idsUnicos);
         
-        // Filtrar pelo ID do ponto
-        let conteudoPonto = dados.filter(item => item.id && item.id.toLowerCase() === pontoId.toLowerCase());
-        
-        if (conteudoPonto.length === 0 && idsDisponiveis.length > 0) {
-            // Fallback: usa o primeiro ID disponível
-            console.log(`⚠️ ID "${pontoId}" não encontrado. Usando "${idsDisponiveis[0]}" como fallback`);
-            conteudoPonto = dados.filter(item => item.id === idsDisponiveis[0]);
+        // Se não foi passado ID na URL, usar o primeiro
+        if (!pontoId && idsUnicos.length > 0) {
+            pontoId = idsUnicos[0];
+            console.log(`🔄 Nenhum ID na URL. Usando: "${pontoId}"`);
         }
         
-        if (conteudoPonto.length === 0) {
-            throw new Error(`Nenhum conteúdo encontrado. IDs disponíveis: ${idsDisponiveis.join(', ')}`);
+        // Buscar o item pelo ID
+        const item = dados.find(d => d.id && d.id.toLowerCase() === pontoId.toLowerCase());
+        
+        if (!item) {
+            throw new Error(`ID "${pontoId}" não encontrado. IDs disponíveis: ${idsUnicos.join(', ')}`);
         }
         
-        console.log(`🎯 Encontrados ${conteudoPonto.length} itens`);
+        console.log('✅ Item encontrado:', item);
         
-        // Carregar na página
-        const titulo = conteudoPonto[0].titulo;
+        // Atualizar título
+        const titulo = item.titulo;
         document.getElementById('pontoTitulo').textContent = titulo;
         document.title = `Afro-Roteiros | ${titulo} - Campos`;
         
-        // Renderizar texto
+        // Quebrar o texto em parágrafos
+        const paragrafos = quebrarEmParagrafos(item.texto);
+        console.log(`📄 Texto quebrado em ${paragrafos.length} parágrafos`);
+        
+        // Renderizar o texto
         const textContentDiv = document.getElementById('textContent');
         textContentDiv.innerHTML = '';
         
-        conteudoPonto.forEach((item, index) => {
-            // Verificar se é destaque (índice 2 ou contém palavras-chave)
-            const ehDestaque = index === 2 || 
-                               (item.texto && (item.texto.includes("fascinante") || 
-                                               item.texto.includes("ponto fascinante") ||
-                                               item.texto.includes("destaque")));
-            
-            if (ehDestaque) {
+        paragrafos.forEach((paragrafo, index) => {
+            if (ehDestaque(paragrafo, index)) {
                 const div = document.createElement('div');
                 div.classList.add('destaque');
-                div.textContent = item.texto;
+                div.textContent = paragrafo;
                 textContentDiv.appendChild(div);
             } else {
                 const p = document.createElement('p');
-                p.textContent = item.texto;
+                p.textContent = paragrafo;
                 textContentDiv.appendChild(p);
             }
         });
@@ -361,16 +366,13 @@ async function buscarConteudo() {
             <div style="text-align: center; padding: 40px; color: #790016;">
                 <i class="fas fa-exclamation-triangle" style="font-size: 30px; margin-bottom: 10px; display: block;"></i>
                 Erro ao carregar conteúdo.<br>
-                <small style="color: #999;">Verifique se a planilha está publicada e o ID está correto.</small>
+                <small style="color: #999;">${error.message}</small>
                 <br><br>
-                <strong>ID usado:</strong> ${SHEET_ID}<br>
-                <strong>Erro:</strong> ${error.message}
-                <br><br>
-                <strong>Como publicar a planilha:</strong><br>
-                1. Arquivo > Compartilhar > Publicar na web<br>
-                2. Escolher "Página da web" e a aba "${NOME_ABA}"<br>
-                3. Clicar em "Publicar"<br>
-                4. Copiar o ID da URL publicada
+                <strong>Verifique:</strong><br>
+                1. A planilha está publicada? (Arquivo > Publicar na web)<br>
+                2. O ID da planilha está correto?<br>
+                3. A aba se chama "${NOME_ABA}"?<br>
+                4. As colunas são: id, titulo, texto?
                 <br><br>
                 <button onclick="location.reload()" style="padding: 8px 20px; background: #790016; color: white; border: none; border-radius: 20px; cursor: pointer;">Tentar novamente</button>
             </div>
