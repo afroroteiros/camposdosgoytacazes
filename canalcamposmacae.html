@@ -13,18 +13,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #ffffff;
-    color: #1a1a1a;
-    line-height: 1.7;
-    padding-top: 70px;
-}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Inter', sans-serif; background: #ffffff; color: #1a1a1a; line-height: 1.7; padding-top: 70px; }
 
 /* HEADER SUPERIOR FIXO */
 .top-bar {
@@ -43,575 +33,87 @@ body {
     gap: 20px;
     font-size: 14px;
 }
-
-.top-bar a {
-    color: #3D441E;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.top-bar a:hover {
-    color: #790016;
-    transform: translateY(-1px);
-}
-
-.top-bar i {
-    font-size: 16px;
-}
-
-.top-bar .divisor {
-    color: #ddd;
-    font-size: 18px;
-}
+.top-bar a { color: #3D441E; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; font-weight: 500; }
+.top-bar a:hover { color: #790016; transform: translateY(-1px); }
+.top-bar i { font-size: 16px; }
+.top-bar .divisor { color: #ddd; font-size: 18px; }
 
 /* HEADER PRINCIPAL */
-.header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    padding: 20px 20px 10px;
-    background: transparent;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 15px;
-}
-
-.logo {
-    width: auto;
-    height: auto;
-    max-width: 140px;
-    max-height: 70px;
-    object-fit: contain;
-    flex-shrink: 0;
-}
-
-.cidade-titulo {
-    font-family: 'Inter', sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: #3D441E;
-    margin: 0;
-    line-height: 1.2;
-    flex-shrink: 1;
-}
-
-.cidade-titulo small {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    color: #790016;
-    display: block;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    line-height: 1.3;
-}
+.header { display: flex; align-items: flex-end; justify-content: flex-start; padding: 20px 20px 10px; background: transparent; max-width: 1200px; margin: 0 auto; gap: 15px; }
+.logo { width: auto; height: auto; max-width: 140px; max-height: 70px; object-fit: contain; flex-shrink: 0; }
+.cidade-titulo { font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 600; color: #3D441E; margin: 0; line-height: 1.2; flex-shrink: 1; }
+.cidade-titulo small { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400; color: #790016; display: block; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; }
 
 /* CONTAINER PRINCIPAL */
-.main-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* TÍTULO DO PONTO HISTÓRICO */
-.ponto-titulo {
-    margin: 20px 0 20px 0;
-}
-
-.ponto-titulo h2 {
-    font-family: 'Merriweather', serif;
-    font-size: 32px;
-    font-weight: 700;
-    margin: 0 0 5px 0;
-    line-height: 1.3;
-    color: #1a1a1a;
-    border-bottom: 2px solid #790016;
-    padding-bottom: 8px;
-    display: inline-block;
-}
+.main-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.ponto-titulo { margin: 20px 0 20px 0; }
+.ponto-titulo h2 { font-family: 'Merriweather', serif; font-size: 32px; font-weight: 700; margin: 0 0 5px 0; line-height: 1.3; color: #1a1a1a; border-bottom: 2px solid #790016; padding-bottom: 8px; display: inline-block; }
 
 /* LAYOUT DESKTOP: DUAS COLUNAS */
-.content-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    margin: 20px 0 40px 0;
-    align-items: flex-start;
-}
+.content-wrapper { display: flex; flex-direction: row; gap: 30px; margin: 20px 0 40px 0; align-items: flex-start; }
+.carousel-wrapper { flex: 1.2; min-width: 0; }
+.carousel-section { display: flex; justify-content: center; margin: 0; }
+.carousel-container { width: 100%; position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.3); cursor: pointer; transition: transform 0.3s ease; }
+.carousel-container:hover { transform: scale(1.02); }
+.carousel { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; background: #f0f0f0; }
+.slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease-in-out; pointer-events: none; }
+.slide.active { opacity: 1; }
+.click-hint { position: absolute; bottom: 15px; right: 15px; background: rgba(0, 0, 0, 0.6); color: white; padding: 8px 12px; border-radius: 30px; font-size: 12px; display: flex; align-items: center; gap: 6px; z-index: 10; backdrop-filter: blur(5px); pointer-events: none; }
+.click-hint svg { width: 16px; height: 16px; fill: white; }
+.carousel-controls { display: flex; justify-content: center; margin-top: 16px; }
+.indicators { display: flex; gap: 10px; }
+.indicator { width: 10px; height: 10px; border-radius: 50%; background: #ccc; transition: all 0.3s ease; cursor: pointer; }
+.indicator.active { background: #790016; width: 30px; border-radius: 15px; }
 
-.carousel-wrapper {
-    flex: 1.2;
-    min-width: 0;
-}
+/* TEXTO */
+.text-wrapper { flex: 0.9; min-width: 280px; max-height: 70vh; overflow-y: auto; padding-right: 10px; scrollbar-width: thin; }
+.text-wrapper::-webkit-scrollbar { width: 6px; }
+.text-wrapper::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 10px; }
+.text-wrapper::-webkit-scrollbar-thumb { background: #790016; border-radius: 10px; }
+.text-section { margin: 0; }
+p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: inter-word; hyphens: auto; }
+.destaque { border-left: 4px solid #790016; margin: 30px 0; font-weight: 500; font-size: 18px; background: #fafafa; padding: 20px 24px; border-radius: 0 16px 16px 0; text-align: justify; color: #2a2a2a; line-height: 1.8; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); }
 
-/* CARROSSEL DESKTOP */
-.carousel-section {
-    display: flex;
-    justify-content: center;
-    margin: 0;
-}
-
-.carousel-container {
-    width: 100%;
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.carousel-container:hover {
-    transform: scale(1.02);
-}
-
-.carousel {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%;
-    background: #f0f0f0;
-}
-
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1.2s ease-in-out;
-    pointer-events: none;
-}
-
-.slide.active {
-    opacity: 1;
-}
-
-.click-hint {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 30px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    z-index: 10;
-    backdrop-filter: blur(5px);
-    pointer-events: none;
-}
-
-.click-hint svg {
-    width: 16px;
-    height: 16px;
-    fill: white;
-}
-
-.carousel-controls {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
-}
-
-.indicators {
-    display: flex;
-    gap: 10px;
-}
-
-.indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #ccc;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.indicator.active {
-    background: #790016;
-    width: 30px;
-    border-radius: 15px;
-}
-
-/* COLUNA DIREITA - TEXTO DESKTOP */
-.text-wrapper {
-    flex: 0.9;
-    min-width: 280px;
-    max-height: 70vh;
-    overflow-y: auto;
-    padding-right: 10px;
-    scrollbar-width: thin;
-}
-
-.text-wrapper::-webkit-scrollbar {
-    width: 6px;
-}
-
-.text-wrapper::-webkit-scrollbar-track {
-    background: #f0f0f0;
-    border-radius: 10px;
-}
-
-.text-wrapper::-webkit-scrollbar-thumb {
-    background: #790016;
-    border-radius: 10px;
-}
-
-.text-section {
-    margin: 0;
-}
-
-p {
-    font-size: 17px;
-    margin-bottom: 20px;
-    text-align: justify;
-    text-justify: inter-word;
-    hyphens: auto;
-}
-
-.destaque {
-    border-left: 4px solid #790016;
-    margin: 30px 0;
-    font-weight: 500;
-    font-size: 18px;
-    background: #fafafa;
-    padding: 20px 24px;
-    border-radius: 0 16px 16px 0;
-    text-align: justify;
-    color: #2a2a2a;
-    line-height: 1.8;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-}
-
-/* RODAPÉ DE FONTES */
-.sources-footer {
-    max-width: 1200px;
-    margin: 20px auto 40px;
-    padding: 15px 20px;
-    border-top: 1px solid #eee;
-    font-size: 11px;
-    color: #999;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
-}
-
-.sources-footer span {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.footer {
-    text-align: center;
-    padding: 28px 20px;
-    background: #111;
-    color: white;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-}
+/* RODAPÉ */
+.sources-footer { max-width: 1200px; margin: 20px auto 40px; padding: 15px 20px; border-top: 1px solid #eee; font-size: 11px; color: #999; text-align: center; display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
+.sources-footer span { display: inline-flex; align-items: center; gap: 6px; }
+.footer { text-align: center; padding: 28px 20px; background: #111; color: white; font-size: 14px; letter-spacing: 0.5px; }
 
 /* LIGHTBOX */
-.lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(10px);
-}
+.lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+.lightbox.active { display: flex; }
+.lightbox-content { position: relative; width: 90%; height: 90%; display: flex; justify-content: center; align-items: center; }
+.lightbox-image { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
+.lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.1); border-radius: 50%; transition: all 0.3s; }
+.lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; font-size: 50px; cursor: pointer; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+.lightbox-nav.prev { left: 20px; }
+.lightbox-nav.next { right: 20px; }
+.lightbox-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; background: rgba(0, 0, 0, 0.5); padding: 8px 16px; border-radius: 30px; font-size: 14px; }
 
-.lightbox.active {
-    display: flex;
-}
+.loading-text { text-align: center; padding: 40px; color: #790016; }
+.loading-text i { font-size: 30px; margin-bottom: 10px; display: block; }
 
-.lightbox-content {
-    position: relative;
-    width: 90%;
-    height: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.lightbox-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 8px;
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    transition: all 0.3s;
-}
-
-.lightbox-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: white;
-    font-size: 50px;
-    cursor: pointer;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-}
-
-.lightbox-nav.prev {
-    left: 20px;
-}
-
-.lightbox-nav.next {
-    right: 20px;
-}
-
-.lightbox-counter {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 14px;
-}
-
-.loading-text {
-    text-align: center;
-    padding: 40px;
-    color: #790016;
-}
-
-.loading-text i {
-    font-size: 30px;
-    margin-bottom: 10px;
-    display: block;
-}
-
-/* ========== MOBILE ========== */
+/* MOBILE */
 @media (max-width: 768px) {
-    body {
-        padding-top: 60px;
-    }
-    
-    .top-bar {
-        padding: 8px 15px;
-        font-size: 12px;
-        gap: 12px;
-    }
-    
-    .header {
-        padding: 12px 15px 8px;
-        gap: 10px;
-    }
-    
-    .logo {
-        max-width: 85px;
-        max-height: 55px;
-    }
-    
-    .cidade-titulo {
-        font-size: 18px;
-    }
-    
-    .cidade-titulo small {
-        font-size: 11px;
-    }
-    
-    .ponto-titulo h2 {
-        font-size: 24px;
-    }
-    
-    .content-wrapper {
-        flex-direction: column;
-        gap: 0;
-        margin: 0 0 30px 0;
-    }
-    
-    .carousel-wrapper {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .carousel-section {
-        margin: 0;
-        width: 100%;
-    }
-    
-    .carousel-container {
-        width: 100%;
-        border-radius: 0;
-        box-shadow: 0 15px 25px -10px rgba(0, 0, 0, 0.2);
-    }
-    
-    .carousel {
-        padding-bottom: 66.67%;
-    }
-    
-    .click-hint {
-        bottom: 12px;
-        right: 12px;
-        font-size: 10px;
-        padding: 6px 10px;
-    }
-    
-    .carousel-controls {
-        margin: 12px 0 20px;
-    }
-    
-    .text-wrapper {
-        width: 100%;
-        max-height: none;
-        overflow-y: visible;
-        padding-right: 0;
-        margin-top: 0;
-    }
-    
-    .text-section {
-        padding: 0;
-    }
-    
-    p {
-        font-size: 16px;
-        margin-bottom: 18px;
-    }
-    
-    .destaque {
-        font-size: 16px;
-        padding: 16px 20px;
-        margin: 25px 0;
-    }
-    
-    .sources-footer {
-        font-size: 9px;
-        gap: 12px;
-        flex-direction: column;
-        align-items: center;
-        padding: 12px 15px;
-    }
-    
-    .lightbox-nav {
-        font-size: 30px;
-        width: 40px;
-        height: 40px;
-    }
-    
-    .lightbox-nav.prev {
-        left: 5px;
-    }
-    
-    .lightbox-nav.next {
-        right: 5px;
-    }
-    
-    .lightbox-close {
-        top: 10px;
-        right: 15px;
-        font-size: 30px;
-        width: 40px;
-        height: 40px;
-    }
+    body { padding-top: 60px; }
+    .top-bar { padding: 8px 15px; font-size: 12px; gap: 12px; }
+    .header { padding: 12px 15px 8px; gap: 10px; }
+    .logo { max-width: 85px; max-height: 55px; }
+    .cidade-titulo { font-size: 18px; }
+    .cidade-titulo small { font-size: 11px; }
+    .ponto-titulo h2 { font-size: 24px; }
+    .content-wrapper { flex-direction: column; gap: 0; margin: 0 0 30px 0; }
+    .carousel-wrapper { width: 100%; margin: 0; padding: 0; }
+    .carousel-container { width: 100%; border-radius: 0; }
+    .carousel { padding-bottom: 66.67%; }
+    .text-wrapper { width: 100%; max-height: none; overflow-y: visible; padding-right: 0; }
+    p { font-size: 16px; }
+    .destaque { font-size: 16px; padding: 16px 20px; }
 }
-
 @media (max-width: 480px) {
-    .logo {
-        max-width: 75px;
-        max-height: 50px;
-    }
-    
-    .cidade-titulo {
-        font-size: 16px;
-    }
-    
-    .cidade-titulo small {
-        font-size: 10px;
-    }
-    
-    .ponto-titulo h2 {
-        font-size: 22px;
-    }
-    
-    .carousel {
-        padding-bottom: 75%;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .content-wrapper {
-        gap: 20px;
-    }
-    
-    .text-wrapper {
-        max-height: 60vh;
-    }
-    
-    .logo {
-        max-width: 110px;
-    }
-    
-    .cidade-titulo {
-        font-size: 22px;
-    }
-    
-    p {
-        font-size: 16px;
-    }
-}
-
-@media (min-width: 1400px) {
-    .main-container, .header {
-        max-width: 1400px;
-    }
-    
-    .logo {
-        max-width: 160px;
-        max-height: 85px;
-    }
-    
-    .cidade-titulo {
-        font-size: 28px;
-    }
-    
-    .cidade-titulo small {
-        font-size: 16px;
-    }
+    .logo { max-width: 75px; max-height: 50px; }
+    .cidade-titulo { font-size: 16px; }
+    .carousel { padding-bottom: 75%; }
 }
 </style>
 </head>
@@ -705,9 +207,9 @@ p {
 
 <script>
 // ============================================
-// CONFIGURAÇÃO - COLOQUE O ID DA SUA PLANILHA AQUI
+// COLOQUE O ID DA SUA PLANILHA AQUI
 // ============================================
-const SHEET_ID = '1T_vZXdnjpR-Pup8i0D4-K25g5WcoHx_8OojDeGixF90';
+const SHEET_ID = 'SEU_ID_DA_PLANILHA_AQUI';
 
 // Estado do carrossel
 let currentSlide = 0;
@@ -716,30 +218,52 @@ const indicators = document.querySelectorAll('.indicator');
 const carouselContainer = document.getElementById('carouselClick');
 let slideInterval;
 
-// Função para buscar dados da planilha (compatível com id, titulo, texto)
+// Função para buscar dados da planilha
 async function buscarConteudo() {
     try {
         // Pegar o ID do ponto pela URL (ex: ?ponto=canal)
         const urlParams = new URLSearchParams(window.location.search);
         const pontoId = urlParams.get('ponto') || 'kimbira';
         
+        console.log('🔍 Buscando ponto:', pontoId);
+        
         // URL para exportar como CSV
         const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=conteudo`;
         
-        console.log('Buscando conteúdo de:', csvUrl);
+        console.log('📡 URL:', csvUrl);
         
         const response = await fetch(csvUrl);
         const csvText = await response.text();
         
+        console.log('📄 CSV recebido (primeiros 500 caracteres):');
+        console.log(csvText.substring(0, 500));
+        
         // Converter CSV para array de objetos
         const linhas = csvText.split('\n');
-        const cabecalhos = linhas[0].split(',').map(h => h.replace(/"/g, '').trim());
+        const cabecalhos = linhas[0].split(',').map(h => h.replace(/"/g, '').trim().toLowerCase());
+        
+        console.log('📋 Cabeçalhos encontrados:', cabecalhos);
+        
+        // Verificar se tem os cabeçalhos esperados
+        const temId = cabecalhos.includes('id');
+        const temTitulo = cabecalhos.includes('titulo');
+        const temTexto = cabecalhos.includes('texto');
+        
+        console.log('✅ Tem ID:', temId);
+        console.log('✅ Tem Título:', temTitulo);
+        console.log('✅ Tem Texto:', temTexto);
+        
+        if (!temId || !temTitulo || !temTexto) {
+            console.warn('⚠️ Cabeçalhos não correspondem!');
+            console.log('Cabeçalhos esperados: id, titulo, texto');
+            console.log('Cabeçalhos encontrados:', cabecalhos);
+        }
         
         const dados = [];
         for (let i = 1; i < linhas.length; i++) {
             if (!linhas[i].trim()) continue;
             
-            // Parse CSV simples
+            // Parse CSV
             const valores = [];
             let dentroAspas = false;
             let valorAtual = '';
@@ -763,55 +287,78 @@ async function buscarConteudo() {
             dados.push(obj);
         }
         
-        console.log('Dados carregados:', dados.length, 'linhas');
+        console.log('📊 Total de linhas carregadas:', dados.length);
+        console.log('📊 IDs disponíveis:', [...new Set(dados.map(d => d.id))]);
         
-        // Filtrar pelo ID do ponto
-        const conteudoPonto = dados.filter(item => item.id === pontoId);
+        // Filtrar pelo ID do ponto (case insensitive)
+        const conteudoPonto = dados.filter(item => item.id && item.id.toLowerCase() === pontoId.toLowerCase());
+        
+        console.log(`🎯 Encontrados ${conteudoPonto.length} itens para o ID "${pontoId}"`);
         
         if (conteudoPonto.length === 0) {
+            // Fallback: tenta pegar qualquer conteúdo se não encontrar o ID
+            console.log('⚠️ ID não encontrado. Usando fallback...');
+            const primeiroId = [...new Set(dados.map(d => d.id))][0];
+            const fallback = dados.filter(item => item.id === primeiroId);
+            
+            if (fallback.length > 0) {
+                console.log(`🔄 Fallback: usando ID "${primeiroId}"`);
+                carregarConteudoNaPagina(fallback);
+                return;
+            }
             throw new Error(`Nenhum conteúdo encontrado para o ID: ${pontoId}`);
         }
         
-        // Atualizar título (pega o título da primeira linha)
-        const titulo = conteudoPonto[0].titulo;
-        document.getElementById('pontoTitulo').textContent = titulo;
-        document.title = `Afro-Roteiros | ${titulo} - Campos`;
-        
-        // Renderizar texto (todos os parágrafos são do tipo "paragrafo")
-        const textContentDiv = document.getElementById('textContent');
-        textContentDiv.innerHTML = '';
-        
-        conteudoPonto.forEach((item, index) => {
-            const p = document.createElement('p');
-            p.textContent = item.texto;
-            
-            // Opcional: transformar o primeiro ou último parágrafo em destaque
-            // Se quiser destacar algum parágrafo específico, você pode identificar por palavras-chave
-            // Por exemplo, se o texto contém "fascinante" ou "destaque"
-            if (item.texto.includes("fascinante") || item.texto.includes("ponto fascinante")) {
-                const div = document.createElement('div');
-                div.classList.add('destaque');
-                div.textContent = item.texto;
-                textContentDiv.appendChild(div);
-            } else {
-                textContentDiv.appendChild(p);
-            }
-        });
-        
-        console.log('Conteúdo carregado com sucesso!');
+        carregarConteudoNaPagina(conteudoPonto);
         
     } catch (error) {
-        console.error('Erro ao carregar conteúdo:', error);
+        console.error('❌ Erro ao carregar conteúdo:', error);
         document.getElementById('textContent').innerHTML = `
             <div style="text-align: center; padding: 40px; color: #790016;">
                 <i class="fas fa-exclamation-triangle" style="font-size: 30px; margin-bottom: 10px; display: block;"></i>
                 Erro ao carregar conteúdo.<br>
                 <small style="color: #999;">Verifique se a planilha está publicada e o ID está correto.</small>
                 <br><br>
-                <strong>ID atual:</strong> ${SHEET_ID}
+                <strong>ID atual:</strong> ${SHEET_ID}<br>
+                <strong>Erro:</strong> ${error.message}
+                <br><br>
+                <button onclick="location.reload()" style="padding: 8px 20px; background: #790016; color: white; border: none; border-radius: 20px; cursor: pointer;">Tentar novamente</button>
             </div>
         `;
     }
+}
+
+function carregarConteudoNaPagina(conteudo) {
+    // Ordenar por ordem (se existir) ou manter ordem original
+    const ordenado = conteudo.sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
+    
+    // Atualizar título
+    const titulo = ordenado[0].titulo;
+    document.getElementById('pontoTitulo').textContent = titulo;
+    document.title = `Afro-Roteiros | ${titulo} - Campos`;
+    
+    // Renderizar texto
+    const textContentDiv = document.getElementById('textContent');
+    textContentDiv.innerHTML = '';
+    
+    ordenado.forEach((item, index) => {
+        const p = document.createElement('p');
+        p.textContent = item.texto;
+        
+        // Verificar se é destaque (primeiro, último, ou contém palavra-chave)
+        const ehDestaque = index === 2 || item.texto.includes("fascinante") || item.texto.includes("ponto fascinante");
+        
+        if (ehDestaque) {
+            const div = document.createElement('div');
+            div.classList.add('destaque');
+            div.textContent = item.texto;
+            textContentDiv.appendChild(div);
+        } else {
+            textContentDiv.appendChild(p);
+        }
+    });
+    
+    console.log('✅ Conteúdo carregado com sucesso!');
 }
 
 // Funções do carrossel
