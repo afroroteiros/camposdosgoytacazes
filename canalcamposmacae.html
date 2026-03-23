@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
-<title>Afro-Roteiros | Canal Campos-Macaé</title>
+<title>Afro-Roteiros | Campos dos Goytacazes</title>
 
-<!-- Fonte Inter para textos gerais e Merriweather para títulos -->
+<!-- Fonte Inter e Merriweather -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
-<!-- Font Awesome para ícones sociais -->
+<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -18,7 +18,7 @@
 }
 
 body {
-    margin: 8;
+    margin: 0;
     font-family: 'Inter', sans-serif;
     background: #ffffff;
     color: #1a1a1a;
@@ -26,7 +26,7 @@ body {
     padding-top: 70px;
 }
 
-/* HEADER SUPERIOR COM LINKS (FIXO) */
+/* HEADER SUPERIOR FIXO */
 .top-bar {
     position: fixed;
     top: 0;
@@ -68,7 +68,7 @@ body {
     font-size: 18px;
 }
 
-/* HEADER PRINCIPAL - LOGO À ESQUERDA E CIDADE ALINHADA NA PARTE INFERIOR */
+/* HEADER PRINCIPAL */
 .header {
     display: flex;
     align-items: flex-end;
@@ -87,10 +87,8 @@ body {
     max-height: 70px;
     object-fit: contain;
     flex-shrink: 0;
-    display: block;
 }
 
-/* CIDADE EM INTER - ALINHADA NA BASE */
 .cidade-titulo {
     font-family: 'Inter', sans-serif;
     font-size: 24px;
@@ -99,8 +97,6 @@ body {
     margin: 0;
     line-height: 1.2;
     flex-shrink: 1;
-    padding-bottom: 0;
-    margin-bottom: 0;
 }
 
 .cidade-titulo small {
@@ -124,7 +120,6 @@ body {
 /* TÍTULO DO PONTO HISTÓRICO */
 .ponto-titulo {
     margin: 20px 0 20px 0;
-    padding-left: 0;
 }
 
 .ponto-titulo h2 {
@@ -139,7 +134,7 @@ body {
     display: inline-block;
 }
 
-/* LAYOUT FLEXÍVEL PARA CONTEÚDO PRINCIPAL */
+/* LAYOUT DESKTOP: DUAS COLUNAS */
 .content-wrapper {
     display: flex;
     flex-direction: row;
@@ -148,7 +143,6 @@ body {
     align-items: flex-start;
 }
 
-/* COLUNA ESQUERDA - CARROSSEL E CONTROLES */
 .carousel-wrapper {
     flex: 1.2;
     min-width: 0;
@@ -175,10 +169,6 @@ body {
     transform: scale(1.02);
 }
 
-.carousel-container:active {
-    transform: scale(0.98);
-}
-
 .carousel {
     position: relative;
     width: 100%;
@@ -203,7 +193,6 @@ body {
     opacity: 1;
 }
 
-/* INDICADOR DE CLIQUE */
 .click-hint {
     position: absolute;
     bottom: 15px;
@@ -218,7 +207,6 @@ body {
     gap: 6px;
     z-index: 10;
     backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
     pointer-events: none;
 }
 
@@ -228,20 +216,15 @@ body {
     fill: white;
 }
 
-/* CONTROLES DO CARROSSEL */
 .carousel-controls {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
     margin-top: 16px;
 }
 
 .indicators {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
 .indicator {
@@ -259,7 +242,7 @@ body {
     border-radius: 15px;
 }
 
-/* COLUNA DIREITA - TEXTO */
+/* TEXTO */
 .text-wrapper {
     flex: 0.9;
     min-width: 280px;
@@ -284,7 +267,6 @@ body {
     border-radius: 10px;
 }
 
-/* TEXTO */
 .text-section {
     margin: 0;
 }
@@ -295,11 +277,8 @@ p {
     text-align: justify;
     text-justify: inter-word;
     hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
 }
 
-/* DESTAQUE */
 .destaque {
     border-left: 4px solid #790016;
     margin: 30px 0;
@@ -309,8 +288,6 @@ p {
     padding: 20px 24px;
     border-radius: 0 16px 16px 0;
     text-align: justify;
-    text-justify: inter-word;
-    hyphens: auto;
     color: #2a2a2a;
     line-height: 1.8;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
@@ -337,23 +314,7 @@ p {
     gap: 6px;
 }
 
-.sources-footer i {
-    font-size: 12px;
-    color: #bbb;
-}
-
-.sources-footer a {
-    color: #999;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.sources-footer a:hover {
-    color: #790016;
-    text-decoration: underline;
-}
-
-/* FOOTER PRINCIPAL */
+/* FOOTER */
 .footer {
     text-align: center;
     padding: 28px 20px;
@@ -361,25 +322,9 @@ p {
     color: white;
     font-size: 14px;
     letter-spacing: 0.5px;
-    clear: both;
 }
 
-.footer span {
-    opacity: 0.9;
-}
-
-.footer a {
-    color: white;
-    text-decoration: none;
-    margin: 0 5px;
-    transition: opacity 0.3s;
-}
-
-.footer a:hover {
-    opacity: 0.8;
-}
-
-/* ===== LIGHTBOX ===== */
+/* LIGHTBOX */
 .lightbox {
     display: none;
     position: fixed;
@@ -412,7 +357,6 @@ p {
     max-height: 100%;
     object-fit: contain;
     border-radius: 8px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 .lightbox-close {
@@ -430,12 +374,6 @@ p {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     transition: all 0.3s;
-    z-index: 1001;
-}
-
-.lightbox-close:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: rotate(90deg);
 }
 
 .lightbox-nav {
@@ -454,12 +392,6 @@ p {
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
-    user-select: none;
-}
-
-.lightbox-nav:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-50%) scale(1.1);
 }
 
 .lightbox-nav.prev {
@@ -480,28 +412,75 @@ p {
     padding: 8px 16px;
     border-radius: 30px;
     font-size: 14px;
-    backdrop-filter: blur(5px);
 }
 
-/* RESPONSIVO - AJUSTADO PARA PROPORCIONALIDADE */
-@media (max-width: 900px) {
+/* LOADING */
+.loading {
+    text-align: center;
+    padding: 50px;
+    color: #790016;
+    font-size: 18px;
+}
+
+.loading i {
+    font-size: 30px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* ========== MOBILE ========== */
+@media (max-width: 768px) {
     body {
         padding-top: 60px;
     }
     
     .top-bar {
-        padding: 10px 15px;
+        padding: 8px 15px;
         font-size: 12px;
-        gap: 15px;
+        gap: 12px;
+    }
+    
+    .header {
+        padding: 12px 15px 8px;
+        gap: 10px;
+    }
+    
+    .logo {
+        max-width: 85px;
+        max-height: 55px;
+    }
+    
+    .cidade-titulo {
+        font-size: 18px;
+    }
+    
+    .cidade-titulo small {
+        font-size: 11px;
+    }
+    
+    .ponto-titulo h2 {
+        font-size: 24px;
     }
     
     .content-wrapper {
         flex-direction: column;
-        gap: 20px;
+        gap: 0;
+        margin: 0 0 30px 0;
     }
     
     .carousel-wrapper {
         width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .carousel-container {
+        width: 100%;
+        border-radius: 0;
+    }
+    
+    .carousel {
+        padding-bottom: 66.67%;
     }
     
     .text-wrapper {
@@ -511,220 +490,68 @@ p {
         padding-right: 0;
     }
     
-    .header {
-        padding: 15px 15px 10px;
-        gap: 12px;
-    }
-    
-    /* LOGO MAIOR EM MOBILE - PROPORCIONAL AO TEXTO */
-    .logo {
-        max-width: 110px;
-        max-height: 65px;
-    }
-    
-    .cidade-titulo {
-        font-size: 20px;
-    }
-    
-    .cidade-titulo small {
-        font-size: 13px;
-    }
-    
-    .ponto-titulo h2 {
-        font-size: 26px;
-    }
-    
     p {
         font-size: 16px;
     }
     
     .destaque {
         font-size: 16px;
-        padding: 18px 20px;
-        margin: 25px 0;
-    }
-    
-    .sources-footer {
-        font-size: 10px;
-        gap: 15px;
-        padding: 12px 15px;
-    }
-    
-    .lightbox-nav {
-        font-size: 30px;
-        width: 40px;
-        height: 40px;
-    }
-    
-    .lightbox-nav.prev {
-        left: 5px;
-    }
-    
-    .lightbox-nav.next {
-        right: 5px;
-    }
-    
-    .lightbox-close {
-        top: 10px;
-        right: 15px;
-        font-size: 30px;
-        width: 40px;
-        height: 40px;
+        padding: 16px 20px;
     }
 }
 
-/* TABLET */
-@media (min-width: 901px) and (max-width: 1100px) {
-    .content-wrapper {
-        gap: 20px;
-    }
-    
-    .text-wrapper {
-        max-height: 60vh;
-    }
-    
-    .logo {
-        max-width: 120px;
-    }
-    
-    .cidade-titulo {
-        font-size: 22px;
-    }
-    
-    p {
-        font-size: 16px;
-    }
-}
-
-/* TELAS GRANDES */
-@media (min-width: 1600px) {
-    .main-container {
-        max-width: 1400px;
-    }
-    
-    .header {
-        max-width: 1400px;
-    }
-    
-    .text-wrapper {
-        max-height: 65vh;
-    }
-    
-    .logo {
-        max-width: 160px;
-        max-height: 85px;
-    }
-    
-    .cidade-titulo {
-        font-size: 28px;
-    }
-    
-    .cidade-titulo small {
-        font-size: 16px;
-    }
-}
-
-/* DISPOSITIVOS MUITO PEQUENOS - AJUSTE FINO */
 @media (max-width: 480px) {
-    body {
-        padding-top: 55px;
-    }
-    
-    .top-bar {
-        padding: 8px 12px;
-        font-size: 11px;
-        gap: 12px;
-    }
-    
-    .top-bar i {
-        font-size: 12px;
-    }
-    
-    .header {
-        padding: 12px 12px 8px;
-        gap: 10px;
-    }
-    
-    /* LOGO PROPORCIONAL EM TELAS MUITO PEQUENAS */
     .logo {
-        max-width: 85px;
-        max-height: 55px;
+        max-width: 75px;
+        max-height: 50px;
     }
     
     .cidade-titulo {
-        font-size: 17px;
+        font-size: 16px;
     }
     
-    .cidade-titulo small {
-        font-size: 11px;
-    }
-    
-    .ponto-titulo h2 {
-        font-size: 22px;
-    }
-    
-    .click-hint {
-        font-size: 10px;
-        padding: 6px 10px;
-    }
-    
-    .sources-footer {
-        font-size: 9px;
-        gap: 12px;
-        flex-direction: column;
-        align-items: center;
+    .carousel {
+        padding-bottom: 75%;
     }
 }
 </style>
+
 </head>
 <body>
 
-<!-- TOP BAR FIXO COM LINHAS -->
+<!-- TOP BAR -->
 <div class="top-bar">
-    <a href="/" class="home-link">
-        <i class="fas fa-home"></i> 
-        <span>Home</span>
-    </a>
+    <a href="/" class="home-link"><i class="fas fa-home"></i> <span>Home</span></a>
     <span class="divisor">|</span>
-    <a href="https://instagram.com/afroroteiros" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-instagram"></i>
-        <span>Instagram</span>
-    </a>
-    <a href="https://facebook.com/afroroteiros" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-facebook"></i>
-        <span>Facebook</span>
-    </a>
-    <a href="https://youtube.com/@afroroteiros" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-youtube"></i>
-        <span>YouTube</span>
-    </a>
+    <a href="https://instagram.com/afroroteiros" target="_blank"><i class="fab fa-instagram"></i> <span>Instagram</span></a>
+    <a href="https://facebook.com/afroroteiros" target="_blank"><i class="fab fa-facebook"></i> <span>Facebook</span></a>
+    <a href="https://youtube.com/@afroroteiros" target="_blank"><i class="fab fa-youtube"></i> <span>YouTube</span></a>
 </div>
 
-<!-- HEADER PRINCIPAL -->
+<!-- HEADER -->
 <div class="header">
     <img src="logo.png" alt="Afro-Roteiros" class="logo">
-    <div class="cidade-titulo">
+    <div class="cidade-titulo" id="cidadeNome">
         Campos dos Goytacazes
         <small>Rio de Janeiro</small>
     </div>
 </div>
 
-<!-- CONTEÚDO PRINCIPAL -->
 <div class="main-container">
     
+    <!-- TÍTULO DO PONTO -->
     <div class="ponto-titulo">
-        <h2>Canal Campos–Macaé</h2>
+        <h2 id="pontoTitulo">Carregando...</h2>
     </div>
     
     <div class="content-wrapper">
         
+        <!-- CARROSSEL -->
         <div class="carousel-wrapper">
             <div class="carousel-section">
                 <div class="carousel-container" id="carouselClick">
-                    <div class="carousel">
-                        <img src="canal1.jpg" class="slide active" alt="Canal Campos-Macaé 1" data-index="0">
-                        <img src="canal2.png" class="slide" alt="Canal Campos-Macaé 2" data-index="1">
-                        <img src="canal3.jpg" class="slide" alt="Canal Campos-Macaé 3" data-index="2">
+                    <div class="carousel" id="carouselSlides">
+                        <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Carregando imagens...</div>
                     </div>
                     <div class="click-hint">
                         <svg viewBox="0 0 24 24">
@@ -734,37 +561,17 @@ p {
                     </div>
                 </div>
             </div>
-            
             <div class="carousel-controls">
-                <div class="indicators">
-                    <span class="indicator active" data-index="0"></span>
-                    <span class="indicator" data-index="1"></span>
-                    <span class="indicator" data-index="2"></span>
+                <div class="indicators" id="indicators">
+                    <!-- Indicadores serão inseridos via JavaScript -->
                 </div>
             </div>
         </div>
         
+        <!-- TEXTO -->
         <div class="text-wrapper">
-            <div class="text-section">
-                <p>
-                Construído no século XIX, o Canal Campos–Macaé surgiu da necessidade de melhorar o escoamento da produção açucareira do Norte Fluminense, que enfrentava grandes dificuldades logísticas até chegar ao porto do Rio de Janeiro.
-                </p>
-
-                <p>
-                Iniciado em 1844 e concluído em 1872, após quase 30 anos de obras, o canal é considerado a segunda maior obra do Brasil Imperial e, à época, o segundo maior canal artificial do mundo.
-                </p>
-
-                <p>
-                Apesar de sua grandiosidade, teve uso breve: poucos anos após sua inauguração, foi superado pela chegada da ferrovia, mais rápida e eficiente.
-                </p>
-
-                <div class="destaque">
-                Mais do que uma obra de engenharia, o canal é a expressão da habilidade, da inteligência técnica e da capacidade de trabalhadores negros escravizados, responsáveis por executar uma engenharia de alta complexidade sem o uso de tecnologia moderna.
-                </div>
-
-                <p>
-                Hoje, o Canal Campos–Macaé permanece como um importante patrimônio histórico, atravessando a paisagem e preservando a memória de quem o construiu.
-                </p>
+            <div class="text-section" id="textContent">
+                <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Carregando conteúdo...</div>
             </div>
         </div>
         
@@ -772,10 +579,9 @@ p {
     
 </div>
 
-<div class="sources-footer">
-    <span><i class="fas fa-camera"></i> Imagens: Acervo Afro-Roteiros</span>
-    <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos</span>
-    <span><i class="fas fa-calendar-alt"></i> Atualizado em: março de 2026</span>
+<!-- RODAPÉ DE FONTES -->
+<div class="sources-footer" id="sourcesFooter">
+    <span><i class="fas fa-spinner fa-pulse"></i> Carregando fontes...</span>
 </div>
 
 <div class="footer">
@@ -784,22 +590,39 @@ p {
     <span style="font-size: 11px; opacity: 0.6;">memória · resistência · identidade</span>
 </div>
 
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
     <span class="lightbox-close" id="lightboxClose">&times;</span>
     <span class="lightbox-nav prev" id="lightboxPrev">&#10094;</span>
     <span class="lightbox-nav next" id="lightboxNext">&#10095;</span>
     <div class="lightbox-content">
-        <img class="lightbox-image" id="lightboxImage" src="" alt="Imagem ampliada">
+        <img class="lightbox-image" id="lightboxImage" src="">
     </div>
     <div class="lightbox-counter" id="lightboxCounter"></div>
 </div>
 
 <script>
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-const indicators = document.querySelectorAll('.indicator');
-const carouselContainer = document.getElementById('carouselClick');
+// CONFIGURAÇÃO - SUBSTITUA PELO ID DA SUA PLANILHA
+const SHEET_ID = '1T_vZXdnjpR-Pup8i0D4-K25g5WcoHx_8OojDeGixF90';
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
+// Estado global
+let currentSlide = 0;
+let slides = [];
+let indicators = [];
+let slideInterval;
+let conteudoAtual = null;
+
+// Elementos DOM
+const carouselContainer = document.getElementById('carouselClick');
+const carouselSlides = document.getElementById('carouselSlides');
+const indicatorsContainer = document.getElementById('indicators');
+const textContent = document.getElementById('textContent');
+const pontoTitulo = document.getElementById('pontoTitulo');
+const sourcesFooter = document.getElementById('sourcesFooter');
+const cidadeNome = document.getElementById('cidadeNome');
+
+// Lightbox elements
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = document.getElementById('lightboxImage');
 const lightboxClose = document.getElementById('lightboxClose');
@@ -807,7 +630,165 @@ const lightboxPrev = document.getElementById('lightboxPrev');
 const lightboxNext = document.getElementById('lightboxNext');
 const lightboxCounter = document.getElementById('lightboxCounter');
 
+// Função para converter o JSON do Google Sheets
+function parseGoogleSheetData(jsonText) {
+    // Remove o prefixo do Google Sheets
+    const jsonString = jsonText.substring(jsonText.indexOf('{'), jsonText.lastIndexOf('}') + 1);
+    const data = JSON.parse(jsonString);
+    
+    const table = data.table;
+    const rows = table.rows;
+    const headers = table.cols.map(col => col.label);
+    
+    return rows.map(row => {
+        const obj = {};
+        row.c.forEach((cell, idx) => {
+            obj[headers[idx]] = cell ? cell.v : '';
+        });
+        return obj;
+    });
+}
+
+// Função para buscar dados de uma aba específica
+async function fetchSheet(sheetName) {
+    const url = `${SHEET_URL}&sheet=${encodeURIComponent(sheetName)}`;
+    const response = await fetch(url);
+    const text = await response.text();
+    return parseGoogleSheetData(text);
+}
+
+// Função principal para carregar todos os dados
+async function carregarConteudo() {
+    try {
+        // Definir qual ponto exibir (pode vir da URL ou ser fixo)
+        const urlParams = new URLSearchParams(window.location.search);
+        const pontoSlug = urlParams.get('ponto') || 'kimbira';
+        
+        // Buscar dados da planilha
+        const [cidadeData, pontosData, fontesData] = await Promise.all([
+            fetchSheet('cidade'),
+            fetchSheet('pontos'),
+            fetchSheet('fontes')
+        ]);
+        
+        // Atualizar nome da cidade
+        if (cidadeData.length > 0) {
+            cidadeNome.innerHTML = `${cidadeData[0].nome}<small>${cidadeData[0].estado}</small>`;
+        }
+        
+        // Encontrar o ponto solicitado
+        const ponto = pontosData.find(p => p.slug === pontoSlug) || pontosData[0];
+        if (!ponto) throw new Error('Ponto não encontrado');
+        
+        conteudoAtual = ponto;
+        
+        // Atualizar título
+        pontoTitulo.textContent = ponto.titulo;
+        
+        // Buscar conteúdo específico do ponto
+        const sheetConteudo = `conteudo_${pontoSlug.replace(/-/g, '_')}`;
+        let conteudo = [];
+        try {
+            conteudo = await fetchSheet(sheetConteudo);
+            conteudo.sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
+        } catch (e) {
+            console.warn(`Aba ${sheetConteudo} não encontrada`);
+            conteudo = [];
+        }
+        
+        // Carregar imagens
+        const imagens = ponto.imagens ? ponto.imagens.split(',').map(img => img.trim()) : [];
+        carregarImagens(imagens);
+        
+        // Carregar texto
+        carregarTexto(conteudo);
+        
+        // Carregar fontes
+        const fonte = fontesData.find(f => String(f.ponto_id) === String(ponto.id));
+        if (fonte) {
+            sourcesFooter.innerHTML = `
+                <span><i class="fas fa-camera"></i> Imagens: ${fonte.imagens || 'Acervo Afro-Roteiros'}</span>
+                <span><i class="fas fa-file-alt"></i> Conteúdo: ${fonte.conteudo || 'Pesquisa histórica'}</span>
+                <span><i class="fas fa-calendar-alt"></i> Atualizado em: ${fonte.data_atualizacao || 'março de 2026'}</span>
+            `;
+        }
+        
+    } catch (error) {
+        console.error('Erro ao carregar conteúdo:', error);
+        textContent.innerHTML = '<p style="color: red;">Erro ao carregar conteúdo. Verifique a conexão com a planilha.</p>';
+    }
+}
+
+// Função para carregar as imagens no carrossel
+function carregarImagens(imagens) {
+    carouselSlides.innerHTML = '';
+    indicatorsContainer.innerHTML = '';
+    
+    if (imagens.length === 0) {
+        carouselSlides.innerHTML = '<div class="loading">Nenhuma imagem disponível</div>';
+        return;
+    }
+    
+    imagens.forEach((img, index) => {
+        // Criar slide
+        const slide = document.createElement('img');
+        slide.src = `imagens/${img}`;
+        slide.alt = `${conteudoAtual.titulo} ${index + 1}`;
+        slide.classList.add('slide');
+        if (index === 0) slide.classList.add('active');
+        slide.setAttribute('data-index', index);
+        carouselSlides.appendChild(slide);
+        
+        // Criar indicador
+        const indicator = document.createElement('span');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.setAttribute('data-index', index);
+        indicator.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showSlide(index);
+            resetInterval();
+        });
+        indicatorsContainer.appendChild(indicator);
+    });
+    
+    // Atualizar referências
+    slides = document.querySelectorAll('.slide');
+    indicators = document.querySelectorAll('.indicator');
+    
+    // Iniciar carrossel automático
+    if (slideInterval) clearInterval(slideInterval);
+    if (slides.length > 1) {
+        slideInterval = setInterval(nextSlide, 6000);
+    }
+}
+
+// Função para carregar o texto
+function carregarTexto(conteudo) {
+    textContent.innerHTML = '';
+    
+    if (conteudo.length === 0) {
+        textContent.innerHTML = '<p>Conteúdo em breve.</p>';
+        return;
+    }
+    
+    conteudo.forEach(item => {
+        if (item.tipo === 'paragrafo') {
+            const p = document.createElement('p');
+            p.textContent = item.texto;
+            textContent.appendChild(p);
+        } else if (item.tipo === 'destaque') {
+            const div = document.createElement('div');
+            div.classList.add('destaque');
+            div.textContent = item.texto;
+            textContent.appendChild(div);
+        }
+    });
+}
+
+// Funções do carrossel
 function showSlide(index) {
+    if (!slides.length) return;
     slides.forEach(slide => slide.classList.remove('active'));
     indicators.forEach(ind => ind.classList.remove('active'));
     
@@ -818,22 +799,23 @@ function showSlide(index) {
 }
 
 function nextSlide() {
-    let next = (currentSlide + 1) % slides.length;
+    if (!slides.length) return;
+    const next = (currentSlide + 1) % slides.length;
     showSlide(next);
 }
 
-indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showSlide(index);
+function resetInterval() {
+    if (slideInterval) {
         clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 6000);
-    });
-});
+        if (slides.length > 1) {
+            slideInterval = setInterval(nextSlide, 6000);
+        }
+    }
+}
 
-let slideInterval = setInterval(nextSlide, 6000);
-
+// Funções do lightbox
 function openLightbox(index) {
+    if (!slides.length) return;
     currentSlide = index;
     updateLightboxImage();
     lightbox.classList.add('active');
@@ -848,7 +830,6 @@ function closeLightbox() {
 function updateLightboxImage() {
     const currentImage = slides[currentSlide];
     lightboxImage.src = currentImage.src;
-    lightboxImage.alt = currentImage.alt;
     lightboxCounter.textContent = `${currentSlide + 1} de ${slides.length}`;
 }
 
@@ -862,37 +843,28 @@ function nextImage() {
     updateLightboxImage();
 }
 
-carouselContainer.addEventListener('click', (e) => {
-    if (!e.target.classList.contains('indicator')) {
-        openLightbox(currentSlide);
-    }
+// Eventos
+carouselContainer.addEventListener('click', () => {
+    if (slides.length) openLightbox(currentSlide);
 });
-
 lightboxClose.addEventListener('click', closeLightbox);
 lightboxPrev.addEventListener('click', prevImage);
 lightboxNext.addEventListener('click', nextImage);
 
 document.addEventListener('keydown', (e) => {
     if (lightbox.classList.contains('active')) {
-        if (e.key === 'Escape') {
-            closeLightbox();
-        } else if (e.key === 'ArrowLeft') {
-            prevImage();
-        } else if (e.key === 'ArrowRight') {
-            nextImage();
-        }
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'ArrowRight') nextImage();
     }
 });
 
 lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-        closeLightbox();
-    }
+    if (e.target === lightbox) closeLightbox();
 });
 
-lightboxImage.addEventListener('click', (e) => {
-    e.stopPropagation();
-});
+// Inicializar
+carregarConteudo();
 </script>
 
 </body>
