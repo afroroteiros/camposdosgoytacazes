@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 
-<title>Afro-Roteiros | Rotas da Memória Negra em Campos</title>
+<title>Afro-Roteiros | Passeios Guiados pela Memória Negra</title>
 
-<!-- Fonte Inter e Merriweather -->
+<!-- Fontes -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/bahianita" rel="stylesheet">
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -30,22 +31,32 @@ body {
 .header {
     background: #2c2c1c;
     padding: 20px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    text-align: center;
 }
 
-.logo {
-    height: 60px;
-    width: auto;
+.titulo-principal {
+    font-family: 'Bahianita', cursive;
+    font-size: 2.5rem;
+    color: #cd8c5a;
+    letter-spacing: 2px;
+}
+
+.titulo-principal span {
+    color: #f5e6d3;
+}
+
+.subtitulo {
+    color: #f5e6d3;
+    font-size: 0.9rem;
+    margin-top: 5px;
 }
 
 .header nav {
     display: flex;
+    justify-content: center;
     gap: 24px;
     flex-wrap: wrap;
+    margin-top: 15px;
 }
 
 .header nav a {
@@ -64,11 +75,11 @@ body {
     background: linear-gradient(135deg, #3d441e 0%, #2c2c1c 100%);
     color: #fef9f0;
     text-align: center;
-    padding: 60px 20px;
+    padding: 80px 20px;
 }
 
 .hero h1 {
-    font-family: 'Merriweather', serif;
+    font-family: 'Bahianita', cursive;
     font-size: 3rem;
     margin-bottom: 16px;
 }
@@ -82,6 +93,23 @@ body {
     max-width: 700px;
     margin: 0 auto;
     opacity: 0.9;
+}
+
+.hero .btn {
+    display: inline-block;
+    background: #cd8c5a;
+    color: #2c2c1c;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 32px;
+    transition: all 0.3s;
+}
+
+.hero .btn:hover {
+    background: #b57a48;
+    transform: translateY(-2px);
 }
 
 /* SEÇÕES GERAIS */
@@ -109,22 +137,21 @@ body {
     margin: 12px auto 0;
 }
 
-/* SOBRE - LADO A LADO */
+/* SOBRE */
 .sobre-container {
-    display: flex;
-    align-items: center;
-    gap: 48px;
-    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .sobre-texto {
-    flex: 1;
+    text-align: center;
 }
 
 .sobre-texto p {
     margin-bottom: 20px;
     font-size: 1.05rem;
     color: #3a3a2a;
+    line-height: 1.8;
 }
 
 .sobre-texto i {
@@ -132,196 +159,338 @@ body {
     margin-right: 8px;
 }
 
-.sobre-img {
-    flex: 1;
+.destaque-cidade {
     text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #cd8c5a20;
 }
 
-.sobre-img img {
-    max-width: 100%;
-    border-radius: 20px;
-    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2);
-}
-
-/* CARDS DE PONTOS */
-.pontos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 20px;
-}
-
-.card {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-}
-
-.card-img {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-}
-
-.card-content {
-    padding: 24px;
-}
-
-.card-content h3 {
+.destaque-cidade h3 {
     font-family: 'Merriweather', serif;
-    font-size: 1.4rem;
-    color: #3d441e;
-    margin-bottom: 12px;
-}
-
-.card-content p {
-    color: #5a5a4a;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-}
-
-.card-btn {
-    display: inline-block;
-    background: #3d441e;
-    color: white;
-    padding: 10px 24px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background 0.3s;
-}
-
-.card-btn:hover {
-    background: #cd8c5a;
-}
-
-/* SERVIÇOS */
-.servicos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    text-align: center;
-}
-
-.servico-item {
-    background: white;
-    padding: 30px 20px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-    transition: all 0.3s;
-}
-
-.servico-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.08);
-}
-
-.servico-icon {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     color: #cd8c5a;
     margin-bottom: 20px;
 }
 
-.servico-item h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-    color: #3d441e;
-}
-
-.servico-item p {
-    color: #6a6a5a;
-    font-size: 0.95rem;
-}
-
-/* DEPOIMENTOS */
-.depoimentos-grid {
+/* PASSEIOS */
+.passeios-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
 
-.depoimento {
+.card-passeio {
     background: white;
-    padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-    border-left: 4px solid #cd8c5a;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
 }
 
-.depoimento p {
-    font-style: italic;
-    margin-bottom: 16px;
-    color: #4a4a3a;
+.card-passeio:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
 }
 
-.depoimento-author {
-    font-weight: 600;
-    color: #3d441e;
+.card-header {
+    background: #3d441e;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-.depoimento-author span {
-    font-weight: 400;
-    font-size: 0.85rem;
-    color: #8a8a7a;
+.card-header i {
+    font-size: 2rem;
+    margin-bottom: 10px;
     display: block;
 }
 
-/* NEWSLETTER */
-.newsletter {
-    background: #3d441e;
-    color: white;
-    text-align: center;
-    padding: 60px 24px;
-    border-radius: 30px;
-    margin: 40px auto;
+.card-header h3 {
+    font-size: 1.3rem;
 }
 
-.newsletter h3 {
-    font-size: 1.8rem;
-    margin-bottom: 16px;
+.card-content {
+    padding: 20px;
 }
 
-.newsletter p {
-    margin-bottom: 24px;
-    opacity: 0.9;
+.card-content p {
+    color: #5a5a4a;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
 }
 
-.newsletter-form {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
+.card-features {
+    list-style: none;
+    margin: 15px 0;
 }
 
-.newsletter-form input {
-    padding: 14px 20px;
-    border: none;
-    border-radius: 50px;
-    width: 280px;
-    font-size: 1rem;
-    outline: none;
+.card-features li {
+    padding: 5px 0;
+    font-size: 0.85rem;
+    color: #6a6a5a;
 }
 
-.newsletter-form button {
+.card-features li i {
+    color: #cd8c5a;
+    width: 20px;
+    margin-right: 8px;
+}
+
+.card-btn {
+    display: inline-block;
     background: #cd8c5a;
-    color: white;
-    border: none;
-    padding: 14px 28px;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
+    color: #2c2c1c;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-top: 10px;
     transition: background 0.3s;
 }
 
-.newsletter-form button:hover {
+.card-btn:hover {
     background: #b57a48;
+}
+
+/* GALERIA DE FOTOS - CARROSSEL 16:9 */
+.galeria-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-galeria {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    background: #f0f0f0;
+}
+
+.slide-galeria {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.slide-galeria.active {
+    opacity: 1;
+}
+
+.indicadores-galeria {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.indicator-galeria {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.indicator-galeria.active {
+    background: #cd8c5a;
+    width: 30px;
+    border-radius: 15px;
+}
+
+.link-dica {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.link-dica a {
+    color: #cd8c5a;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link-dica a:hover {
+    text-decoration: underline;
+}
+
+/* LISTA DE PONTOS */
+.pontos-lista {
+    background: #f5e6d3;
+    border-radius: 30px;
+    padding: 40px;
+}
+
+.pontos-grid-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.ponto-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: white;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.ponto-item:hover {
+    background: #cd8c5a20;
+    transform: translateX(5px);
+}
+
+.ponto-item i {
+    color: #cd8c5a;
+    font-size: 1.2rem;
+    width: 24px;
+}
+
+.ponto-item span {
+    font-size: 0.9rem;
+    color: #3a3a2a;
+}
+
+/* DICAS */
+.dicas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.dica-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.dica-header {
+    background: #cd8c5a20;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #cd8c5a;
+}
+
+.dica-header i {
+    font-size: 2rem;
+    color: #cd8c5a;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.dica-header h3 {
+    color: #3d441e;
+}
+
+.dica-content {
+    padding: 20px;
+}
+
+.dica-content ul {
+    list-style: none;
+}
+
+.dica-content li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dica-content li i {
+    color: #cd8c5a;
+    width: 20px;
+}
+
+.dica-content li strong {
+    color: #3d441e;
+}
+
+/* CONTATO */
+.contato-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    background: #3d441e;
+    border-radius: 30px;
+    padding: 40px;
+    color: white;
+}
+
+.contato-info {
+    flex: 1;
+}
+
+.contato-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.contato-info p {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.contato-info i {
+    color: #cd8c5a;
+    width: 25px;
+}
+
+.instagram-gallery {
+    flex: 1;
+}
+
+.instagram-gallery h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.instagram-grid img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.instagram-grid img:hover {
+    transform: scale(1.05);
+}
+
+.instagram-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #cd8c5a;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.instagram-link:hover {
+    text-decoration: underline;
 }
 
 /* FOOTER */
@@ -336,7 +505,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 40px;
 }
 
@@ -379,11 +548,6 @@ body {
 
 /* RESPONSIVO */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
-    }
-    
     .hero h1 {
         font-size: 2rem;
     }
@@ -396,8 +560,16 @@ body {
         font-size: 1.6rem;
     }
     
-    .sobre-container {
+    .contato-container {
         flex-direction: column;
+    }
+    
+    .instagram-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .titulo-principal {
+        font-size: 1.8rem;
     }
 }
 </style>
@@ -406,11 +578,13 @@ body {
 
 <!-- HEADER -->
 <header class="header">
-    <img src="logo.png" alt="Afro-Roteiros" class="logo">
+    <div class="titulo-principal">Afro<span>-Roteiros</span></div>
+    <div class="subtitulo">Norte e Noroeste Fluminenses</div>
     <nav>
         <a href="#sobre">Sobre</a>
+        <a href="#passeios">Passeios</a>
         <a href="#pontos">Pontos Históricos</a>
-        <a href="#servicos">Serviços</a>
+        <a href="#dicas">Nossas Dicas</a>
         <a href="#contato">Contato</a>
     </nav>
 </header>
@@ -418,7 +592,8 @@ body {
 <!-- HERO -->
 <section class="hero">
     <h1>Afro<span>-Roteiros</span></h1>
-    <p>Descubra Campos dos Goytacazes por uma perspectiva ancestral. Memória, resistência e identidade negra nos caminhos da cidade.</p>
+    <p>Passeios guiados pela memória negra do Norte e Noroeste Fluminenses. Conheça a história que os livros não contam.</p>
+    <a href="#passeios" class="btn">Conheça nossos roteiros</a>
 </section>
 
 <!-- SOBRE -->
@@ -426,117 +601,194 @@ body {
     <h2 class="section-title">Quem Somos</h2>
     <div class="sobre-container">
         <div class="sobre-texto">
-            <p><i class="fas fa-map-marked-alt"></i> Afro-Roteiros é um projeto de turismo de base comunitária que reconhece e valoriza a presença e a contribuição da população negra na formação histórica, cultural e social de Campos dos Goytacazes.</p>
-            <p><i class="fas fa-hand-sparkles"></i> Nossos roteiros percorrem lugares de memória, territórios de resistência e espaços onde a ancestralidade negra segue viva — nos becos, nos nomes, nas práticas e nas narrativas que o tempo não apagou.</p>
-            <p><i class="fas fa-users"></i> Guiados por pesquisadores locais e moradores, oferecemos uma experiência imersiva que conecta passado e presente, revelando uma cidade que muitos ainda não conhecem.</p>
+            <p><i class="fas fa-map-marked-alt"></i> O Afro Roteiros transforma territórios em experiências de reconhecimento e conexão com a própria história. A partir da memória negra, o projeto revela trajetórias, presenças e lugares que ajudaram a formar o Brasil.</p>
+            <p><i class="fas fa-hand-sparkles"></i> Mais do que um passeio, é um convite para descobrir e conhecer melhor os territórios, entendendo quem somos e como essas histórias atravessam o presente. O Afro Roteiros propõe experiências que conectam identidade, cultura e cotidiano, ampliando o olhar sobre os lugares e as pessoas que os constroem.</p>
         </div>
-        <div class="sobre-img">
-            <img src="https://raw.githubusercontent.com/afroroteiros/camposdosgoytacazes/main/logo.png" alt="Afro-Roteiros caminhos" onerror="this.src='https://placehold.co/500x300/f5e6d3/3d441e?text=Afro-Roteiros'">
+        <div class="destaque-cidade">
+            <h3>✨ Conheça os pontos históricos de Campos dos Goytacazes ✨</h3>
         </div>
     </div>
 </section>
 
-<!-- PONTOS HISTÓRICOS -->
+<!-- PASSEIOS GUIADOS -->
+<section class="section" id="passeios">
+    <h2 class="section-title">Nossos Passeios Guiados</h2>
+    <div class="passeios-grid">
+        <div class="card-passeio">
+            <div class="card-header">
+                <i class="fas fa-history"></i>
+                <h3>Roteiro Centro Histórico</h3>
+            </div>
+            <div class="card-content">
+                <p>Um passeio pelo coração da cidade, visitando os locais onde a presença negra foi fundamental na construção da sociedade campista.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-clock"></i> Duração: 3 horas</li>
+                    <li><i class="fas fa-users"></i> Grupo: até 15 pessoas</li>
+                    <li><i class="fas fa-walking"></i> Nível: Leve</li>
+                </ul>
+                <a href="#" class="card-btn">Agendar visita</a>
+            </div>
+        </div>
+        <div class="card-passeio">
+            <div class="card-header">
+                <i class="fas fa-water"></i>
+                <h3>Canal Campos-Macaé</h3>
+            </div>
+            <div class="card-content">
+                <p>Conheça o Canal Campos–Macaé, obra monumental construída por mãos negras, uma das maiores obras de engenharia do século XIX.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-clock"></i> Duração: 4 horas</li>
+                    <li><i class="fas fa-users"></i> Grupo: até 15 pessoas</li>
+                    <li><i class="fas fa-car"></i> Transporte incluso</li>
+                </ul>
+                <a href="#" class="card-btn">Agendar visita</a>
+            </div>
+        </div>
+        <div class="card-passeio">
+            <div class="card-header">
+                <i class="fas fa-music"></i>
+                <h3>Roteiro das Lyras & Cultura</h3>
+            </div>
+            <div class="card-content">
+                <p>Percurso pelas sociedades musicais negras: Lyra de Apollo, Lyra Conspiradora e Lyra Guarany, berços da cultura e resistência.</p>
+                <ul class="card-features">
+                    <li><i class="fas fa-clock"></i> Duração: 3 horas</li>
+                    <li><i class="fas fa-users"></i> Grupo: até 15 pessoas</li>
+                    <li><i class="fas fa-walking"></i> Nível: Leve</li>
+                </ul>
+                <a href="#" class="card-btn">Agendar visita</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LISTA DE PONTOS HISTÓRICOS -->
 <section class="section" id="pontos">
-    <h2 class="section-title">Conheça Nossos Roteiros</h2>
-    <div class="pontos-grid">
-        <div class="card">
-            <div class="card-img" style="background-image: url('https://raw.githubusercontent.com/afroroteiros/camposdosgoytacazes/main/kimbira-01.jpg'); background-size: cover;"></div>
-            <div class="card-content">
-                <h3>Cemitério do Kimbira</h3>
-                <p>Um campo santo para além da exclusão: onde a população negra, indígena e pobre encontravam seu último destino. Entre a segregação e o sagrado, o Kimbira guarda memórias de pertencimento e ancestralidade.</p>
-                <a href="canalcamposmacae.html?ponto=17" class="card-btn">Conhecer roteiro →</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-img" style="background-image: url('https://raw.githubusercontent.com/afroroteiros/camposdosgoytacazes/main/canal1.jpg'); background-size: cover;"></div>
-            <div class="card-content">
-                <h3>Canal Campos–Macaé</h3>
-                <p>O segundo maior canal artificial do mundo no século XIX, construído pela mão de trabalhadores negros escravizados. Uma obra de engenharia que também é um monumento à resistência e ao saber negro.</p>
-                <a href="canalcamposmacae.html?ponto=18" class="card-btn">Conhecer roteiro →</a>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-img" style="background-image: url('https://placehold.co/600x400/2c2c1c/f5e6d3?text=Em+breve'); background-size: cover;"></div>
-            <div class="card-content">
-                <h3>Próximos Roteiros</h3>
-                <p>Em breve: Largo da Lapa, Porto do Farol, Mercado Municipal e territórios quilombolas. Novas histórias sendo tecidas para você conhecer.</p>
-                <a href="#" class="card-btn" style="background: #aaa; cursor: default;">Em breve</a>
-            </div>
+    <h2 class="section-title">Pontos Históricos de Campos dos Goytacazes</h2>
+    <div class="pontos-lista">
+        <div class="pontos-grid-lista">
+            <div class="ponto-item"><i class="fas fa-landmark"></i><span>Lyra de Apollo</span></div>
+            <div class="ponto-item"><i class="fas fa-gavel"></i><span>Pelourinho</span></div>
+            <div class="ponto-item"><i class="fas fa-school"></i><span>Escola Profissional Feminina (C.E. Nilo Peçanha)</span></div>
+            <div class="ponto-item"><i class="fas fa-music"></i><span>Lyra Conspiradora</span></div>
+            <div class="ponto-item"><i class="fas fa-music"></i><span>Lyra Guarany</span></div>
+            <div class="ponto-item"><i class="fas fa-church"></i><span>Rua da Boa Morte</span></div>
+            <div class="ponto-item"><i class="fas fa-home"></i><span>Casa de Wilson Baptista</span></div>
+            <div class="ponto-item"><i class="fas fa-tools"></i><span>Escola de Aprendizes e Artífices (UNIFLU)</span></div>
+            <div class="ponto-item"><i class="fas fa-church"></i><span>Igreja de São Benedito</span></div>
+            <div class="ponto-item"><i class="fas fa-theater-masks"></i><span>Theatro Empyreo</span></div>
+            <div class="ponto-item"><i class="fas fa-newspaper"></i><span>Jornal Vinte e Cinco de Março</span></div>
+            <div class="ponto-item"><i class="fas fa-water"></i><span>Canal Campos–Macaé</span></div>
+            <div class="ponto-item"><i class="fas fa-cemetery"></i><span>Cemitério do Quimbira (FMC)</span></div>
+            <div class="ponto-item"><i class="fas fa-store"></i><span>Largo do Rocio - Antigo Mercado</span></div>
+            <div class="ponto-item"><i class="fas fa-home"></i><span>Casa de José do Patrocínio</span></div>
+            <div class="ponto-item"><i class="fas fa-building"></i><span>Custodópolis</span></div>
         </div>
     </div>
 </section>
 
-<!-- SERVIÇOS -->
-<section class="section" id="servicos">
-    <h2 class="section-title">O que Oferecemos</h2>
-    <div class="servicos-grid">
-        <div class="servico-item">
-            <div class="servico-icon"><i class="fas fa-walking"></i></div>
-            <h3>Roteiros Guiados</h3>
-            <p>Visitas com guias locais que trazem histórias de boca a boca, documentos e vivências sobre os territórios negros de Campos.</p>
+<!-- NOSSAS DICAS COM GALERIA -->
+<section class="section" id="dicas">
+    <h2 class="section-title">Nossas Dicas</h2>
+    
+    <!-- Cards de dicas -->
+    <div class="dicas-grid">
+        <div class="dica-card">
+            <div class="dica-header">
+                <i class="fas fa-utensils"></i>
+                <h3>Onde Comer</h3>
+            </div>
+            <div class="dica-content">
+                <ul>
+                    <li><i class="fas fa-store"></i> <strong>Mercado Municipal</strong> - Sabores tradicionais e comida caseira</li>
+                    <li><i class="fas fa-mug-hot"></i> <strong>Café do Mercado</strong> - Café colonial e quitutes</li>
+                    <li><i class="fas fa-fish"></i> <strong>Restaurante Tia Jô</strong> - Comida afro-brasileira</li>
+                    <li><i class="fas fa-pizza-slice"></i> <strong>Boteco do Largo</strong> - Petiscos e música ao vivo</li>
+                    <li><i class="fas fa-ice-cream"></i> <strong>Gelateria Centro</strong> - Sorvetes artesanais</li>
+                </ul>
+            </div>
         </div>
-        <div class="servico-item">
-            <div class="servico-icon"><i class="fas fa-chalkboard-user"></i></div>
-            <h3>Formação e Palestras</h3>
-            <p>Capacitação para educadores, turismólogos e interessados na história afro-brasileira e no patrimônio negro de Campos.</p>
+        <div class="dica-card">
+            <div class="dica-header">
+                <i class="fas fa-bed"></i>
+                <h3>Onde Dormir</h3>
+            </div>
+            <div class="dica-content">
+                <ul>
+                    <li><i class="fas fa-hotel"></i> <strong>Pousada do Centro</strong> - Aconchegante e bem localizada</li>
+                    <li><i class="fas fa-home"></i> <strong>Hostel Memória</strong> - Opção econômica e cultural</li>
+                    <li><i class="fas fa-building"></i> <strong>Hotel Campos Palace</strong> - Conforto e tradição</li>
+                    <li><i class="fas fa-tree"></i> <strong>Pousada Quilombo</strong> - Imersão na cultura local</li>
+                </ul>
+            </div>
         </div>
-        <div class="servico-item">
-            <div class="servico-icon"><i class="fas fa-map"></i></div>
-            <h3>Material Didático</h3>
-            <p>Guias impressos, mapas interativos e conteúdos digitais para que você possa explorar por conta própria ou em grupo.</p>
+        <div class="dica-card">
+            <div class="dica-header">
+                <i class="fas fa-glass-cheers"></i>
+                <h3>Onde se Divertir</h3>
+            </div>
+            <div class="dica-content">
+                <ul>
+                    <li><i class="fas fa-music"></i> <strong>Samba da Lyra</strong> - Rodas de samba tradicionais</li>
+                    <li><i class="fas fa-theater-masks"></i> <strong>Theatro Empyreo</strong> - Programação cultural</li>
+                    <li><i class="fas fa-calendar-alt"></i> <strong>Feira de Artesanato</strong> - Aos sábados no Largo</li>
+                    <li><i class="fas fa-beer"></i> <strong>Boteco Conspirador</strong> - Música e encontro de amigos</li>
+                    <li><i class="fas fa-book-open"></i> <strong>Casa de Cultura</strong> - Exposições e saraus</li>
+                </ul>
+            </div>
         </div>
-        <div class="servico-item">
-            <div class="servico-icon"><i class="fas fa-calendar-alt"></i></div>
-            <h3>Eventos Culturais</h3>
-            <p>Saraus, rodas de conversa, feiras e celebrações que valorizam a cultura negra e a memória da cidade.</p>
+    </div>
+    
+    <!-- Galeria de Fotos (Carrossel 16:9) -->
+    <div class="galeria-container" id="galeriaContainer">
+        <div class="carousel-galeria" id="carrosselDicas">
+            <img src="https://raw.githubusercontent.com/afroroteiros/camposdosgoytacazes/main/dica1.jpg" class="slide-galeria active" alt="Dica 1" onerror="this.src='https://placehold.co/800x450/f5e6d3/cd8c5a?text=Afro-Roteiros'">
+            <img src="https://raw.githubusercontent.com/afroroteiros/camposdosgoytacazes/main/dica2.jpg" class="slide-galeria" alt="Dica 2" onerror="this.src='https://placehold.co/800x450/f5e6d3/cd8c5a?text=Afro-Roteiros'">
+            <img src="https://raw.githubusercontent.com/afroroteiros/camposdosgoytacazes/main/dica3.jpg" class="slide-galeria" alt="Dica 3" onerror="this.src='https://placehold.co/800x450/f5e6d3/cd8c5a?text=Afro-Roteiros'">
+            <img src="https://raw.githubusercontent.com/afroroteiros/camposdosgoytacazes/main/dica4.jpg" class="slide-galeria" alt="Dica 4" onerror="this.src='https://placehold.co/800x450/f5e6d3/cd8c5a?text=Afro-Roteiros'">
         </div>
+    </div>
+    <div class="indicadores-galeria" id="indicadoresGaleria">
+        <span class="indicator-galeria active" data-index="0"></span>
+        <span class="indicator-galeria" data-index="1"></span>
+        <span class="indicator-galeria" data-index="2"></span>
+        <span class="indicator-galeria" data-index="3"></span>
+    </div>
+    <div class="link-dica">
+        <a href="#" id="linkDica">Saiba mais sobre esta dica →</a>
     </div>
 </section>
 
-<!-- DEPOIMENTOS -->
-<section class="section">
-    <h2 class="section-title">Quem já viveu essa experiência</h2>
-    <div class="depoimentos-grid">
-        <div class="depoimento">
-            <p>"Uma imersão profunda na história que não aprendemos na escola. O roteiro do Kimbira me fez olhar para Campos com outros olhos."</p>
-            <div class="depoimento-author">Ana Clara Oliveira <span>Professora</span></div>
+<!-- CONTATO -->
+<section class="section" id="contato">
+    <h2 class="section-title">Fale Conosco</h2>
+    <div class="contato-container">
+        <div class="contato-info">
+            <h3>E-mail</h3>
+            <p><i class="fas fa-envelope"></i> afroroteiros@gmail.com</p>
         </div>
-        <div class="depoimento">
-            <p>"A caminhada pelo Canal foi emocionante. Entender que aquela obra foi feita por mãos negras muda completamente a forma como vemos a cidade."</p>
-            <div class="depoimento-author">Marcos Silva <span>Arquiteto</span></div>
+        <div class="instagram-gallery">
+            <h3><i class="fab fa-instagram"></i> @afroroteiros</h3>
+            <div class="instagram-grid">
+                <img src="https://placehold.co/150x150/cd8c5a/white?text=Foto+1" alt="Instagram 1">
+                <img src="https://placehold.co/150x150/cd8c5a/white?text=Foto+2" alt="Instagram 2">
+                <img src="https://placehold.co/150x150/cd8c5a/white?text=Foto+3" alt="Instagram 3">
+                <img src="https://placehold.co/150x150/cd8c5a/white?text=Foto+4" alt="Instagram 4">
+                <img src="https://placehold.co/150x150/cd8c5a/white?text=Foto+5" alt="Instagram 5">
+                <img src="https://placehold.co/150x150/cd8c5a/white?text=Foto+6" alt="Instagram 6">
+            </div>
+            <a href="https://instagram.com/afroroteiros" target="_blank" class="instagram-link">Siga no Instagram →</a>
         </div>
-        <div class="depoimento">
-            <p>"O Afro-Roteiros é mais que turismo. É reconhecimento, é cura, é encontro com as nossas raízes. Recomendo a todos."</p>
-            <div class="depoimento-author">Tatiana Ferreira <span>Jornalista</span></div>
-        </div>
-    </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="section">
-    <div class="newsletter">
-        <h3>Receba novidades</h3>
-        <p>Fique por dentro dos novos roteiros, eventos e lançamentos do Afro-Roteiros.</p>
-        <form class="newsletter-form" id="newsletterForm">
-            <input type="email" placeholder="Seu melhor e-mail" required>
-            <button type="submit">Quero receber</button>
-        </form>
     </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="footer" id="contato">
+<footer class="footer">
     <div class="footer-container">
         <div class="footer-col">
             <h4>Afro-Roteiros</h4>
             <p>Memória · Resistência · Identidade</p>
-            <p>Campos dos Goytacazes - RJ</p>
-        </div>
-        <div class="footer-col">
-            <h4>Contato</h4>
-            <p><i class="fas fa-envelope"></i> contato@afroroteiros.com.br</p>
-            <p><i class="fab fa-whatsapp"></i> (22) 99999-1234</p>
+            <p>Norte e Noroeste Fluminenses</p>
         </div>
         <div class="footer-col">
             <h4>Redes Sociais</h4>
@@ -548,9 +800,7 @@ body {
         </div>
         <div class="footer-col">
             <h4>Parceiros</h4>
-            <p>Arquivo Público de Campos</p>
-            <p>UENF - Laboratório de História</p>
-            <p>Secretaria de Cultura</p>
+            <p></p>
         </div>
     </div>
     <div class="footer-bottom">
@@ -559,12 +809,48 @@ body {
 </footer>
 
 <script>
-// Newsletter - apenas simulação (não envia para lugar nenhum)
-document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Obrigado por se inscrever! Em breve você receberá nossas novidades.');
-    this.reset();
+// Carrossel da Galeria de Dicas
+let currentSlideDica = 0;
+const slidesDica = document.querySelectorAll('.slide-galeria');
+const indicatorsDica = document.querySelectorAll('.indicator-galeria');
+const linkDica = document.getElementById('linkDica');
+
+// Dados simulados para as dicas (futuramente viriam da planilha)
+const dicasLinks = [
+    'https://example.com/dica1',
+    'https://example.com/dica2',
+    'https://example.com/dica3',
+    'https://example.com/dica4'
+];
+
+function showSlideDica(index) {
+    slidesDica.forEach(slide => slide.classList.remove('active'));
+    indicatorsDica.forEach(ind => ind.classList.remove('active'));
+    
+    slidesDica[index].classList.add('active');
+    indicatorsDica[index].classList.add('active');
+    currentSlideDica = index;
+    
+    // Atualizar link da dica
+    linkDica.href = dicasLinks[index] || '#';
+}
+
+function nextSlideDica() {
+    const next = (currentSlideDica + 1) % slidesDica.length;
+    showSlideDica(next);
+}
+
+// Eventos dos indicadores
+indicatorsDica.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+        showSlideDica(index);
+        clearInterval(slideIntervalDica);
+        slideIntervalDica = setInterval(nextSlideDica, 5000);
+    });
 });
+
+// Auto-play
+let slideIntervalDica = setInterval(nextSlideDica, 5000);
 </script>
 
 </body>
