@@ -77,7 +77,53 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
 /* RODAPÉ */
 .sources-footer { max-width: 1200px; margin: 20px auto 40px; padding: 15px 20px; border-top: 1px solid #eee; font-size: 11px; color: #999; text-align: center; display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
 .sources-footer span { display: inline-flex; align-items: center; gap: 6px; }
-.footer { text-align: center; padding: 28px 20px; background: #111; color: white; font-size: 14px; letter-spacing: 0.5px; }
+
+/* FOOTER PRINCIPAL COM IMAGENS */
+.footer {
+    background: #6A5E16;
+    color: white;
+    padding: 40px 20px 28px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.footer-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-logos img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.footer-logos img:hover {
+    transform: scale(1.05);
+}
+
+.footer-texto {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.footer-texto span {
+    opacity: 0.9;
+}
+
+.footer-texto .slogan {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 8px;
+    display: block;
+}
 
 /* LIGHTBOX */
 .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
@@ -109,11 +155,27 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
     .text-wrapper { width: 100%; max-height: none; overflow-y: visible; padding-right: 0; }
     p { font-size: 16px; }
     .destaque { font-size: 16px; padding: 16px 20px; }
+    
+    .footer-logos {
+        gap: 20px;
+    }
+    
+    .footer-logos img {
+        height: 35px;
+    }
 }
 @media (max-width: 480px) {
     .logo { max-width: 75px; max-height: 50px; }
     .cidade-titulo { font-size: 16px; }
     .carousel { padding-bottom: 75%; }
+    
+    .footer-logos {
+        gap: 15px;
+    }
+    
+    .footer-logos img {
+        height: 28px;
+    }
 }
 </style>
 </head>
@@ -180,10 +242,18 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
     <span><i class="fas fa-calendar-alt"></i> Atualizado em: março de 2026</span>
 </div>
 
+<!-- FOOTER COM IMAGENS -->
 <div class="footer">
-    <span>Afro-Roteiros • Campos dos Goytacazes • RJ</span>
-    <br>
-    <span style="font-size: 11px; opacity: 0.6;">memória · resistência · identidade</span>
+    <div class="footer-logos">
+        <img src="Foto de Ricardo Menezes.jpg" alt="Ricardo Menezes" onerror="this.src='https://placehold.co/100x50/333/fff?text=Ricardo+Menezes'">
+        <img src="LOGO - SIRDH.png" alt="SIRDH" onerror="this.src='https://placehold.co/100x50/333/fff?text=SIRDH'">
+        <img src="Logo Turismo horizontal Azul.png" alt="Turismo" onerror="this.src='https://placehold.co/100x50/333/fff?text=Turismo'">
+    </div>
+    <div class="footer-texto">
+        <span>Afro-Roteiros • Campos dos Goytacazes • RJ</span>
+        <br>
+        <span class="slogan">memória · resistência · identidade</span>
+    </div>
 </div>
 
 <!-- LIGHTBOX -->
@@ -241,7 +311,6 @@ function carregarImagens(imagensLista, titulo) {
         slide.classList.add('slide');
         if (index === 0) slide.classList.add('active');
         
-        // Tratamento de erro de carregamento
         slide.onerror = function() {
             console.warn('Erro ao carregar imagem:', imgUrl);
             this.src = 'https://placehold.co/800x450/790016/white?text=Imagem+não+encontrada';
@@ -334,19 +403,16 @@ async function buscarConteudo() {
         
         console.log('✅ Item encontrado:', item.id, '-', item.titulo);
         
-        // Atualizar título
         const tituloElemento = document.getElementById('pontoTitulo');
         tituloElemento.textContent = item.titulo || 'Sem título';
         document.title = `Afro-Roteiros | ${item.titulo || 'Ponto Histórico'} - Campos`;
         
-        // Carregar imagens da coluna "fotos" (aceita URLs)
         let imagens = [];
         if (item.fotos) {
             imagens = item.fotos.split(',').map(img => img.trim()).filter(img => img);
         }
         carregarImagens(imagens, item.titulo);
         
-        // Montar o conteúdo
         const textoOrdem1 = item.texto_ordem1 || '';
         const textoDestaque = item.destaque || '';
         const textoOrdem2 = item.texto_ordem2 || '';
@@ -354,7 +420,6 @@ async function buscarConteudo() {
         const textContentDiv = document.getElementById('textContent');
         textContentDiv.innerHTML = '';
         
-        // 1. Primeiro bloco
         if (textoOrdem1) {
             const paragrafos1 = quebrarEmParagrafos(textoOrdem1);
             paragrafos1.forEach(paragrafo => {
@@ -364,7 +429,6 @@ async function buscarConteudo() {
             });
         }
         
-        // 2. Destaque
         if (textoDestaque) {
             const div = document.createElement('div');
             div.classList.add('destaque');
@@ -372,7 +436,6 @@ async function buscarConteudo() {
             textContentDiv.appendChild(div);
         }
         
-        // 3. Segundo bloco
         if (textoOrdem2) {
             const paragrafos2 = quebrarEmParagrafos(textoOrdem2);
             paragrafos2.forEach(paragrafo => {
