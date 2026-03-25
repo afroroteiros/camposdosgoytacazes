@@ -76,20 +76,22 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
 
 /* MAPA */
 .mapa-container {
-    margin: 40px 0 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    background: #f5f5f5;
 }
 .mapa-container iframe {
     width: 100%;
-    height: 400px;
+    height: 350px;
     border: 0;
     display: block;
 }
 .mapa-titulo {
     font-family: 'Merriweather', serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #790016;
     margin-bottom: 12px;
     display: flex;
@@ -98,6 +100,18 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
 }
 .mapa-titulo i {
     color: #3D441E;
+}
+.mapa-link {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.8rem;
+}
+.mapa-link a {
+    color: #790016;
+    text-decoration: none;
+}
+.mapa-link a:hover {
+    text-decoration: underline;
 }
 
 /* RODAPÉ */
@@ -135,13 +149,13 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
     .text-wrapper { width: 100%; max-height: none; overflow-y: visible; padding-right: 0; }
     p { font-size: 16px; }
     .destaque { font-size: 16px; padding: 16px 20px; }
-    .mapa-container iframe { height: 300px; }
+    .mapa-container iframe { height: 250px; }
 }
 @media (max-width: 480px) {
     .logo { max-width: 75px; max-height: 50px; }
     .cidade-titulo { font-size: 16px; }
     .carousel { padding-bottom: 75%; }
-    .mapa-container iframe { height: 250px; }
+    .mapa-container iframe { height: 200px; }
 }
 </style>
 </head>
@@ -203,10 +217,13 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
     <!-- MAPA - SERÁ INSERIDO ABAIXO DO TEXTO -->
     <div id="mapaContainer" style="display: none;">
         <div class="mapa-titulo">
-            <i class="fas fa-map-marker-alt"></i> Localização
+            <i class="fas fa-map-marker-alt"></i> Como chegar
         </div>
         <div class="mapa-container" id="mapaIframeContainer">
             <!-- iframe será inserido aqui -->
+        </div>
+        <div class="mapa-link" id="mapaLink">
+            <!-- link será inserido aqui -->
         </div>
     </div>
     
@@ -253,6 +270,7 @@ const indicatorsContainer = document.getElementById('indicators');
 const carouselContainer = document.getElementById('carouselClick');
 const mapaContainer = document.getElementById('mapaContainer');
 const mapaIframeContainer = document.getElementById('mapaIframeContainer');
+const mapaLink = document.getElementById('mapaLink');
 
 // Função para quebrar texto em parágrafos
 function quebrarEmParagrafos(texto) {
@@ -264,37 +282,31 @@ function quebrarEmParagrafos(texto) {
     return paragrafos.map(p => p.trim()).filter(p => p.length > 0);
 }
 
-// Função para gerar o iframe do Google Maps
-function gerarMapa(latitude, longitude, titulo) {
-    if (!latitude || !longitude) {
+// Função para gerar o mapa a partir do endereço
+function gerarMapaPorEndereco(endereco, titulo) {
+    if (!endereco || endereco.trim() === '') {
         return null;
     }
     
-    // Converte para número e valida
-    const lat = parseFloat(latitude);
-    const lng = parseFloat(longitude);
+    // Codifica o endereço para URL
+    const enderecoCodificado = encodeURIComponent(endereco);
     
-    if (isNaN(lat) || isNaN(lng)) {
-        console.warn('Coordenadas inválidas:', latitude, longitude);
-        return null;
-    }
+    // URL do Google Maps embed (funciona sem API key)
+    const mapsEmbedUrl = `https://maps.google.com/maps?q=${enderecoCodificado}&output=embed`;
     
-    // URL do Google Maps embed
-    const mapsUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD7IqJk8TgPqWtZ8L3vE2c9f5x4a7b6c1d&q=${lat},${lng}&zoom=16`;
-    
-    // Fallback sem API key (funciona com coordenadas)
-    const fallbackUrl = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+    // Link para abrir no Google Maps (mobile/desktop)
+    const mapsLinkUrl = `https://www.google.com/maps/search/?api=1&query=${enderecoCodificado}`;
     
     const iframe = document.createElement('iframe');
-    iframe.src = fallbackUrl;
+    iframe.src = mapsEmbedUrl;
     iframe.title = `Localização de ${titulo}`;
     iframe.loading = 'lazy';
     iframe.allowFullscreen = true;
     
-    return iframe;
+    return { iframe, link: mapsLinkUrl };
 }
 
-// Função para carregar imagens (aceita URLs completas)
+// Função para carregar imagens
 function carregarImagens(imagensLista, titulo) {
     carouselSlides.innerHTML = '';
     indicatorsContainer.innerHTML = '';
@@ -404,15 +416,14 @@ async function buscarConteudo() {
         }
         
         console.log('✅ Item encontrado:', item.id, '-', item.titulo);
-        console.log('📍 Latitude:', item.latitude);
-        console.log('📍 Longitude:', item.longitude);
+        console.log('📍 Endereço:', item.endereco);
         
         // Atualizar título
         const tituloElemento = document.getElementById('pontoTitulo');
         tituloElemento.textContent = item.titulo || 'Sem título';
         document.title = `Afro-Roteiros | ${item.titulo || 'Ponto Histórico'} - Campos`;
         
-        // Carregar imagens da coluna "fotos"
+        // Carregar imagens
         let imagens = [];
         if (item.fotos) {
             imagens = item.fotos.split(',').map(img => img.trim()).filter(img => img);
@@ -455,24 +466,24 @@ async function buscarConteudo() {
             });
         }
         
-        // 4. Adicionar mapa após o texto
-        const latitude = item.latitude;
-        const longitude = item.longitude;
+        // 4. Adicionar mapa com base no endereço
+        const endereco = item.endereco;
         
-        if (latitude && longitude) {
-            const iframeMapa = gerarMapa(latitude, longitude, item.titulo);
-            if (iframeMapa) {
+        if (endereco && endereco.trim() !== '') {
+            const mapa = gerarMapaPorEndereco(endereco, item.titulo);
+            if (mapa) {
                 mapaIframeContainer.innerHTML = '';
-                mapaIframeContainer.appendChild(iframeMapa);
+                mapaIframeContainer.appendChild(mapa.iframe);
+                mapaLink.innerHTML = `<a href="${mapa.link}" target="_blank">Abrir no Google Maps →</a>`;
                 mapaContainer.style.display = 'block';
-                console.log('🗺️ Mapa carregado para:', latitude, longitude);
+                console.log('🗺️ Mapa carregado para o endereço:', endereco);
             } else {
                 mapaContainer.style.display = 'none';
-                console.warn('⚠️ Não foi possível gerar o mapa com as coordenadas:', latitude, longitude);
+                console.warn('⚠️ Não foi possível gerar o mapa para o endereço:', endereco);
             }
         } else {
             mapaContainer.style.display = 'none';
-            console.log('ℹ️ Nenhuma coordenada fornecida para este ponto');
+            console.log('ℹ️ Nenhum endereço fornecido para este ponto');
         }
         
         console.log('✅ Conteúdo carregado com sucesso!');
