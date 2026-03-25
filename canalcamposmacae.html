@@ -148,11 +148,8 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
         <div class="carousel-wrapper">
             <div class="carousel-section">
                 <div class="carousel-container" id="carouselClick">
-                    <div class="carousel">
-                        <img src="canal1.jpg" class="slide active" alt="Cemitério do Kimbira 1" data-index="0">
-                        <img src="canal2.png" class="slide" alt="Cemitério do Kimbira 2" data-index="1">
-                        <img src="canal3.jpg" class="slide" alt="Cemitério do Kimbira 3" data-index="2">
-                       
+                    <div class="carousel" id="carouselSlides">
+                        <div class="loading-text"><i class="fas fa-spinner fa-pulse"></i> Carregando imagens...</div>
                     </div>
                     <div class="click-hint">
                         <svg viewBox="0 0 24 24">
@@ -163,12 +160,7 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
                 </div>
             </div>
             <div class="carousel-controls">
-                <div class="indicators">
-                    <span class="indicator active" data-index="0"></span>
-                    <span class="indicator" data-index="1"></span>
-                    <span class="indicator" data-index="2"></span>
-                    <span class="indicator" data-index="3"></span>
-                </div>
+                <div class="indicators" id="indicators"></div>
             </div>
         </div>
         
@@ -183,7 +175,7 @@ p { font-size: 17px; margin-bottom: 20px; text-align: justify; text-justify: int
 </div>
 
 <div class="sources-footer">
-    <span><i class="fas fa-camera"></i> Imagens: Acervo Afro-Roteiros | Arquivo Histórico de Campos</span>
+    <span><i class="fas fa-camera"></i> Imagens: Acervo Afro-Roteiros | GitHub</span>
     <span><i class="fas fa-file-alt"></i> Conteúdo: Pesquisa histórica - Arquivo Público de Campos</span>
     <span><i class="fas fa-calendar-alt"></i> Atualizado em: março de 2026</span>
 </div>
@@ -214,36 +206,78 @@ const NOME_ABA = 'Roteiro1';
 
 // Estado do carrossel
 let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-const indicators = document.querySelectorAll('.indicator');
-const carouselContainer = document.getElementById('carouselClick');
+let slides = [];
+let indicators = [];
 let slideInterval;
 
-// Função para quebrar texto em parágrafos (quando necessário)
+const carouselSlides = document.getElementById('carouselSlides');
+const indicatorsContainer = document.getElementById('indicators');
+const carouselContainer = document.getElementById('carouselClick');
+
+// Função para quebrar texto em parágrafos
 function quebrarEmParagrafos(texto) {
     if (!texto) return [];
-    // Divide por quebras de linha duplas
     let paragrafos = texto.split(/\n\s*\n/);
-    // Se não tem quebra, mantém como um único parágrafo
     if (paragrafos.length === 1 && texto.length > 300) {
         paragrafos = texto.split(/(?<=\.)\s+(?=[A-ZÁÀÂÃÉÊÍÓÔÕÚÇ])/);
     }
     return paragrafos.map(p => p.trim()).filter(p => p.length > 0);
 }
 
+// Função para carregar imagens (aceita URLs completas)
+function carregarImagens(imagensLista, titulo) {
+    carouselSlides.innerHTML = '';
+    indicatorsContainer.innerHTML = '';
+    
+    if (!imagensLista || imagensLista.length === 0) {
+        carouselSlides.innerHTML = '<div class="loading-text">Nenhuma imagem disponível</div>';
+        return;
+    }
+    
+    imagensLista.forEach((imgUrl, index) => {
+        const slide = document.createElement('img');
+        slide.src = imgUrl.trim();
+        slide.alt = `${titulo} ${index + 1}`;
+        slide.classList.add('slide');
+        if (index === 0) slide.classList.add('active');
+        
+        // Tratamento de erro de carregamento
+        slide.onerror = function() {
+            console.warn('Erro ao carregar imagem:', imgUrl);
+            this.src = 'https://placehold.co/800x450/790016/white?text=Imagem+não+encontrada';
+        };
+        
+        carouselSlides.appendChild(slide);
+        
+        const indicator = document.createElement('span');
+        indicator.classList.add('indicator');
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showSlide(index);
+            resetInterval();
+        });
+        indicatorsContainer.appendChild(indicator);
+    });
+    
+    slides = document.querySelectorAll('.slide');
+    indicators = document.querySelectorAll('.indicator');
+    
+    if (slideInterval) clearInterval(slideInterval);
+    if (slides.length > 1) {
+        slideInterval = setInterval(nextSlide, 6000);
+    }
+}
+
 // Função para buscar dados da planilha
 async function buscarConteudo() {
     try {
-        // Pegar o ID do ponto pela URL
         const urlParams = new URLSearchParams(window.location.search);
         let pontoId = urlParams.get('ponto') || 'kimbira';
         
         console.log('🔍 Ponto solicitado:', pontoId);
         
-        // URL para exportar como CSV
         const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${NOME_ABA}`;
-        
-        console.log('📡 URL:', csvUrl);
         
         const response = await fetch(csvUrl);
         
@@ -257,11 +291,8 @@ async function buscarConteudo() {
             throw new Error('CSV vazio - verifique se a planilha está publicada');
         }
         
-        // Converter CSV para array de objetos
         const linhas = csvText.split('\n');
         const cabecalhos = linhas[0].split(',').map(h => h.replace(/"/g, '').trim().toLowerCase());
-        
-        console.log('📋 Cabeçalhos:', cabecalhos);
         
         const dados = [];
         for (let i = 1; i < linhas.length; i++) {
@@ -292,49 +323,38 @@ async function buscarConteudo() {
             dados.push(obj);
         }
         
-        console.log('📊 Total de linhas:', dados.length);
-        
-        // Mostrar os IDs disponíveis
         const idsUnicos = [...new Set(dados.map(d => d.id).filter(id => id && id.trim()))];
         console.log('📊 IDs disponíveis:', idsUnicos);
         
-        // Buscar o item pelo ID
         const item = dados.find(d => d.id && d.id.toLowerCase() === pontoId.toLowerCase());
         
         if (!item) {
             throw new Error(`ID "${pontoId}" não encontrado. IDs disponíveis: ${idsUnicos.join(', ')}`);
         }
         
-        console.log('✅ Item encontrado:');
-        console.log('   ID:', item.id);
-        console.log('   Título:', item.titulo);
+        console.log('✅ Item encontrado:', item.id, '-', item.titulo);
         
-        // ATUALIZAR TÍTULO
+        // Atualizar título
         const tituloElemento = document.getElementById('pontoTitulo');
-        if (tituloElemento) {
-            tituloElemento.textContent = item.titulo || 'Sem título';
-            console.log('📌 Título atualizado para:', item.titulo);
-        }
-        
-        // Atualizar título da aba do navegador
+        tituloElemento.textContent = item.titulo || 'Sem título';
         document.title = `Afro-Roteiros | ${item.titulo || 'Ponto Histórico'} - Campos`;
         
-        // Montar o conteúdo na ordem: texto_ordem1 → destaque → texto_ordem2
+        // Carregar imagens da coluna "fotos" (aceita URLs)
+        let imagens = [];
+        if (item.fotos) {
+            imagens = item.fotos.split(',').map(img => img.trim()).filter(img => img);
+        }
+        carregarImagens(imagens, item.titulo);
+        
+        // Montar o conteúdo
         const textoOrdem1 = item.texto_ordem1 || '';
         const textoDestaque = item.destaque || '';
         const textoOrdem2 = item.texto_ordem2 || '';
         
-        console.log('📄 Conteúdo:', {
-            texto_ordem1: textoOrdem1.substring(0, 100) + '...',
-            destaque: textoDestaque.substring(0, 100) + '...',
-            texto_ordem2: textoOrdem2.substring(0, 100) + '...'
-        });
-        
-        // Renderizar o texto
         const textContentDiv = document.getElementById('textContent');
         textContentDiv.innerHTML = '';
         
-        // 1. Primeiro bloco de texto (ordem 1)
+        // 1. Primeiro bloco
         if (textoOrdem1) {
             const paragrafos1 = quebrarEmParagrafos(textoOrdem1);
             paragrafos1.forEach(paragrafo => {
@@ -344,7 +364,7 @@ async function buscarConteudo() {
             });
         }
         
-        // 2. Destaque (se houver)
+        // 2. Destaque
         if (textoDestaque) {
             const div = document.createElement('div');
             div.classList.add('destaque');
@@ -352,7 +372,7 @@ async function buscarConteudo() {
             textContentDiv.appendChild(div);
         }
         
-        // 3. Segundo bloco de texto (ordem 2)
+        // 3. Segundo bloco
         if (textoOrdem2) {
             const paragrafos2 = quebrarEmParagrafos(textoOrdem2);
             paragrafos2.forEach(paragrafo => {
@@ -372,8 +392,6 @@ async function buscarConteudo() {
                 Erro ao carregar conteúdo.<br>
                 <small style="color: #999;">${error.message}</small>
                 <br><br>
-                <strong>Verifique no console (F12) os detalhes do erro.</strong>
-                <br><br>
                 <button onclick="location.reload()" style="padding: 8px 20px; background: #790016; color: white; border: none; border-radius: 20px; cursor: pointer;">Tentar novamente</button>
             </div>
         `;
@@ -382,6 +400,7 @@ async function buscarConteudo() {
 
 // Funções do carrossel
 function showSlide(index) {
+    if (!slides.length) return;
     slides.forEach(slide => slide.classList.remove('active'));
     indicators.forEach(ind => ind.classList.remove('active'));
     slides[index].classList.add('active');
@@ -390,22 +409,22 @@ function showSlide(index) {
 }
 
 function nextSlide() {
+    if (!slides.length) return;
     showSlide((currentSlide + 1) % slides.length);
 }
 
-indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showSlide(index);
+function resetInterval() {
+    if (slideInterval) {
         clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 6000);
-    });
-});
-
-slideInterval = setInterval(nextSlide, 6000);
+        if (slides.length > 1) {
+            slideInterval = setInterval(nextSlide, 6000);
+        }
+    }
+}
 
 // Lightbox
 function openLightbox(index) {
+    if (!slides.length) return;
     currentSlide = index;
     updateLightboxImage();
     lightbox.classList.add('active');
@@ -432,6 +451,7 @@ function nextImage() {
     updateLightboxImage();
 }
 
+// Eventos
 carouselContainer.addEventListener('click', () => openLightbox(currentSlide));
 lightboxClose.addEventListener('click', closeLightbox);
 lightboxPrev.addEventListener('click', prevImage);
